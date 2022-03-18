@@ -12,7 +12,7 @@ jobs:
         with:
           channel: 'stable'
       - run: flutter pub get
-      - name: Flutter test
+      - name: Test package
         env:
           INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
           WALLET_PRIVATE_KEY: ${{ secrets.WALLET_PRIVATE_KEY }}
