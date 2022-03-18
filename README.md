@@ -1,3 +1,6 @@
+![Test](https://github.com/masfranzhuo/flutter_smart_contract_counter/workflows/Test/badge.svg)
+[![codecov](https://codecov.io/gh/masfranzhuo/flutter_smart_contract_counter/branch/main/graph/badge.svg?token=B6KYCYT3LC)](https://codecov.io/gh/masfranzhuo/flutter_smart_contract_counter)
+
 # Flutter Smart Contract Counter
 
 A sample Flutter project with smart counter.
