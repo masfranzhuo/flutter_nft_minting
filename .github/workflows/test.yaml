@@ -13,6 +13,10 @@ jobs:
           channel: 'stable'
       - run: flutter pub get
       - run: flutter test --coverage
+        env:
+          INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
+          WALLET_PRIVATE_KEY: ${{ secrets.WALLET_PRIVATE_KEY }}
+          EXEC_ENV: 'github_actions'
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
