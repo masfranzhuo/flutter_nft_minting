@@ -10,7 +10,7 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:web3dart/web3dart.dart' as _i5;
 
 import 'core/platform/smart_contract_web3_client.dart' as _i4;
-import 'core/utility/injectable_module.dart' as _i11;
+import 'core/utility/injectable_module.injectable.dart' as _i11;
 import 'counter/data_sources/counter_data_source.dart' as _i6;
 import 'counter/repositories/counter_repository.dart' as _i7;
 import 'counter/state_managers/counter_cubit/counter_cubit.dart' as _i10;
