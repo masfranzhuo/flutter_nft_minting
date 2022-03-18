@@ -11,9 +11,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
-      - name: Write .env
-        run: |
-          touch .env
+      - run: touch .env
       - run: flutter pub get
       - run: flutter test --coverage
       - name: Upload coverage to Codecov
