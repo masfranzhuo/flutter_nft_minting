@@ -33,7 +33,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - .env
+    # - .env
     - src/artifacts/Counter.json
   # fonts:
   #   - family: Schyler
