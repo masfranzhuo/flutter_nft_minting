@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
           ),
           body: Center(
             child: (state.isLoading)
-                ? const CircularProgressIndicator()
+                ? const CircularProgressIndicator(key: Key('loading-key'))
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
                   ),
           ),
           floatingActionButton: (state.isLoading)
-              ? const CircularProgressIndicator()
+              ? const CircularProgressIndicator(key: Key('loading-key'))
               : FloatingActionButton(
                   onPressed: () => _getIt<CounterCubit>().increment(),
                   tooltip: 'Increment',
