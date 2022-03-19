@@ -39,15 +39,10 @@ class SmartContractWeb3Client {
   }
 
   Future<dynamic> callContract({
-    required String contractName,
-    required String contractFileLocation,
+    required DeployedContract contract,
     required String functionName,
     List<dynamic> params = const [],
   }) async {
-    final contract = await getContract(
-      contractName: contractName,
-      contractFileLocation: contractFileLocation,
-    );
     var result = await web3Client.call(
       contract: contract,
       function: contract.function(functionName),
@@ -57,15 +52,10 @@ class SmartContractWeb3Client {
   }
 
   Future<dynamic> sendTransaction({
-    required String contractName,
-    required String contractFileLocation,
+    required DeployedContract contract,
     required String functionName,
     List<dynamic> params = const [],
   }) async {
-    final contract = await getContract(
-      contractName: contractName,
-      contractFileLocation: contractFileLocation,
-    );
     final credentials =
         EthPrivateKey.fromHex(dotenv.env['WALLET_PRIVATE_KEY']!);
     await web3Client.sendTransaction(

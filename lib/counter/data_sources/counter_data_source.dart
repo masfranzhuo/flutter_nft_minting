@@ -20,9 +20,12 @@ class CounterDataSourceImpl extends CounterDataSource {
   @override
   Future<int> getCounter() async {
     try {
-      final counter = await client.callContract(
+      final contract = await client.getContract(
         contractName: contractName,
         contractFileLocation: contractFileLocation,
+      );
+      final counter = await client.callContract(
+        contract: contract,
         functionName: 'counter',
       );
 
@@ -35,9 +38,12 @@ class CounterDataSourceImpl extends CounterDataSource {
   @override
   Future<void> incrementCounter() async {
     try {
+      final contract = await client.getContract(
+        contractName: contractName,
+        contractFileLocation: contractFileLocation,
+      );
       await client.sendTransaction(
-        contractName: 'Counter',
-        contractFileLocation: 'src/artifacts/Counter.json',
+        contract: contract,
         functionName: 'incrementCounter',
       );
     } on Exception catch (e) {

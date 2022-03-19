@@ -27,6 +27,15 @@ class _FakeWeb3Client_1 extends _i1.Fake implements _i3.Web3Client {}
 class _FakeDeployedContract_2 extends _i1.Fake implements _i3.DeployedContract {
 }
 
+class _FakeContractAbi_3 extends _i1.Fake implements _i3.ContractAbi {}
+
+class _FakeEthereumAddress_4 extends _i1.Fake implements _i3.EthereumAddress {}
+
+class _FakeContractFunction_5 extends _i1.Fake implements _i3.ContractFunction {
+}
+
+class _FakeContractEvent_6 extends _i1.Fake implements _i3.ContractEvent {}
+
 /// A class which mocks [SmartContractWeb3Client].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -65,30 +74,68 @@ class MockSmartContractWeb3Client extends _i1.Mock
           as _i5.Future<_i3.DeployedContract>);
   @override
   _i5.Future<dynamic> callContract(
-          {String? contractName,
-          String? contractFileLocation,
+          {_i3.DeployedContract? contract,
           String? functionName,
           List<dynamic>? params = const []}) =>
       (super.noSuchMethod(
           Invocation.method(#callContract, [], {
-            #contractName: contractName,
-            #contractFileLocation: contractFileLocation,
+            #contract: contract,
             #functionName: functionName,
             #params: params
           }),
           returnValue: Future<dynamic>.value()) as _i5.Future<dynamic>);
   @override
   _i5.Future<dynamic> sendTransaction(
-          {String? contractName,
-          String? contractFileLocation,
+          {_i3.DeployedContract? contract,
           String? functionName,
           List<dynamic>? params = const []}) =>
       (super.noSuchMethod(
           Invocation.method(#sendTransaction, [], {
-            #contractName: contractName,
-            #contractFileLocation: contractFileLocation,
+            #contract: contract,
             #functionName: functionName,
             #params: params
           }),
           returnValue: Future<dynamic>.value()) as _i5.Future<dynamic>);
+}
+
+/// A class which mocks [DeployedContract].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockDeployedContract extends _i1.Mock implements _i3.DeployedContract {
+  MockDeployedContract() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.ContractAbi get abi => (super.noSuchMethod(Invocation.getter(#abi),
+      returnValue: _FakeContractAbi_3()) as _i3.ContractAbi);
+  @override
+  _i3.EthereumAddress get address =>
+      (super.noSuchMethod(Invocation.getter(#address),
+          returnValue: _FakeEthereumAddress_4()) as _i3.EthereumAddress);
+  @override
+  List<_i3.ContractFunction> get functions =>
+      (super.noSuchMethod(Invocation.getter(#functions),
+          returnValue: <_i3.ContractFunction>[]) as List<_i3.ContractFunction>);
+  @override
+  List<_i3.ContractEvent> get events =>
+      (super.noSuchMethod(Invocation.getter(#events),
+          returnValue: <_i3.ContractEvent>[]) as List<_i3.ContractEvent>);
+  @override
+  Iterable<_i3.ContractFunction> get constructors => (super.noSuchMethod(
+      Invocation.getter(#constructors),
+      returnValue: <_i3.ContractFunction>[]) as Iterable<_i3.ContractFunction>);
+  @override
+  Iterable<_i3.ContractFunction> findFunctionsByName(String? name) =>
+      (super.noSuchMethod(Invocation.method(#findFunctionsByName, [name]),
+              returnValue: <_i3.ContractFunction>[])
+          as Iterable<_i3.ContractFunction>);
+  @override
+  _i3.ContractFunction function(String? name) =>
+      (super.noSuchMethod(Invocation.method(#function, [name]),
+          returnValue: _FakeContractFunction_5()) as _i3.ContractFunction);
+  @override
+  _i3.ContractEvent event(String? name) =>
+      (super.noSuchMethod(Invocation.method(#event, [name]),
+          returnValue: _FakeContractEvent_6()) as _i3.ContractEvent);
 }

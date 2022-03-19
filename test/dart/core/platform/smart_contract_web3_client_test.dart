@@ -37,10 +37,11 @@ void main() {
 
   group('getContract', () {
     test('should return contract', () async {
-      await client.getContract(
+      final contract = await client.getContract(
         contractName: 'Counter',
         contractFileLocation: 'src/artifacts/Counter.json',
       );
+      expect(contract, isA<DeployedContract>());
     });
   });
 
@@ -53,18 +54,23 @@ void main() {
       )).thenAnswer((_) async => [1]);
 
       // final result = await client.callContract(
-      //   contractName: 'Counter',
-      //   contractFileLocation: 'src/artifacts/Counter.json',
+      //   contract: await client.getContract(
+      //     contractName: 'Counter',
+      //     contractFileLocation: 'src/artifacts/Counter.json',
+      //   ),
       //   functionName: 'counter',
       // );
+      // expect(result, [1]);
     });
   });
 
   group('sendTransaction', () {
     test('should call sendTransaction()', () async {
-      when(
-        mockWeb3Client.sendTransaction(any, any, chainId: anyNamed('chainId')),
-      ).thenAnswer((_) async => 'any result');
+      when(mockWeb3Client.sendTransaction(
+        any,
+        any,
+        chainId: anyNamed('chainId'),
+      )).thenAnswer((_) async => 'any result');
 
       // final result = await client.sendTransaction(
       //   contractName: 'Counter',

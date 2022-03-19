@@ -4,41 +4,49 @@ import 'package:flutter_smart_contract_counter/counter/data_sources/counter_data
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:web3dart/web3dart.dart';
 
 import 'counter_data_source_test.mocks.dart';
 
-@GenerateMocks([SmartContractWeb3Client])
+@GenerateMocks([SmartContractWeb3Client, DeployedContract])
 void main() {
   late CounterDataSourceImpl dataSource;
   late MockSmartContractWeb3Client mockClient;
+  late MockDeployedContract mockDeployedContract;
 
   setUp(() {
     mockClient = MockSmartContractWeb3Client();
+    mockDeployedContract = MockDeployedContract();
     dataSource = CounterDataSourceImpl(client: mockClient);
   });
 
   group('getCounter', () {
     test('should return counter value = 1', () async {
-      when(mockClient.callContract(
+      when(mockClient.getContract(
         contractName: anyNamed('contractName'),
         contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.callContract(
+        contract: anyNamed('contract'),
         functionName: anyNamed('functionName'),
       )).thenAnswer((_) async => 1);
 
       final result = await dataSource.getCounter();
 
       verify(mockClient.callContract(
-        contractName: 'Counter',
-        contractFileLocation: 'src/artifacts/Counter.json',
+        contract: mockDeployedContract,
         functionName: 'counter',
       ));
       expect(result, 1);
     });
 
     test('should throw UnexpectedFailure()', () async {
-      when(mockClient.callContract(
+      when(mockClient.getContract(
         contractName: anyNamed('contractName'),
         contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.callContract(
+        contract: anyNamed('contract'),
         functionName: anyNamed('functionName'),
       )).thenThrow(Exception());
 
@@ -51,25 +59,30 @@ void main() {
 
   group('incrementCounter', () {
     test('should call sendTransaction()', () async {
-      when(mockClient.sendTransaction(
+      when(mockClient.getContract(
         contractName: anyNamed('contractName'),
         contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.sendTransaction(
+        contract: anyNamed('contract'),
         functionName: anyNamed('functionName'),
       )).thenAnswer((_) async => 1);
 
       await dataSource.incrementCounter();
 
       verify(mockClient.sendTransaction(
-        contractName: 'Counter',
-        contractFileLocation: 'src/artifacts/Counter.json',
+        contract: mockDeployedContract,
         functionName: 'incrementCounter',
       ));
     });
 
     test('should throw UnexpectedFailure()', () async {
-      when(mockClient.sendTransaction(
+      when(mockClient.getContract(
         contractName: anyNamed('contractName'),
         contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.sendTransaction(
+        contract: anyNamed('contract'),
         functionName: anyNamed('functionName'),
       )).thenThrow(Exception());
 
