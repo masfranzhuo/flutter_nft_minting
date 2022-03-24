@@ -3,7 +3,7 @@
 
 # Flutter Smart Contract Counter
 
-A sample Flutter project with smart counter.
+A sample Flutter project counter with smart contract.
 
 ## Command Documentation
 
