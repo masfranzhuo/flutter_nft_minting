@@ -1,5 +1,5 @@
 ![Test](https://github.com/masfranzhuo/flutter_token/workflows/Test/badge.svg)
-[![codecov](https://codecov.io/gh/masfranzhuo/flutter_token/branch/main/graph/badge.svg?token=B6KYCYT3LC)](https://codecov.io/gh/masfranzhuo/flutter_token)
+[![codecov](https://codecov.io/gh/masfranzhuo/flutter_token/branch/main/graph/badge.svg?token=1eLfDdUIDY)](https://codecov.io/gh/masfranzhuo/flutter_token)
 
 # Flutter Token
 
