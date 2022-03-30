@@ -1,5 +1,5 @@
-const Counter = artifacts.require("Counter");
+const Token = artifacts.require("Token");
 
 module.exports = function (deployer) {
-  deployer.deploy(Counter);
+  deployer.deploy(Token, "Name", "Symbol", 1000);
 };

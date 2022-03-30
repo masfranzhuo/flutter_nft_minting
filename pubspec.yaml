@@ -33,7 +33,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - src/artifacts/Counter.json
+    - src/artifacts/Token.json
   # fonts:
   #   - family: Schyler
   #     fonts:

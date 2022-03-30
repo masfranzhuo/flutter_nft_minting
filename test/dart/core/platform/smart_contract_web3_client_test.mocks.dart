@@ -2,24 +2,22 @@
 // in flutter_smart_contract_counter/test/dart/core/platform/smart_contract_web3_client_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i13;
-import 'dart:convert' as _i14;
-import 'dart:typed_data' as _i15;
+import 'dart:async' as _i10;
+import 'dart:convert' as _i11;
+import 'dart:typed_data' as _i12;
 
-import 'package:http/http.dart' as _i12;
-import 'package:http/src/base_request.dart' as _i16;
-import 'package:http/src/response.dart' as _i4;
-import 'package:http/src/streamed_response.dart' as _i5;
+import 'package:http/http.dart' as _i9;
+import 'package:http/src/base_request.dart' as _i13;
+import 'package:http/src/response.dart' as _i2;
+import 'package:http/src/streamed_response.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:web3dart/contracts.dart' as _i11;
-import 'package:web3dart/credentials.dart' as _i6;
-import 'package:web3dart/src/contracts/abi/abi.dart' as _i2;
-import 'package:web3dart/src/core/amount.dart' as _i8;
-import 'package:web3dart/src/core/block_information.dart' as _i9;
-import 'package:web3dart/src/core/block_number.dart' as _i17;
-import 'package:web3dart/src/core/sync_information.dart' as _i7;
-import 'package:web3dart/src/credentials/address.dart' as _i3;
-import 'package:web3dart/web3dart.dart' as _i10;
+import 'package:web3dart/contracts.dart' as _i15;
+import 'package:web3dart/credentials.dart' as _i4;
+import 'package:web3dart/src/core/amount.dart' as _i6;
+import 'package:web3dart/src/core/block_information.dart' as _i7;
+import 'package:web3dart/src/core/block_number.dart' as _i14;
+import 'package:web3dart/src/core/sync_information.dart' as _i5;
+import 'package:web3dart/web3dart.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -31,143 +29,98 @@ import 'package:web3dart/web3dart.dart' as _i10;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
-class _FakeContractAbi_0 extends _i1.Fake implements _i2.ContractAbi {}
+class _FakeResponse_0 extends _i1.Fake implements _i2.Response {}
 
-class _FakeEthereumAddress_1 extends _i1.Fake implements _i3.EthereumAddress {}
-
-class _FakeContractFunction_2 extends _i1.Fake implements _i2.ContractFunction {
+class _FakeStreamedResponse_1 extends _i1.Fake implements _i3.StreamedResponse {
 }
 
-class _FakeContractEvent_3 extends _i1.Fake implements _i2.ContractEvent {}
+class _FakeEthPrivateKey_2 extends _i1.Fake implements _i4.EthPrivateKey {}
 
-class _FakeResponse_4 extends _i1.Fake implements _i4.Response {}
+class _FakeBigInt_3 extends _i1.Fake implements BigInt {}
 
-class _FakeStreamedResponse_5 extends _i1.Fake implements _i5.StreamedResponse {
+class _FakeSyncInformation_4 extends _i1.Fake implements _i5.SyncInformation {}
+
+class _FakeEthereumAddress_5 extends _i1.Fake implements _i4.EthereumAddress {}
+
+class _FakeEtherAmount_6 extends _i1.Fake implements _i6.EtherAmount {}
+
+class _FakeBlockInformation_7 extends _i1.Fake implements _i7.BlockInformation {
 }
 
-class _FakeEthPrivateKey_6 extends _i1.Fake implements _i6.EthPrivateKey {}
-
-class _FakeBigInt_7 extends _i1.Fake implements BigInt {}
-
-class _FakeSyncInformation_8 extends _i1.Fake implements _i7.SyncInformation {}
-
-class _FakeEtherAmount_9 extends _i1.Fake implements _i8.EtherAmount {}
-
-class _FakeBlockInformation_10 extends _i1.Fake
-    implements _i9.BlockInformation {}
-
-class _FakeTransactionInformation_11 extends _i1.Fake
-    implements _i10.TransactionInformation {}
-
-/// A class which mocks [DeployedContract].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockDeployedContract extends _i1.Mock implements _i11.DeployedContract {
-  @override
-  _i2.ContractAbi get abi => (super.noSuchMethod(Invocation.getter(#abi),
-      returnValue: _FakeContractAbi_0()) as _i2.ContractAbi);
-  @override
-  _i3.EthereumAddress get address =>
-      (super.noSuchMethod(Invocation.getter(#address),
-          returnValue: _FakeEthereumAddress_1()) as _i3.EthereumAddress);
-  @override
-  List<_i2.ContractFunction> get functions =>
-      (super.noSuchMethod(Invocation.getter(#functions),
-          returnValue: <_i2.ContractFunction>[]) as List<_i2.ContractFunction>);
-  @override
-  List<_i2.ContractEvent> get events =>
-      (super.noSuchMethod(Invocation.getter(#events),
-          returnValue: <_i2.ContractEvent>[]) as List<_i2.ContractEvent>);
-  @override
-  Iterable<_i2.ContractFunction> get constructors => (super.noSuchMethod(
-      Invocation.getter(#constructors),
-      returnValue: <_i2.ContractFunction>[]) as Iterable<_i2.ContractFunction>);
-  @override
-  Iterable<_i2.ContractFunction> findFunctionsByName(String? name) =>
-      (super.noSuchMethod(Invocation.method(#findFunctionsByName, [name]),
-              returnValue: <_i2.ContractFunction>[])
-          as Iterable<_i2.ContractFunction>);
-  @override
-  _i2.ContractFunction function(String? name) =>
-      (super.noSuchMethod(Invocation.method(#function, [name]),
-          returnValue: _FakeContractFunction_2()) as _i2.ContractFunction);
-  @override
-  _i2.ContractEvent event(String? name) =>
-      (super.noSuchMethod(Invocation.method(#event, [name]),
-          returnValue: _FakeContractEvent_3()) as _i2.ContractEvent);
-}
+class _FakeTransactionInformation_8 extends _i1.Fake
+    implements _i8.TransactionInformation {}
 
 /// A class which mocks [Client].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockClient extends _i1.Mock implements _i12.Client {
+class MockClient extends _i1.Mock implements _i9.Client {
   @override
-  _i13.Future<_i4.Response> head(Uri? url, {Map<String, String>? headers}) =>
+  _i10.Future<_i2.Response> head(Uri? url, {Map<String, String>? headers}) =>
       (super.noSuchMethod(Invocation.method(#head, [url], {#headers: headers}),
-              returnValue: Future<_i4.Response>.value(_FakeResponse_4()))
-          as _i13.Future<_i4.Response>);
+              returnValue: Future<_i2.Response>.value(_FakeResponse_0()))
+          as _i10.Future<_i2.Response>);
   @override
-  _i13.Future<_i4.Response> get(Uri? url, {Map<String, String>? headers}) =>
+  _i10.Future<_i2.Response> get(Uri? url, {Map<String, String>? headers}) =>
       (super.noSuchMethod(Invocation.method(#get, [url], {#headers: headers}),
-              returnValue: Future<_i4.Response>.value(_FakeResponse_4()))
-          as _i13.Future<_i4.Response>);
+              returnValue: Future<_i2.Response>.value(_FakeResponse_0()))
+          as _i10.Future<_i2.Response>);
   @override
-  _i13.Future<_i4.Response> post(Uri? url,
+  _i10.Future<_i2.Response> post(Uri? url,
           {Map<String, String>? headers,
           Object? body,
-          _i14.Encoding? encoding}) =>
+          _i11.Encoding? encoding}) =>
       (super.noSuchMethod(
               Invocation.method(#post, [url],
                   {#headers: headers, #body: body, #encoding: encoding}),
-              returnValue: Future<_i4.Response>.value(_FakeResponse_4()))
-          as _i13.Future<_i4.Response>);
+              returnValue: Future<_i2.Response>.value(_FakeResponse_0()))
+          as _i10.Future<_i2.Response>);
   @override
-  _i13.Future<_i4.Response> put(Uri? url,
+  _i10.Future<_i2.Response> put(Uri? url,
           {Map<String, String>? headers,
           Object? body,
-          _i14.Encoding? encoding}) =>
+          _i11.Encoding? encoding}) =>
       (super.noSuchMethod(
               Invocation.method(#put, [url],
                   {#headers: headers, #body: body, #encoding: encoding}),
-              returnValue: Future<_i4.Response>.value(_FakeResponse_4()))
-          as _i13.Future<_i4.Response>);
+              returnValue: Future<_i2.Response>.value(_FakeResponse_0()))
+          as _i10.Future<_i2.Response>);
   @override
-  _i13.Future<_i4.Response> patch(Uri? url,
+  _i10.Future<_i2.Response> patch(Uri? url,
           {Map<String, String>? headers,
           Object? body,
-          _i14.Encoding? encoding}) =>
+          _i11.Encoding? encoding}) =>
       (super.noSuchMethod(
               Invocation.method(#patch, [url],
                   {#headers: headers, #body: body, #encoding: encoding}),
-              returnValue: Future<_i4.Response>.value(_FakeResponse_4()))
-          as _i13.Future<_i4.Response>);
+              returnValue: Future<_i2.Response>.value(_FakeResponse_0()))
+          as _i10.Future<_i2.Response>);
   @override
-  _i13.Future<_i4.Response> delete(Uri? url,
+  _i10.Future<_i2.Response> delete(Uri? url,
           {Map<String, String>? headers,
           Object? body,
-          _i14.Encoding? encoding}) =>
+          _i11.Encoding? encoding}) =>
       (super.noSuchMethod(
               Invocation.method(#delete, [url],
                   {#headers: headers, #body: body, #encoding: encoding}),
-              returnValue: Future<_i4.Response>.value(_FakeResponse_4()))
-          as _i13.Future<_i4.Response>);
+              returnValue: Future<_i2.Response>.value(_FakeResponse_0()))
+          as _i10.Future<_i2.Response>);
   @override
-  _i13.Future<String> read(Uri? url, {Map<String, String>? headers}) =>
+  _i10.Future<String> read(Uri? url, {Map<String, String>? headers}) =>
       (super.noSuchMethod(Invocation.method(#read, [url], {#headers: headers}),
-          returnValue: Future<String>.value('')) as _i13.Future<String>);
+          returnValue: Future<String>.value('')) as _i10.Future<String>);
   @override
-  _i13.Future<_i15.Uint8List> readBytes(Uri? url,
+  _i10.Future<_i12.Uint8List> readBytes(Uri? url,
           {Map<String, String>? headers}) =>
       (super.noSuchMethod(
               Invocation.method(#readBytes, [url], {#headers: headers}),
-              returnValue: Future<_i15.Uint8List>.value(_i15.Uint8List(0)))
-          as _i13.Future<_i15.Uint8List>);
+              returnValue: Future<_i12.Uint8List>.value(_i12.Uint8List(0)))
+          as _i10.Future<_i12.Uint8List>);
   @override
-  _i13.Future<_i5.StreamedResponse> send(_i16.BaseRequest? request) =>
+  _i10.Future<_i3.StreamedResponse> send(_i13.BaseRequest? request) =>
       (super.noSuchMethod(Invocation.method(#send, [request]),
               returnValue:
-                  Future<_i5.StreamedResponse>.value(_FakeStreamedResponse_5()))
-          as _i13.Future<_i5.StreamedResponse>);
+                  Future<_i3.StreamedResponse>.value(_FakeStreamedResponse_1()))
+          as _i10.Future<_i3.StreamedResponse>);
   @override
   void close() => super.noSuchMethod(Invocation.method(#close, []),
       returnValueForMissingStub: null);
@@ -176,7 +129,7 @@ class MockClient extends _i1.Mock implements _i12.Client {
 /// A class which mocks [Web3Client].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockWeb3Client extends _i1.Mock implements _i10.Web3Client {
+class MockWeb3Client extends _i1.Mock implements _i8.Web3Client {
   @override
   bool get printErrors =>
       (super.noSuchMethod(Invocation.getter(#printErrors), returnValue: false)
@@ -186,130 +139,130 @@ class MockWeb3Client extends _i1.Mock implements _i10.Web3Client {
       super.noSuchMethod(Invocation.setter(#printErrors, _printErrors),
           returnValueForMissingStub: null);
   @override
-  _i13.Future<_i6.EthPrivateKey> credentialsFromPrivateKey(
+  _i10.Future<_i4.EthPrivateKey> credentialsFromPrivateKey(
           String? privateKey) =>
       (super.noSuchMethod(
               Invocation.method(#credentialsFromPrivateKey, [privateKey]),
               returnValue:
-                  Future<_i6.EthPrivateKey>.value(_FakeEthPrivateKey_6()))
-          as _i13.Future<_i6.EthPrivateKey>);
+                  Future<_i4.EthPrivateKey>.value(_FakeEthPrivateKey_2()))
+          as _i10.Future<_i4.EthPrivateKey>);
   @override
-  _i13.Future<String> getClientVersion() =>
+  _i10.Future<String> getClientVersion() =>
       (super.noSuchMethod(Invocation.method(#getClientVersion, []),
-          returnValue: Future<String>.value('')) as _i13.Future<String>);
+          returnValue: Future<String>.value('')) as _i10.Future<String>);
   @override
-  _i13.Future<int> getNetworkId() =>
+  _i10.Future<int> getNetworkId() =>
       (super.noSuchMethod(Invocation.method(#getNetworkId, []),
-          returnValue: Future<int>.value(0)) as _i13.Future<int>);
+          returnValue: Future<int>.value(0)) as _i10.Future<int>);
   @override
-  _i13.Future<BigInt> getChainId() =>
+  _i10.Future<BigInt> getChainId() =>
       (super.noSuchMethod(Invocation.method(#getChainId, []),
-              returnValue: Future<BigInt>.value(_FakeBigInt_7()))
-          as _i13.Future<BigInt>);
+              returnValue: Future<BigInt>.value(_FakeBigInt_3()))
+          as _i10.Future<BigInt>);
   @override
-  _i13.Future<bool> isListeningForNetwork() =>
+  _i10.Future<bool> isListeningForNetwork() =>
       (super.noSuchMethod(Invocation.method(#isListeningForNetwork, []),
-          returnValue: Future<bool>.value(false)) as _i13.Future<bool>);
+          returnValue: Future<bool>.value(false)) as _i10.Future<bool>);
   @override
-  _i13.Future<int> getPeerCount() =>
+  _i10.Future<int> getPeerCount() =>
       (super.noSuchMethod(Invocation.method(#getPeerCount, []),
-          returnValue: Future<int>.value(0)) as _i13.Future<int>);
+          returnValue: Future<int>.value(0)) as _i10.Future<int>);
   @override
-  _i13.Future<int> getEtherProtocolVersion() =>
+  _i10.Future<int> getEtherProtocolVersion() =>
       (super.noSuchMethod(Invocation.method(#getEtherProtocolVersion, []),
-          returnValue: Future<int>.value(0)) as _i13.Future<int>);
+          returnValue: Future<int>.value(0)) as _i10.Future<int>);
   @override
-  _i13.Future<_i7.SyncInformation> getSyncStatus() =>
+  _i10.Future<_i5.SyncInformation> getSyncStatus() =>
       (super.noSuchMethod(Invocation.method(#getSyncStatus, []),
               returnValue:
-                  Future<_i7.SyncInformation>.value(_FakeSyncInformation_8()))
-          as _i13.Future<_i7.SyncInformation>);
+                  Future<_i5.SyncInformation>.value(_FakeSyncInformation_4()))
+          as _i10.Future<_i5.SyncInformation>);
   @override
-  _i13.Future<_i3.EthereumAddress> coinbaseAddress() =>
+  _i10.Future<_i4.EthereumAddress> coinbaseAddress() =>
       (super.noSuchMethod(Invocation.method(#coinbaseAddress, []),
               returnValue:
-                  Future<_i3.EthereumAddress>.value(_FakeEthereumAddress_1()))
-          as _i13.Future<_i3.EthereumAddress>);
+                  Future<_i4.EthereumAddress>.value(_FakeEthereumAddress_5()))
+          as _i10.Future<_i4.EthereumAddress>);
   @override
-  _i13.Future<bool> isMining() =>
+  _i10.Future<bool> isMining() =>
       (super.noSuchMethod(Invocation.method(#isMining, []),
-          returnValue: Future<bool>.value(false)) as _i13.Future<bool>);
+          returnValue: Future<bool>.value(false)) as _i10.Future<bool>);
   @override
-  _i13.Future<int> getMiningHashrate() =>
+  _i10.Future<int> getMiningHashrate() =>
       (super.noSuchMethod(Invocation.method(#getMiningHashrate, []),
-          returnValue: Future<int>.value(0)) as _i13.Future<int>);
+          returnValue: Future<int>.value(0)) as _i10.Future<int>);
   @override
-  _i13.Future<_i8.EtherAmount> getGasPrice() =>
+  _i10.Future<_i6.EtherAmount> getGasPrice() =>
       (super.noSuchMethod(Invocation.method(#getGasPrice, []),
-              returnValue: Future<_i8.EtherAmount>.value(_FakeEtherAmount_9()))
-          as _i13.Future<_i8.EtherAmount>);
+              returnValue: Future<_i6.EtherAmount>.value(_FakeEtherAmount_6()))
+          as _i10.Future<_i6.EtherAmount>);
   @override
-  _i13.Future<int> getBlockNumber() =>
+  _i10.Future<int> getBlockNumber() =>
       (super.noSuchMethod(Invocation.method(#getBlockNumber, []),
-          returnValue: Future<int>.value(0)) as _i13.Future<int>);
+          returnValue: Future<int>.value(0)) as _i10.Future<int>);
   @override
-  _i13.Future<_i9.BlockInformation> getBlockInformation(
+  _i10.Future<_i7.BlockInformation> getBlockInformation(
           {String? blockNumber = r'latest', bool? isContainFullObj = true}) =>
       (super.noSuchMethod(
               Invocation.method(#getBlockInformation, [], {
                 #blockNumber: blockNumber,
                 #isContainFullObj: isContainFullObj
               }),
-              returnValue: Future<_i9.BlockInformation>.value(
-                  _FakeBlockInformation_10()))
-          as _i13.Future<_i9.BlockInformation>);
+              returnValue:
+                  Future<_i7.BlockInformation>.value(_FakeBlockInformation_7()))
+          as _i10.Future<_i7.BlockInformation>);
   @override
-  _i13.Future<_i8.EtherAmount> getBalance(_i3.EthereumAddress? address,
-          {_i17.BlockNum? atBlock}) =>
+  _i10.Future<_i6.EtherAmount> getBalance(_i4.EthereumAddress? address,
+          {_i14.BlockNum? atBlock}) =>
       (super.noSuchMethod(
               Invocation.method(#getBalance, [address], {#atBlock: atBlock}),
-              returnValue: Future<_i8.EtherAmount>.value(_FakeEtherAmount_9()))
-          as _i13.Future<_i8.EtherAmount>);
+              returnValue: Future<_i6.EtherAmount>.value(_FakeEtherAmount_6()))
+          as _i10.Future<_i6.EtherAmount>);
   @override
-  _i13.Future<_i15.Uint8List> getStorage(
-          _i3.EthereumAddress? address, BigInt? position,
-          {_i17.BlockNum? atBlock}) =>
+  _i10.Future<_i12.Uint8List> getStorage(
+          _i4.EthereumAddress? address, BigInt? position,
+          {_i14.BlockNum? atBlock}) =>
       (super.noSuchMethod(
               Invocation.method(
                   #getStorage, [address, position], {#atBlock: atBlock}),
-              returnValue: Future<_i15.Uint8List>.value(_i15.Uint8List(0)))
-          as _i13.Future<_i15.Uint8List>);
+              returnValue: Future<_i12.Uint8List>.value(_i12.Uint8List(0)))
+          as _i10.Future<_i12.Uint8List>);
   @override
-  _i13.Future<int> getTransactionCount(_i3.EthereumAddress? address,
-          {_i17.BlockNum? atBlock}) =>
+  _i10.Future<int> getTransactionCount(_i4.EthereumAddress? address,
+          {_i14.BlockNum? atBlock}) =>
       (super.noSuchMethod(
           Invocation.method(
               #getTransactionCount, [address], {#atBlock: atBlock}),
-          returnValue: Future<int>.value(0)) as _i13.Future<int>);
+          returnValue: Future<int>.value(0)) as _i10.Future<int>);
   @override
-  _i13.Future<_i10.TransactionInformation> getTransactionByHash(
+  _i10.Future<_i8.TransactionInformation> getTransactionByHash(
           String? transactionHash) =>
       (super.noSuchMethod(
               Invocation.method(#getTransactionByHash, [transactionHash]),
-              returnValue: Future<_i10.TransactionInformation>.value(
-                  _FakeTransactionInformation_11()))
-          as _i13.Future<_i10.TransactionInformation>);
+              returnValue: Future<_i8.TransactionInformation>.value(
+                  _FakeTransactionInformation_8()))
+          as _i10.Future<_i8.TransactionInformation>);
   @override
-  _i13.Future<_i10.TransactionReceipt?> getTransactionReceipt(String? hash) =>
+  _i10.Future<_i8.TransactionReceipt?> getTransactionReceipt(String? hash) =>
       (super.noSuchMethod(Invocation.method(#getTransactionReceipt, [hash]),
-              returnValue: Future<_i10.TransactionReceipt?>.value())
-          as _i13.Future<_i10.TransactionReceipt?>);
+              returnValue: Future<_i8.TransactionReceipt?>.value())
+          as _i10.Future<_i8.TransactionReceipt?>);
   @override
-  _i13.Future<_i15.Uint8List> getCode(_i3.EthereumAddress? address,
-          {_i17.BlockNum? atBlock}) =>
+  _i10.Future<_i12.Uint8List> getCode(_i4.EthereumAddress? address,
+          {_i14.BlockNum? atBlock}) =>
       (super.noSuchMethod(
               Invocation.method(#getCode, [address], {#atBlock: atBlock}),
-              returnValue: Future<_i15.Uint8List>.value(_i15.Uint8List(0)))
-          as _i13.Future<_i15.Uint8List>);
+              returnValue: Future<_i12.Uint8List>.value(_i12.Uint8List(0)))
+          as _i10.Future<_i12.Uint8List>);
   @override
-  _i13.Future<List<_i10.FilterEvent>> getLogs(_i10.FilterOptions? options) =>
+  _i10.Future<List<_i8.FilterEvent>> getLogs(_i8.FilterOptions? options) =>
       (super.noSuchMethod(Invocation.method(#getLogs, [options]),
               returnValue:
-                  Future<List<_i10.FilterEvent>>.value(<_i10.FilterEvent>[]))
-          as _i13.Future<List<_i10.FilterEvent>>);
+                  Future<List<_i8.FilterEvent>>.value(<_i8.FilterEvent>[]))
+          as _i10.Future<List<_i8.FilterEvent>>);
   @override
-  _i13.Future<String> sendTransaction(
-          _i6.Credentials? cred, _i10.Transaction? transaction,
+  _i10.Future<String> sendTransaction(
+          _i4.Credentials? cred, _i8.Transaction? transaction,
           {int? chainId = 1, bool? fetchChainIdFromNetworkId = false}) =>
       (super.noSuchMethod(
           Invocation.method(#sendTransaction, [
@@ -319,15 +272,15 @@ class MockWeb3Client extends _i1.Mock implements _i10.Web3Client {
             #chainId: chainId,
             #fetchChainIdFromNetworkId: fetchChainIdFromNetworkId
           }),
-          returnValue: Future<String>.value('')) as _i13.Future<String>);
+          returnValue: Future<String>.value('')) as _i10.Future<String>);
   @override
-  _i13.Future<String> sendRawTransaction(_i15.Uint8List? signedTransaction) =>
+  _i10.Future<String> sendRawTransaction(_i12.Uint8List? signedTransaction) =>
       (super.noSuchMethod(
           Invocation.method(#sendRawTransaction, [signedTransaction]),
-          returnValue: Future<String>.value('')) as _i13.Future<String>);
+          returnValue: Future<String>.value('')) as _i10.Future<String>);
   @override
-  _i13.Future<_i15.Uint8List> signTransaction(
-          _i6.Credentials? cred, _i10.Transaction? transaction,
+  _i10.Future<_i12.Uint8List> signTransaction(
+          _i4.Credentials? cred, _i8.Transaction? transaction,
           {int? chainId = 1, bool? fetchChainIdFromNetworkId = false}) =>
       (super.noSuchMethod(
               Invocation.method(#signTransaction, [
@@ -337,15 +290,15 @@ class MockWeb3Client extends _i1.Mock implements _i10.Web3Client {
                 #chainId: chainId,
                 #fetchChainIdFromNetworkId: fetchChainIdFromNetworkId
               }),
-              returnValue: Future<_i15.Uint8List>.value(_i15.Uint8List(0)))
-          as _i13.Future<_i15.Uint8List>);
+              returnValue: Future<_i12.Uint8List>.value(_i12.Uint8List(0)))
+          as _i10.Future<_i12.Uint8List>);
   @override
-  _i13.Future<List<dynamic>> call(
-          {_i3.EthereumAddress? sender,
-          _i11.DeployedContract? contract,
-          _i2.ContractFunction? function,
+  _i10.Future<List<dynamic>> call(
+          {_i4.EthereumAddress? sender,
+          _i15.DeployedContract? contract,
+          _i15.ContractFunction? function,
           List<dynamic>? params,
-          _i17.BlockNum? atBlock}) =>
+          _i14.BlockNum? atBlock}) =>
       (super.noSuchMethod(
               Invocation.method(#call, [], {
                 #sender: sender,
@@ -355,18 +308,18 @@ class MockWeb3Client extends _i1.Mock implements _i10.Web3Client {
                 #atBlock: atBlock
               }),
               returnValue: Future<List<dynamic>>.value(<dynamic>[]))
-          as _i13.Future<List<dynamic>>);
+          as _i10.Future<List<dynamic>>);
   @override
-  _i13.Future<BigInt> estimateGas(
-          {_i3.EthereumAddress? sender,
-          _i3.EthereumAddress? to,
-          _i8.EtherAmount? value,
+  _i10.Future<BigInt> estimateGas(
+          {_i4.EthereumAddress? sender,
+          _i4.EthereumAddress? to,
+          _i6.EtherAmount? value,
           BigInt? amountOfGas,
-          _i8.EtherAmount? gasPrice,
-          _i8.EtherAmount? maxPriorityFeePerGas,
-          _i8.EtherAmount? maxFeePerGas,
-          _i15.Uint8List? data,
-          _i17.BlockNum? atBlock}) =>
+          _i6.EtherAmount? gasPrice,
+          _i6.EtherAmount? maxPriorityFeePerGas,
+          _i6.EtherAmount? maxFeePerGas,
+          _i12.Uint8List? data,
+          _i14.BlockNum? atBlock}) =>
       (super.noSuchMethod(
               Invocation.method(#estimateGas, [], {
                 #sender: sender,
@@ -379,14 +332,14 @@ class MockWeb3Client extends _i1.Mock implements _i10.Web3Client {
                 #data: data,
                 #atBlock: atBlock
               }),
-              returnValue: Future<BigInt>.value(_FakeBigInt_7()))
-          as _i13.Future<BigInt>);
+              returnValue: Future<BigInt>.value(_FakeBigInt_3()))
+          as _i10.Future<BigInt>);
   @override
-  _i13.Future<String> callRaw(
-          {_i3.EthereumAddress? sender,
-          _i3.EthereumAddress? contract,
-          _i15.Uint8List? data,
-          _i17.BlockNum? atBlock}) =>
+  _i10.Future<String> callRaw(
+          {_i4.EthereumAddress? sender,
+          _i4.EthereumAddress? contract,
+          _i12.Uint8List? data,
+          _i14.BlockNum? atBlock}) =>
       (super.noSuchMethod(
           Invocation.method(#callRaw, [], {
             #sender: sender,
@@ -394,23 +347,23 @@ class MockWeb3Client extends _i1.Mock implements _i10.Web3Client {
             #data: data,
             #atBlock: atBlock
           }),
-          returnValue: Future<String>.value('')) as _i13.Future<String>);
+          returnValue: Future<String>.value('')) as _i10.Future<String>);
   @override
-  _i13.Stream<String> addedBlocks() =>
+  _i10.Stream<String> addedBlocks() =>
       (super.noSuchMethod(Invocation.method(#addedBlocks, []),
-          returnValue: Stream<String>.empty()) as _i13.Stream<String>);
+          returnValue: Stream<String>.empty()) as _i10.Stream<String>);
   @override
-  _i13.Stream<String> pendingTransactions() =>
+  _i10.Stream<String> pendingTransactions() =>
       (super.noSuchMethod(Invocation.method(#pendingTransactions, []),
-          returnValue: Stream<String>.empty()) as _i13.Stream<String>);
+          returnValue: Stream<String>.empty()) as _i10.Stream<String>);
   @override
-  _i13.Stream<_i10.FilterEvent> events(_i10.FilterOptions? options) =>
+  _i10.Stream<_i8.FilterEvent> events(_i8.FilterOptions? options) =>
       (super.noSuchMethod(Invocation.method(#events, [options]),
-              returnValue: Stream<_i10.FilterEvent>.empty())
-          as _i13.Stream<_i10.FilterEvent>);
+              returnValue: Stream<_i8.FilterEvent>.empty())
+          as _i10.Stream<_i8.FilterEvent>);
   @override
-  _i13.Future<void> dispose() => (super.noSuchMethod(
+  _i10.Future<void> dispose() => (super.noSuchMethod(
       Invocation.method(#dispose, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i13.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
 }
