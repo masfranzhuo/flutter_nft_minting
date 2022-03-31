@@ -6,10 +6,10 @@ contract Token {
     string public symbol;
     uint8 public decimals;
     uint256 public totalSupply;
-    uint256 _wei;
+    uint256 _wei; // 1 Ether = 1000000000000000000 Wei
     address payable public owner;
 
-    mapping (address => uint256) public balanceOf;
+    mapping(address => uint256) public balanceOf;
 
     event Transfer(address indexed from, address indexed to, uint256 value);
 
@@ -34,8 +34,8 @@ contract Token {
     function mint(uint256 _amount) public returns (bool success) {
         require(msg.sender == owner, "Operation unauthorised");
 
-        totalSupply += _amount * _wei;
-        balanceOf[msg.sender] += _amount * _wei;
+        totalSupply = totalSupply + (_amount * _wei);
+        balanceOf[msg.sender] = balanceOf[msg.sender] + (_amount * _wei);
 
         emit Transfer(address(0), msg.sender, _amount * _wei);
         return true;
@@ -45,8 +45,8 @@ contract Token {
         require(msg.sender != address(0), "Invalid burn recipient");
         require(totalSupply > _amount, "Burn amount exceeds balance");
 
-        totalSupply -= _amount * _wei;
-        balanceOf[msg.sender] -= _amount * _wei;
+        totalSupply = totalSupply - (_amount * _wei);
+        balanceOf[msg.sender] = balanceOf[msg.sender] - (_amount * _wei);
 
         emit Transfer(msg.sender, address(0), _amount * _wei);
         return true;
