@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_smart_contract_counter/core/error/failure.dart';
+
+import 'error/failure.dart';
 
 abstract class UseCase<Type, Params> {
   const UseCase();

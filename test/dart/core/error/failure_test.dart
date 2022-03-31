@@ -1,5 +1,5 @@
-import 'package:flutter_smart_contract_counter/core/error/failure.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_token/core/error/failure.dart';
 
 void main() {
   test('props', () {

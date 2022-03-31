@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_smart_contract_counter/counter/presentation/pages/home_page.dart';
+import 'package:flutter_token/token/presentation/pages/home_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(title: 'Flutter Smart Contract'),
+      home: HomePage(title: 'Flutter Token'),
     );
   }
 }
