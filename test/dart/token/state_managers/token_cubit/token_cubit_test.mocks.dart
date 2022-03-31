@@ -2,18 +2,17 @@
 // in flutter_token/test/dart/token/state_managers/token_cubit/token_cubit_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i6;
+import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i3;
-import 'package:flutter_token/core/error/failure.dart' as _i7;
-import 'package:flutter_token/core/use_case.dart' as _i8;
-import 'package:flutter_token/token/entities/token.dart' as _i4;
+import 'package:flutter_token/core/error/failure.dart' as _i6;
+import 'package:flutter_token/core/use_case.dart' as _i7;
 import 'package:flutter_token/token/repositories/token_repository.dart' as _i2;
-import 'package:flutter_token/token/use_cases/burn.dart' as _i9;
-import 'package:flutter_token/token/use_cases/get_name.dart' as _i10;
-import 'package:flutter_token/token/use_cases/get_symbol.dart' as _i11;
-import 'package:flutter_token/token/use_cases/get_total_supply.dart' as _i12;
-import 'package:flutter_token/token/use_cases/mint.dart' as _i5;
+import 'package:flutter_token/token/use_cases/burn.dart' as _i8;
+import 'package:flutter_token/token/use_cases/get_name.dart' as _i9;
+import 'package:flutter_token/token/use_cases/get_symbol.dart' as _i10;
+import 'package:flutter_token/token/use_cases/get_total_supply.dart' as _i11;
+import 'package:flutter_token/token/use_cases/mint.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -30,13 +29,10 @@ class _FakeTokenRepository_0 extends _i1.Fake implements _i2.TokenRepository {}
 
 class _FakeEither_1<L, R> extends _i1.Fake implements _i3.Either<L, R> {}
 
-class _Fake$TokenCopyWith_2<$Res> extends _i1.Fake
-    implements _i4.$TokenCopyWith<$Res> {}
-
 /// A class which mocks [Mint].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMint extends _i1.Mock implements _i5.Mint {
+class MockMint extends _i1.Mock implements _i4.Mint {
   MockMint() {
     _i1.throwOnMissingStub(this);
   }
@@ -46,17 +42,17 @@ class MockMint extends _i1.Mock implements _i5.Mint {
       (super.noSuchMethod(Invocation.getter(#repository),
           returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
   @override
-  _i6.Future<_i3.Either<_i7.Failure, _i3.Unit>> call(_i8.NoParams? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>> call(_i7.NoParams? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
-              returnValue: Future<_i3.Either<_i7.Failure, _i3.Unit>>.value(
-                  _FakeEither_1<_i7.Failure, _i3.Unit>()))
-          as _i6.Future<_i3.Either<_i7.Failure, _i3.Unit>>);
+              returnValue: Future<_i3.Either<_i6.Failure, _i3.Unit>>.value(
+                  _FakeEither_1<_i6.Failure, _i3.Unit>()))
+          as _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>>);
 }
 
 /// A class which mocks [Burn].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockBurn extends _i1.Mock implements _i9.Burn {
+class MockBurn extends _i1.Mock implements _i8.Burn {
   MockBurn() {
     _i1.throwOnMissingStub(this);
   }
@@ -66,17 +62,17 @@ class MockBurn extends _i1.Mock implements _i9.Burn {
       (super.noSuchMethod(Invocation.getter(#repository),
           returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
   @override
-  _i6.Future<_i3.Either<_i7.Failure, _i3.Unit>> call(_i8.NoParams? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>> call(_i7.NoParams? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
-              returnValue: Future<_i3.Either<_i7.Failure, _i3.Unit>>.value(
-                  _FakeEither_1<_i7.Failure, _i3.Unit>()))
-          as _i6.Future<_i3.Either<_i7.Failure, _i3.Unit>>);
+              returnValue: Future<_i3.Either<_i6.Failure, _i3.Unit>>.value(
+                  _FakeEither_1<_i6.Failure, _i3.Unit>()))
+          as _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>>);
 }
 
 /// A class which mocks [GetName].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetName extends _i1.Mock implements _i10.GetName {
+class MockGetName extends _i1.Mock implements _i9.GetName {
   MockGetName() {
     _i1.throwOnMissingStub(this);
   }
@@ -86,17 +82,17 @@ class MockGetName extends _i1.Mock implements _i10.GetName {
       (super.noSuchMethod(Invocation.getter(#repository),
           returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
   @override
-  _i6.Future<_i3.Either<_i7.Failure, String>> call(_i8.NoParams? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, String>> call(_i7.NoParams? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
-              returnValue: Future<_i3.Either<_i7.Failure, String>>.value(
-                  _FakeEither_1<_i7.Failure, String>()))
-          as _i6.Future<_i3.Either<_i7.Failure, String>>);
+              returnValue: Future<_i3.Either<_i6.Failure, String>>.value(
+                  _FakeEither_1<_i6.Failure, String>()))
+          as _i5.Future<_i3.Either<_i6.Failure, String>>);
 }
 
 /// A class which mocks [GetSymbol].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetSymbol extends _i1.Mock implements _i11.GetSymbol {
+class MockGetSymbol extends _i1.Mock implements _i10.GetSymbol {
   MockGetSymbol() {
     _i1.throwOnMissingStub(this);
   }
@@ -106,17 +102,17 @@ class MockGetSymbol extends _i1.Mock implements _i11.GetSymbol {
       (super.noSuchMethod(Invocation.getter(#repository),
           returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
   @override
-  _i6.Future<_i3.Either<_i7.Failure, String>> call(_i8.NoParams? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, String>> call(_i7.NoParams? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
-              returnValue: Future<_i3.Either<_i7.Failure, String>>.value(
-                  _FakeEither_1<_i7.Failure, String>()))
-          as _i6.Future<_i3.Either<_i7.Failure, String>>);
+              returnValue: Future<_i3.Either<_i6.Failure, String>>.value(
+                  _FakeEither_1<_i6.Failure, String>()))
+          as _i5.Future<_i3.Either<_i6.Failure, String>>);
 }
 
 /// A class which mocks [GetTotalSupply].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetTotalSupply extends _i1.Mock implements _i12.GetTotalSupply {
+class MockGetTotalSupply extends _i1.Mock implements _i11.GetTotalSupply {
   MockGetTotalSupply() {
     _i1.throwOnMissingStub(this);
   }
@@ -126,39 +122,9 @@ class MockGetTotalSupply extends _i1.Mock implements _i12.GetTotalSupply {
       (super.noSuchMethod(Invocation.getter(#repository),
           returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
   @override
-  _i6.Future<_i3.Either<_i7.Failure, int>> call(_i8.NoParams? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, int>> call(_i7.NoParams? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
-              returnValue: Future<_i3.Either<_i7.Failure, int>>.value(
-                  _FakeEither_1<_i7.Failure, int>()))
-          as _i6.Future<_i3.Either<_i7.Failure, int>>);
-}
-
-/// A class which mocks [Token].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockToken extends _i1.Mock implements _i4.Token {
-  MockToken() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  String get name =>
-      (super.noSuchMethod(Invocation.getter(#name), returnValue: '') as String);
-  @override
-  String get symbol =>
-      (super.noSuchMethod(Invocation.getter(#symbol), returnValue: '')
-          as String);
-  @override
-  int get totalSupply =>
-      (super.noSuchMethod(Invocation.getter(#totalSupply), returnValue: 0)
-          as int);
-  @override
-  _i4.$TokenCopyWith<_i4.Token> get copyWith =>
-      (super.noSuchMethod(Invocation.getter(#copyWith),
-              returnValue: _Fake$TokenCopyWith_2<_i4.Token>())
-          as _i4.$TokenCopyWith<_i4.Token>);
-  @override
-  Map<String, dynamic> toJson() =>
-      (super.noSuchMethod(Invocation.method(#toJson, []),
-          returnValue: <String, dynamic>{}) as Map<String, dynamic>);
+              returnValue: Future<_i3.Either<_i6.Failure, int>>.value(
+                  _FakeEither_1<_i6.Failure, int>()))
+          as _i5.Future<_i3.Either<_i6.Failure, int>>);
 }
