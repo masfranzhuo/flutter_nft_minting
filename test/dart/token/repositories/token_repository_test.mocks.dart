@@ -33,4 +33,16 @@ class MockTokenDataSource extends _i1.Mock implements _i2.TokenDataSource {
   _i3.Future<void> burn() => (super.noSuchMethod(Invocation.method(#burn, []),
       returnValue: Future<void>.value(),
       returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<String> getName() =>
+      (super.noSuchMethod(Invocation.method(#getName, []),
+          returnValue: Future<String>.value('')) as _i3.Future<String>);
+  @override
+  _i3.Future<String> getSymbol() =>
+      (super.noSuchMethod(Invocation.method(#getSymbol, []),
+          returnValue: Future<String>.value('')) as _i3.Future<String>);
+  @override
+  _i3.Future<int> getTotalSupply() =>
+      (super.noSuchMethod(Invocation.method(#getTotalSupply, []),
+          returnValue: Future<int>.value(0)) as _i3.Future<int>);
 }

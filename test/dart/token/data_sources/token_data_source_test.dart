@@ -91,4 +91,115 @@ void main() {
       );
     });
   });
+
+  group('getName', () {
+    test('should return name = "Token Name"', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.callContract(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+      )).thenAnswer((_) async => 'Token Name');
+
+      final result = await dataSource.getName();
+
+      verify(mockClient.callContract(
+        contract: mockDeployedContract,
+        functionName: 'name',
+      ));
+      expect(result, 'Token Name');
+    });
+
+    test('should throw UnexpectedFailure()', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.callContract(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+      )).thenThrow(Exception());
+
+      expect(
+        () async => await dataSource.getName(),
+        throwsA(isA<UnexpectedFailure>()),
+      );
+    });
+  });
+
+  group('getSymbol', () {
+    test('should return symbol = "TN"', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.callContract(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+      )).thenAnswer((_) async => 'TN');
+
+      final result = await dataSource.getSymbol();
+
+      verify(mockClient.callContract(
+        contract: mockDeployedContract,
+        functionName: 'symbol',
+      ));
+      expect(result, 'TN');
+    });
+
+    test('should throw UnexpectedFailure()', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.callContract(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+      )).thenThrow(Exception());
+
+      expect(
+        () async => await dataSource.getSymbol(),
+        throwsA(isA<UnexpectedFailure>()),
+      );
+    });
+  });
+
+  group('getTotalSupply', () {
+    test('should return total supply = 1000', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.callContract(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+      )).thenAnswer((_) async => 1000);
+
+      final result = await dataSource.getTotalSupply();
+
+      verify(mockClient.callContract(
+        contract: mockDeployedContract,
+        functionName: 'totalSupply',
+      ));
+      expect(result, 1000);
+    });
+
+    test('should throw UnexpectedFailure()', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.callContract(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+      )).thenThrow(Exception());
+
+      expect(
+        () async => await dataSource.getTotalSupply(),
+        throwsA(isA<UnexpectedFailure>()),
+      );
+    });
+  });
 }

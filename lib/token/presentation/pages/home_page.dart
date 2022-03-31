@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_token/token/state_managers/token_cubit/token_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,11 +13,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return BlocProvider(
-    //   create: (_) => _getIt<CounterCubit>()..get(),
-    //   child: _builder(context),
-    // );
-    return _builder(context);
+    return BlocProvider(
+      create: (_) => _getIt<TokenCubit>()..get(),
+      child: _builder(context),
+    );
   }
 
   Widget _builder(BuildContext context) {

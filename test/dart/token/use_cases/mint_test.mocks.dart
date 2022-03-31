@@ -41,4 +41,22 @@ class MockTokenRepository extends _i1.Mock implements _i3.TokenRepository {
               returnValue: Future<_i2.Either<_i5.Failure, _i2.Unit>>.value(
                   _FakeEither_0<_i5.Failure, _i2.Unit>()))
           as _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>>);
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, String>> getName() =>
+      (super.noSuchMethod(Invocation.method(#getName, []),
+              returnValue: Future<_i2.Either<_i5.Failure, String>>.value(
+                  _FakeEither_0<_i5.Failure, String>()))
+          as _i4.Future<_i2.Either<_i5.Failure, String>>);
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, String>> getSymbol() =>
+      (super.noSuchMethod(Invocation.method(#getSymbol, []),
+              returnValue: Future<_i2.Either<_i5.Failure, String>>.value(
+                  _FakeEither_0<_i5.Failure, String>()))
+          as _i4.Future<_i2.Either<_i5.Failure, String>>);
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, int>> getTotalSupply() =>
+      (super.noSuchMethod(Invocation.method(#getTotalSupply, []),
+              returnValue: Future<_i2.Either<_i5.Failure, int>>.value(
+                  _FakeEither_0<_i5.Failure, int>()))
+          as _i4.Future<_i2.Either<_i5.Failure, int>>);
 }

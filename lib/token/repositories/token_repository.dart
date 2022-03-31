@@ -5,8 +5,10 @@ import 'package:injectable/injectable.dart';
 
 abstract class TokenRepository {
   Future<Either<Failure, Unit>> mint();
-
   Future<Either<Failure, Unit>> burn();
+  Future<Either<Failure, String>> getName();
+  Future<Either<Failure, String>> getSymbol();
+  Future<Either<Failure, int>> getTotalSupply();
 }
 
 @LazySingleton(as: TokenRepository)
@@ -32,6 +34,39 @@ class TokenRepositoryImpl extends TokenRepository {
       await dataSource.mint();
 
       return const Right(unit);
+    } on Exception catch (e) {
+      return Left(UnexpectedFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> getName() async {
+    try {
+      final result = await dataSource.getName();
+
+      return Right(result);
+    } on Exception catch (e) {
+      return Left(UnexpectedFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> getSymbol() async {
+    try {
+      final result = await dataSource.getSymbol();
+
+      return Right(result);
+    } on Exception catch (e) {
+      return Left(UnexpectedFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> getTotalSupply() async {
+    try {
+      final result = await dataSource.getTotalSupply();
+
+      return Right(result);
     } on Exception catch (e) {
       return Left(UnexpectedFailure(message: e.toString()));
     }

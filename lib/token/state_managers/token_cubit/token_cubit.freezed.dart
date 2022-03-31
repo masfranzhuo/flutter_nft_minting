@@ -17,10 +17,11 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$TokenStateTearOff {
   const _$TokenStateTearOff();
 
-  _TokenState call({Failure? failure, bool isLoading = false}) {
+  _TokenState call({Failure? failure, bool isLoading = false, Token? token}) {
     return _TokenState(
       failure: failure,
       isLoading: isLoading,
+      token: token,
     );
   }
 }
@@ -32,6 +33,7 @@ const $TokenState = _$TokenStateTearOff();
 mixin _$TokenState {
   Failure? get failure => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
+  Token? get token => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TokenStateCopyWith<TokenState> get copyWith =>
@@ -43,7 +45,9 @@ abstract class $TokenStateCopyWith<$Res> {
   factory $TokenStateCopyWith(
           TokenState value, $Res Function(TokenState) then) =
       _$TokenStateCopyWithImpl<$Res>;
-  $Res call({Failure? failure, bool isLoading});
+  $Res call({Failure? failure, bool isLoading, Token? token});
+
+  $TokenCopyWith<$Res>? get token;
 }
 
 /// @nodoc
@@ -58,6 +62,7 @@ class _$TokenStateCopyWithImpl<$Res> implements $TokenStateCopyWith<$Res> {
   $Res call({
     Object? failure = freezed,
     Object? isLoading = freezed,
+    Object? token = freezed,
   }) {
     return _then(_value.copyWith(
       failure: failure == freezed
@@ -68,7 +73,22 @@ class _$TokenStateCopyWithImpl<$Res> implements $TokenStateCopyWith<$Res> {
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as Token?,
     ));
+  }
+
+  @override
+  $TokenCopyWith<$Res>? get token {
+    if (_value.token == null) {
+      return null;
+    }
+
+    return $TokenCopyWith<$Res>(_value.token!, (value) {
+      return _then(_value.copyWith(token: value));
+    });
   }
 }
 
@@ -78,7 +98,10 @@ abstract class _$TokenStateCopyWith<$Res> implements $TokenStateCopyWith<$Res> {
           _TokenState value, $Res Function(_TokenState) then) =
       __$TokenStateCopyWithImpl<$Res>;
   @override
-  $Res call({Failure? failure, bool isLoading});
+  $Res call({Failure? failure, bool isLoading, Token? token});
+
+  @override
+  $TokenCopyWith<$Res>? get token;
 }
 
 /// @nodoc
@@ -95,6 +118,7 @@ class __$TokenStateCopyWithImpl<$Res> extends _$TokenStateCopyWithImpl<$Res>
   $Res call({
     Object? failure = freezed,
     Object? isLoading = freezed,
+    Object? token = freezed,
   }) {
     return _then(_TokenState(
       failure: failure == freezed
@@ -105,6 +129,10 @@ class __$TokenStateCopyWithImpl<$Res> extends _$TokenStateCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      token: token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as Token?,
     ));
   }
 }
@@ -112,17 +140,19 @@ class __$TokenStateCopyWithImpl<$Res> extends _$TokenStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_TokenState extends _TokenState {
-  _$_TokenState({this.failure, this.isLoading = false}) : super._();
+  _$_TokenState({this.failure, this.isLoading = false, this.token}) : super._();
 
   @override
   final Failure? failure;
   @JsonKey()
   @override
   final bool isLoading;
+  @override
+  final Token? token;
 
   @override
   String toString() {
-    return 'TokenState(failure: $failure, isLoading: $isLoading)';
+    return 'TokenState(failure: $failure, isLoading: $isLoading, token: $token)';
   }
 
   @override
@@ -131,14 +161,16 @@ class _$_TokenState extends _TokenState {
         (other.runtimeType == runtimeType &&
             other is _TokenState &&
             const DeepCollectionEquality().equals(other.failure, failure) &&
-            const DeepCollectionEquality().equals(other.isLoading, isLoading));
+            const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
+            const DeepCollectionEquality().equals(other.token, token));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(failure),
-      const DeepCollectionEquality().hash(isLoading));
+      const DeepCollectionEquality().hash(isLoading),
+      const DeepCollectionEquality().hash(token));
 
   @JsonKey(ignore: true)
   @override
@@ -147,13 +179,16 @@ class _$_TokenState extends _TokenState {
 }
 
 abstract class _TokenState extends TokenState {
-  factory _TokenState({Failure? failure, bool isLoading}) = _$_TokenState;
+  factory _TokenState({Failure? failure, bool isLoading, Token? token}) =
+      _$_TokenState;
   _TokenState._() : super._();
 
   @override
   Failure? get failure;
   @override
   bool get isLoading;
+  @override
+  Token? get token;
   @override
   @JsonKey(ignore: true)
   _$TokenStateCopyWith<_TokenState> get copyWith =>
