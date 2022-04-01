@@ -5,13 +5,13 @@ import 'package:flutter_token/token/repositories/token_repository.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class Burn extends UseCase<Unit, NoParams> {
+class Burn extends UseCase<Unit, int> {
   final TokenRepository repository;
 
   Burn({required this.repository});
 
   @override
-  Future<Either<Failure, Unit>> call(NoParams params) async {
-    return repository.burn();
+  Future<Either<Failure, Unit>> call(int params) async {
+    return repository.burn(amount: params);
   }
 }

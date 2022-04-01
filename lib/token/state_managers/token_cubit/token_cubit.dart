@@ -34,10 +34,10 @@ class TokenCubit extends Cubit<TokenState> {
         _getTotalSupply = getTotalSupply,
         super(TokenState());
 
-  void mint() async {
+  void mint({required int amount}) async {
     emit(state.copyWith(isLoading: true));
 
-    final result = await _mint(NoParams());
+    final result = await _mint(amount);
     result.fold(
       (failure) => emit(state.copyWith(
         failure: failure,
@@ -47,10 +47,10 @@ class TokenCubit extends Cubit<TokenState> {
     );
   }
 
-  void burn() async {
+  void burn({required int amount}) async {
     emit(state.copyWith(isLoading: true));
 
-    final result = await _burn(NoParams());
+    final result = await _burn(amount);
     result.fold(
       (failure) => emit(state.copyWith(
         failure: failure,

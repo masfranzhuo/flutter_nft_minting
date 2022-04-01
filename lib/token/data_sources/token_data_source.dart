@@ -3,8 +3,8 @@ import 'package:flutter_token/core/platform/smart_contract_web3_client.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class TokenDataSource {
-  Future<void> mint();
-  Future<void> burn();
+  Future<void> mint({required int amount});
+  Future<void> burn({required int amount});
   Future<String> getName();
   Future<String> getSymbol();
   Future<int> getTotalSupply();
@@ -20,7 +20,7 @@ class TokenDataSourceImpl extends TokenDataSource {
   TokenDataSourceImpl({required this.client});
 
   @override
-  Future<void> mint() async {
+  Future<void> mint({required int amount}) async {
     try {
       final contract = await client.getContract(
         contractName: contractName,
@@ -29,6 +29,7 @@ class TokenDataSourceImpl extends TokenDataSource {
       await client.sendTransaction(
         contract: contract,
         functionName: 'mint',
+        params: [amount],
       );
     } on Exception catch (e) {
       throw UnexpectedFailure(message: e.toString());
@@ -36,7 +37,7 @@ class TokenDataSourceImpl extends TokenDataSource {
   }
 
   @override
-  Future<void> burn() async {
+  Future<void> burn({required int amount}) async {
     try {
       final contract = await client.getContract(
         contractName: contractName,
@@ -45,6 +46,7 @@ class TokenDataSourceImpl extends TokenDataSource {
       await client.sendTransaction(
         contract: contract,
         functionName: 'burn',
+        params: [amount],
       );
     } on Exception catch (e) {
       throw UnexpectedFailure(message: e.toString());

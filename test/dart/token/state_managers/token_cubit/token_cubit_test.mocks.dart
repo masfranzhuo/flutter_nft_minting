@@ -6,10 +6,10 @@ import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:flutter_token/core/error/failure.dart' as _i6;
-import 'package:flutter_token/core/use_case.dart' as _i7;
+import 'package:flutter_token/core/use_case.dart' as _i9;
 import 'package:flutter_token/token/repositories/token_repository.dart' as _i2;
-import 'package:flutter_token/token/use_cases/burn.dart' as _i8;
-import 'package:flutter_token/token/use_cases/get_name.dart' as _i9;
+import 'package:flutter_token/token/use_cases/burn.dart' as _i7;
+import 'package:flutter_token/token/use_cases/get_name.dart' as _i8;
 import 'package:flutter_token/token/use_cases/get_symbol.dart' as _i10;
 import 'package:flutter_token/token/use_cases/get_total_supply.dart' as _i11;
 import 'package:flutter_token/token/use_cases/mint.dart' as _i4;
@@ -42,7 +42,7 @@ class MockMint extends _i1.Mock implements _i4.Mint {
       (super.noSuchMethod(Invocation.getter(#repository),
           returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>> call(_i7.NoParams? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>> call(int? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
               returnValue: Future<_i3.Either<_i6.Failure, _i3.Unit>>.value(
                   _FakeEither_1<_i6.Failure, _i3.Unit>()))
@@ -52,7 +52,7 @@ class MockMint extends _i1.Mock implements _i4.Mint {
 /// A class which mocks [Burn].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockBurn extends _i1.Mock implements _i8.Burn {
+class MockBurn extends _i1.Mock implements _i7.Burn {
   MockBurn() {
     _i1.throwOnMissingStub(this);
   }
@@ -62,7 +62,7 @@ class MockBurn extends _i1.Mock implements _i8.Burn {
       (super.noSuchMethod(Invocation.getter(#repository),
           returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>> call(_i7.NoParams? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>> call(int? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
               returnValue: Future<_i3.Either<_i6.Failure, _i3.Unit>>.value(
                   _FakeEither_1<_i6.Failure, _i3.Unit>()))
@@ -72,7 +72,7 @@ class MockBurn extends _i1.Mock implements _i8.Burn {
 /// A class which mocks [GetName].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetName extends _i1.Mock implements _i9.GetName {
+class MockGetName extends _i1.Mock implements _i8.GetName {
   MockGetName() {
     _i1.throwOnMissingStub(this);
   }
@@ -82,7 +82,7 @@ class MockGetName extends _i1.Mock implements _i9.GetName {
       (super.noSuchMethod(Invocation.getter(#repository),
           returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, String>> call(_i7.NoParams? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, String>> call(_i9.NoParams? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
               returnValue: Future<_i3.Either<_i6.Failure, String>>.value(
                   _FakeEither_1<_i6.Failure, String>()))
@@ -102,7 +102,7 @@ class MockGetSymbol extends _i1.Mock implements _i10.GetSymbol {
       (super.noSuchMethod(Invocation.getter(#repository),
           returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, String>> call(_i7.NoParams? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, String>> call(_i9.NoParams? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
               returnValue: Future<_i3.Either<_i6.Failure, String>>.value(
                   _FakeEither_1<_i6.Failure, String>()))
@@ -122,7 +122,7 @@ class MockGetTotalSupply extends _i1.Mock implements _i11.GetTotalSupply {
       (super.noSuchMethod(Invocation.getter(#repository),
           returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, int>> call(_i7.NoParams? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, int>> call(_i9.NoParams? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
               returnValue: Future<_i3.Either<_i6.Failure, int>>.value(
                   _FakeEither_1<_i6.Failure, int>()))

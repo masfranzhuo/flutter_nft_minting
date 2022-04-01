@@ -29,13 +29,15 @@ void main() {
       when(mockClient.sendTransaction(
         contract: anyNamed('contract'),
         functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
       )).thenAnswer((_) async => true);
 
-      await dataSource.mint();
+      await dataSource.mint(amount: 1000);
 
       verify(mockClient.sendTransaction(
         contract: mockDeployedContract,
         functionName: 'mint',
+        params: anyNamed('params'),
       ));
     });
 
@@ -47,10 +49,11 @@ void main() {
       when(mockClient.sendTransaction(
         contract: anyNamed('contract'),
         functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
       )).thenThrow(Exception());
 
       expect(
-        () async => await dataSource.mint(),
+        () async => await dataSource.mint(amount: 1000),
         throwsA(isA<UnexpectedFailure>()),
       );
     });
@@ -65,13 +68,15 @@ void main() {
       when(mockClient.sendTransaction(
         contract: anyNamed('contract'),
         functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
       )).thenAnswer((_) async => true);
 
-      await dataSource.burn();
+      await dataSource.burn(amount: 1000);
 
       verify(mockClient.sendTransaction(
         contract: mockDeployedContract,
         functionName: 'burn',
+        params: anyNamed('params'),
       ));
     });
 
@@ -83,10 +88,11 @@ void main() {
       when(mockClient.sendTransaction(
         contract: anyNamed('contract'),
         functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
       )).thenThrow(Exception());
 
       expect(
-        () async => dataSource.burn(),
+        () async => dataSource.burn(amount: 1000),
         throwsA(isA<UnexpectedFailure>()),
       );
     });

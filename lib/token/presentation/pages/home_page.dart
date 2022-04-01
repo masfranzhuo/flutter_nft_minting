@@ -20,11 +20,50 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _builder(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: const Center(),
+    return BlocBuilder<TokenCubit, TokenState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(title),
+          ),
+          body: Center(
+            child: (state.isLoading)
+                ? const CircularProgressIndicator(key: Key('loading-key'))
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const Text('Token details:'),
+                      Text('${state.token?.name}'),
+                      Text('${state.token?.symbol}'),
+                      Text('${state.token?.totalSupply}'),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () =>
+                              _getIt<TokenCubit>().mint(amount: 1000),
+                          child: const Text('Mint'),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () =>
+                              _getIt<TokenCubit>().burn(amount: 1000),
+                          child: const Text('Burn'),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () => _getIt<TokenCubit>().get(),
+                          child: const Text('Refresh'),
+                        ),
+                      ),
+                    ],
+                  ),
+          ),
+        );
+      },
     );
   }
 }

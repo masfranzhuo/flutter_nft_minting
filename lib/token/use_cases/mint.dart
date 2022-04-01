@@ -5,13 +5,13 @@ import 'package:flutter_token/token/repositories/token_repository.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class Mint extends UseCase<Unit, NoParams> {
+class Mint extends UseCase<Unit, int> {
   final TokenRepository repository;
 
   Mint({required this.repository});
 
   @override
-  Future<Either<Failure, Unit>> call(NoParams params) async {
-    return repository.mint();
+  Future<Either<Failure, Unit>> call(int params) async {
+    return repository.mint(amount: params);
   }
 }

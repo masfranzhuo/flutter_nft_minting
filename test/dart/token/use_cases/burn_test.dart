@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_token/core/use_case.dart';
 import 'package:flutter_token/token/repositories/token_repository.dart';
 import 'package:flutter_token/token/use_cases/burn.dart';
 import 'package:mockito/annotations.dart';
@@ -19,12 +18,12 @@ void main() {
   });
 
   test('should call burn()', () async {
-    when(mockTokenRepository.burn()).thenAnswer(
+    when(mockTokenRepository.burn(amount: anyNamed('amount'))).thenAnswer(
       (_) async => const Right(unit),
     );
 
-    await burn(NoParams());
+    await burn(1000);
 
-    verify(mockTokenRepository.burn());
+    verify(mockTokenRepository.burn(amount: anyNamed('amount')));
   });
 }

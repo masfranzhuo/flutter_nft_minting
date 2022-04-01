@@ -48,7 +48,7 @@ void main() {
 
         return cubit;
       },
-      act: (_) async => cubit.mint(),
+      act: (_) async => cubit.mint(amount: 1000),
       expect: () => [
         TokenState(isLoading: true),
         TokenState(isLoading: false),
@@ -66,7 +66,7 @@ void main() {
 
         return cubit;
       },
-      act: (_) async => cubit.mint(),
+      act: (_) async => cubit.mint(amount: 1000),
       expect: () => [
         TokenState(isLoading: true),
         TokenState(isLoading: false, failure: const UnexpectedFailure()),
@@ -87,7 +87,7 @@ void main() {
 
         return cubit;
       },
-      act: (_) async => cubit.burn(),
+      act: (_) async => cubit.burn(amount: 1000),
       expect: () => [
         TokenState(isLoading: true),
         TokenState(isLoading: false),
@@ -105,7 +105,7 @@ void main() {
 
         return cubit;
       },
-      act: (_) async => cubit.burn(),
+      act: (_) async => cubit.burn(amount: 1000),
       expect: () => [
         TokenState(isLoading: true),
         TokenState(isLoading: false, failure: const UnexpectedFailure()),
