@@ -39,16 +39,18 @@ class HomePage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: () =>
-                              _getIt<TokenCubit>().mint(amount: 1000),
+                          onPressed: () => _getIt<TokenCubit>().mint(
+                            amount: 1000,
+                          ),
                           child: const Text('Mint'),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: () =>
-                              _getIt<TokenCubit>().burn(amount: 1000),
+                          onPressed: () => _getIt<TokenCubit>().burn(
+                            amount: 1000,
+                          ),
                           child: const Text('Burn'),
                         ),
                       ),

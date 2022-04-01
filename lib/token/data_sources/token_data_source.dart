@@ -29,7 +29,7 @@ class TokenDataSourceImpl extends TokenDataSource {
       await client.sendTransaction(
         contract: contract,
         functionName: 'mint',
-        params: [amount],
+        params: [BigInt.from(amount)],
       );
     } on Exception catch (e) {
       throw UnexpectedFailure(message: e.toString());
@@ -46,7 +46,7 @@ class TokenDataSourceImpl extends TokenDataSource {
       await client.sendTransaction(
         contract: contract,
         functionName: 'burn',
-        params: [amount],
+        params: [BigInt.from(amount)],
       );
     } on Exception catch (e) {
       throw UnexpectedFailure(message: e.toString());
