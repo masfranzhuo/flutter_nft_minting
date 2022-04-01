@@ -173,7 +173,7 @@ void main() {
   });
 
   group('getTotalSupply', () {
-    test('should return total supply = 1000', () async {
+    test('should return total supply = 1', () async {
       when(mockClient.getContract(
         contractName: anyNamed('contractName'),
         contractFileLocation: anyNamed('contractFileLocation'),
@@ -181,7 +181,7 @@ void main() {
       when(mockClient.callContract(
         contract: anyNamed('contract'),
         functionName: anyNamed('functionName'),
-      )).thenAnswer((_) async => 1000);
+      )).thenAnswer((_) async => 1000000000000000000);
 
       final result = await dataSource.getTotalSupply();
 
@@ -189,7 +189,7 @@ void main() {
         contract: mockDeployedContract,
         functionName: 'totalSupply',
       ));
-      expect(result, 1000);
+      expect(result, 1);
     });
 
     test('should throw UnexpectedFailure()', () async {

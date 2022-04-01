@@ -1,6 +1,7 @@
 import 'package:flutter_token/core/error/failure.dart';
 import 'package:flutter_token/core/platform/smart_contract_web3_client.dart';
 import 'package:injectable/injectable.dart';
+import 'package:web3dart/web3dart.dart';
 
 abstract class TokenDataSource {
   Future<void> mint({required int amount});
@@ -101,7 +102,11 @@ class TokenDataSourceImpl extends TokenDataSource {
         functionName: 'totalSupply',
       );
 
-      return result.toInt();
+      return EtherAmount.fromUnitAndValue(
+          EtherUnit.wei,
+          BigInt.parse(
+            result.toString(),
+          )).getInEther.toInt();
     } on Exception catch (e) {
       throw UnexpectedFailure(message: e.toString());
     }
