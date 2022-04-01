@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
           ),
           body: Center(
             child: (state.isLoading)
-                ? const CircularProgressIndicator(key: Key('loading-key'))
+                ? const CircularProgressIndicator()
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
                           onPressed: () => _getIt<TokenCubit>().get(),
-                          child: const Text('Refresh'),
+                          child: const Text('Stake'),
                         ),
                       ),
                     ],
