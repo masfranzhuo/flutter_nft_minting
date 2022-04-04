@@ -33,7 +33,7 @@ void main() {
   });
 
   testWidgets(
-      'should find text = "Token details:", 3 other text widgets with token value and 3 elevated button',
+      'should find text = "Token details:", 3 other text widgets with token value and 4 elevated button',
       (WidgetTester tester) async {
     when(() => mockTokenCubit.state).thenReturn(TokenState(token: token));
 
@@ -45,7 +45,7 @@ void main() {
     expect(find.text(token.symbol), findsOneWidget);
     expect(find.text(token.totalSupply.toString()), findsOneWidget);
 
-    expect(find.byType(ElevatedButton), findsNWidgets(3));
+    expect(find.byType(ElevatedButton), findsNWidgets(4));
   });
 
   testWidgets(
@@ -81,7 +81,7 @@ void main() {
     await tester.tap(button);
     await tester.pump();
 
-    verify(() => mockTokenCubit.mint(amount: 1000));
+    verify(() => mockTokenCubit.mint(amount: any(named: 'amount')));
   });
 
   testWidgets('should tap burn button and call burn()',
@@ -106,7 +106,37 @@ void main() {
     await tester.tap(button);
     await tester.pump();
 
-    verify(() => mockTokenCubit.burn(amount: 1000));
+    verify(() => mockTokenCubit.burn(amount: any(named: 'amount')));
+  });
+
+  testWidgets('should tap transfer button and call transfer()',
+      (WidgetTester tester) async {
+    when(() => mockTokenCubit.state).thenReturn(TokenState());
+    whenListen(
+      mockTokenCubit,
+      Stream.fromIterable([
+        TokenState(),
+        TokenState(token: token),
+      ]),
+    );
+
+    await tester.pumpWidget(const MyApp());
+
+    final button = find.byWidgetPredicate(
+      (w) =>
+          w is ElevatedButton &&
+          w.child is Text &&
+          (w.child as Text).data == 'Transfer',
+    );
+    await tester.tap(button);
+    await tester.pump();
+
+    verify(
+      () => mockTokenCubit.transfer(
+        amount: any(named: 'amount'),
+        addressHexString: any(named: 'addressHexString'),
+      ),
+    );
   });
 
   testWidgets('should tap stake button', (WidgetTester tester) async {
