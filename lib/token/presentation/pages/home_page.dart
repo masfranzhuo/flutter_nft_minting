@@ -57,6 +57,17 @@ class HomePage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
+                          onPressed: () => _getIt<TokenCubit>().transfer(
+                            amount: 1000000000000000000,
+                            addressHexString:
+                                '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+                          ),
+                          child: const Text('Transfer'),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
                           onPressed: () => _getIt<TokenCubit>().get(),
                           child: const Text('Stake'),
                         ),

@@ -8,6 +8,7 @@ import 'package:flutter_token/token/use_cases/get_symbol.dart';
 import 'package:flutter_token/token/use_cases/get_total_supply.dart';
 import 'package:flutter_token/token/use_cases/mint.dart';
 import 'package:flutter_token/token/use_cases/burn.dart';
+import 'package:flutter_token/token/use_cases/transfer.dart' as trf;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -17,6 +18,7 @@ part 'token_cubit.freezed.dart';
 class TokenCubit extends Cubit<TokenState> {
   final Mint _mint;
   final Burn _burn;
+  final trf.Transfer _transfer;
   final GetName _getName;
   final GetSymbol _getSymbol;
   final GetTotalSupply _getTotalSupply;
@@ -24,11 +26,13 @@ class TokenCubit extends Cubit<TokenState> {
   TokenCubit({
     required Mint mint,
     required Burn burn,
+    required trf.Transfer transfer,
     required GetName getName,
     required GetSymbol getSymbol,
     required GetTotalSupply getTotalSupply,
   })  : _mint = mint,
         _burn = burn,
+        _transfer = transfer,
         _getName = getName,
         _getSymbol = getSymbol,
         _getTotalSupply = getTotalSupply,
@@ -51,6 +55,23 @@ class TokenCubit extends Cubit<TokenState> {
     emit(state.copyWith(isLoading: true));
 
     final result = await _burn(amount);
+    result.fold(
+      (failure) => emit(state.copyWith(
+        failure: failure,
+        isLoading: false,
+      )),
+      (_) => emit(state.copyWith(isLoading: false)),
+    );
+  }
+
+  void transfer({required String addressHexString, required int amount}) async {
+    emit(state.copyWith(isLoading: true));
+
+    final result = await _transfer(trf.Params(
+      addressHexString: addressHexString,
+      amount: amount,
+    ));
+    
     result.fold(
       (failure) => emit(state.copyWith(
         failure: failure,

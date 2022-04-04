@@ -42,6 +42,15 @@ class MockTokenRepository extends _i1.Mock implements _i3.TokenRepository {
                   _FakeEither_0<_i5.Failure, _i2.Unit>()))
           as _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>>);
   @override
+  _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>> transfer(
+          {String? addressHexString, int? amount}) =>
+      (super.noSuchMethod(
+              Invocation.method(#transfer, [],
+                  {#addressHexString: addressHexString, #amount: amount}),
+              returnValue: Future<_i2.Either<_i5.Failure, _i2.Unit>>.value(
+                  _FakeEither_0<_i5.Failure, _i2.Unit>()))
+          as _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>>);
+  @override
   _i4.Future<_i2.Either<_i5.Failure, String>> getName() =>
       (super.noSuchMethod(Invocation.method(#getName, []),
               returnValue: Future<_i2.Either<_i5.Failure, String>>.value(

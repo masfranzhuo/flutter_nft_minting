@@ -98,6 +98,51 @@ void main() {
     });
   });
 
+  group('transfer', () {
+    test('should call transfer()', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.sendTransaction(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
+      )).thenAnswer((_) async => true);
+
+      await dataSource.transfer(
+        amount: 1000,
+        addressHexString: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+      );
+
+      verify(mockClient.sendTransaction(
+        contract: mockDeployedContract,
+        functionName: 'transfer',
+        params: anyNamed('params'),
+      ));
+    });
+
+    test('should throw UnexpectedFailure()', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.sendTransaction(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
+      )).thenThrow(Exception());
+
+      expect(
+        () async => dataSource.transfer(
+          amount: 1000,
+          addressHexString: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+        ),
+        throwsA(isA<UnexpectedFailure>()),
+      );
+    });
+  });
+
   group('getName', () {
     test('should return name = "Token Name"', () async {
       when(mockClient.getContract(

@@ -6,6 +6,10 @@ import 'package:web3dart/web3dart.dart';
 abstract class TokenDataSource {
   Future<void> mint({required int amount});
   Future<void> burn({required int amount});
+  Future<void> transfer({
+    required String addressHexString,
+    required int amount,
+  });
   Future<String> getName();
   Future<String> getSymbol();
   Future<int> getTotalSupply();
@@ -48,6 +52,29 @@ class TokenDataSourceImpl extends TokenDataSource {
         contract: contract,
         functionName: 'burn',
         params: [BigInt.from(amount)],
+      );
+    } on Exception catch (e) {
+      throw UnexpectedFailure(message: e.toString());
+    }
+  }
+
+  @override
+  Future<void> transfer({
+    required String addressHexString,
+    required int amount,
+  }) async {
+    try {
+      final contract = await client.getContract(
+        contractName: contractName,
+        contractFileLocation: contractFileLocation,
+      );
+      await client.sendTransaction(
+        contract: contract,
+        functionName: 'transfer',
+        params: [
+          EthereumAddress.fromHex(addressHexString),
+          BigInt.from(amount),
+        ],
       );
     } on Exception catch (e) {
       throw UnexpectedFailure(message: e.toString());

@@ -9,16 +9,18 @@ import 'package:flutter_token/token/use_cases/get_name.dart';
 import 'package:flutter_token/token/use_cases/get_symbol.dart';
 import 'package:flutter_token/token/use_cases/get_total_supply.dart';
 import 'package:flutter_token/token/use_cases/mint.dart';
+import 'package:flutter_token/token/use_cases/transfer.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'token_cubit_test.mocks.dart';
 
-@GenerateMocks([Mint, Burn, GetName, GetSymbol, GetTotalSupply])
+@GenerateMocks([Mint, Burn, Transfer, GetName, GetSymbol, GetTotalSupply])
 void main() {
   late TokenCubit cubit;
   late MockMint mockMint;
   late MockBurn mockBurn;
+  late MockTransfer mockTransfer;
   late MockGetName mockGetName;
   late MockGetSymbol mockGetSymbol;
   late MockGetTotalSupply mockGetTotalSupply;
@@ -26,12 +28,14 @@ void main() {
   setUp(() {
     mockMint = MockMint();
     mockBurn = MockBurn();
+    mockTransfer = MockTransfer();
     mockGetName = MockGetName();
     mockGetSymbol = MockGetSymbol();
     mockGetTotalSupply = MockGetTotalSupply();
     cubit = TokenCubit(
       mint: mockMint,
       burn: mockBurn,
+      transfer: mockTransfer,
       getName: mockGetName,
       getSymbol: mockGetSymbol,
       getTotalSupply: mockGetTotalSupply,
@@ -112,6 +116,51 @@ void main() {
       ],
       verify: (_) async {
         verify(mockBurn(any));
+      },
+    );
+  });
+
+  group('transfer', () {
+    blocTest(
+      'should emit isLoading true, then false',
+      build: () {
+        when(mockTransfer(any)).thenAnswer(
+          (_) async => const Right(unit),
+        );
+
+        return cubit;
+      },
+      act: (_) async => cubit.transfer(
+        addressHexString: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+        amount: 1000,
+      ),
+      expect: () => [
+        TokenState(isLoading: true),
+        TokenState(isLoading: false),
+      ],
+      verify: (_) async {
+        verify(mockTransfer(any));
+      },
+    );
+    blocTest(
+      'should emit failure',
+      build: () {
+        when(mockTransfer(any)).thenAnswer(
+          (_) async => const Left(UnexpectedFailure()),
+        );
+
+        return cubit;
+      },
+      act: (_) async => cubit.transfer(
+        addressHexString: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+        amount: 1000,
+      ),
+      expect: () => [
+        TokenState(isLoading: true),
+        TokenState(isLoading: false, failure: const UnexpectedFailure()),
+      ],
+      verify: (_) async {
+        verify(mockTransfer(any));
       },
     );
   });

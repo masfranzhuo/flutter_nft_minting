@@ -6,6 +6,10 @@ import 'package:injectable/injectable.dart';
 abstract class TokenRepository {
   Future<Either<Failure, Unit>> mint({required int amount});
   Future<Either<Failure, Unit>> burn({required int amount});
+  Future<Either<Failure, Unit>> transfer({
+    required String addressHexString,
+    required int amount,
+  });
   Future<Either<Failure, String>> getName();
   Future<Either<Failure, String>> getSymbol();
   Future<Either<Failure, int>> getTotalSupply();
@@ -32,6 +36,23 @@ class TokenRepositoryImpl extends TokenRepository {
   Future<Either<Failure, Unit>> mint({required int amount}) async {
     try {
       await dataSource.mint(amount: amount);
+
+      return const Right(unit);
+    } on Exception catch (e) {
+      return Left(UnexpectedFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> transfer({
+    required String addressHexString,
+    required int amount,
+  }) async {
+    try {
+      await dataSource.transfer(
+        amount: amount,
+        addressHexString: addressHexString,
+      );
 
       return const Right(unit);
     } on Exception catch (e) {

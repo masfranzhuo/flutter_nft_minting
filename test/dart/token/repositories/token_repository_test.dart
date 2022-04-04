@@ -23,7 +23,7 @@ void main() {
   group('mint', () {
     test('should call mint()', () async {
       when(mockTokenDataSource.mint(amount: anyNamed('amount')))
-          .thenAnswer((_) async => 1);
+          .thenAnswer((_) async => unit);
 
       await repository.mint(amount: 1000);
 
@@ -44,7 +44,7 @@ void main() {
   group('burn', () {
     test('should call burn()', () async {
       when(mockTokenDataSource.burn(amount: anyNamed('amount'))).thenAnswer(
-        (_) async => 1,
+        (_) async => unit,
       );
 
       await repository.burn(amount: 1000);
@@ -59,6 +59,45 @@ void main() {
       final result = await repository.burn(amount: 1000);
 
       verify(mockTokenDataSource.burn(amount: anyNamed('amount')));
+      expect((result as Left).value, isA<UnexpectedFailure>());
+    });
+  });
+
+  group('transfer', () {
+    test('should call transfer()', () async {
+      when(mockTokenDataSource.transfer(
+        amount: anyNamed('amount'),
+        addressHexString: anyNamed('addressHexString'),
+      )).thenAnswer(
+        (_) async => unit,
+      );
+
+      await repository.transfer(
+        amount: 1000,
+        addressHexString: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+      );
+
+      verify(mockTokenDataSource.transfer(
+        amount: anyNamed('amount'),
+        addressHexString: anyNamed('addressHexString'),
+      ));
+    });
+
+    test('should return UnexpectedFailure()', () async {
+      when(mockTokenDataSource.transfer(
+        amount: anyNamed('amount'),
+        addressHexString: anyNamed('addressHexString'),
+      )).thenThrow(Exception());
+
+      final result = await repository.transfer(
+        amount: 1000,
+        addressHexString: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+      );
+
+      verify(mockTokenDataSource.transfer(
+        amount: anyNamed('amount'),
+        addressHexString: anyNamed('addressHexString'),
+      ));
       expect((result as Left).value, isA<UnexpectedFailure>());
     });
   });
