@@ -32,7 +32,7 @@ contract Token {
     }
 
     function mint(uint256 _amount) public returns (bool success) {
-        require(msg.sender == owner, "Operation unauthorised");
+        require(msg.sender == owner, 'Operation unauthorised');
 
         totalSupply += (_amount * _wei);
         balanceOf[msg.sender] += (_amount * _wei);
@@ -42,8 +42,8 @@ contract Token {
     }
 
     function burn(uint256 _amount) public returns (bool success) {
-        require(msg.sender != address(0), "Invalid burn recipient");
-        require(totalSupply > _amount, "Burn amount exceeds balance");
+        require(msg.sender != address(0), 'Invalid burn recipient');
+        require(totalSupply > _amount * _wei, 'Burn amount exceeds balance');
 
         totalSupply -= (_amount * _wei);
         balanceOf[msg.sender] -= (_amount * _wei);
@@ -56,9 +56,9 @@ contract Token {
         public
         returns (bool success)
     {
-        require(_to != address(0), "Receiver address invalid");
-        require(_value >= 0, "Value must be greater or equal to 0");
-        require(balanceOf[msg.sender] > _value, "Not enough balance");
+        require(_to != address(0), 'Receiver address invalid');
+        require(_value >= 0, 'Value must be greater or equal to 0');
+        require(balanceOf[msg.sender] > _value, 'Not enough balance');
 
         balanceOf[msg.sender] -= (_value);
         balanceOf[_to] += (_value);
