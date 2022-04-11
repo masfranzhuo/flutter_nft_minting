@@ -52,7 +52,10 @@ void main() {
 
         return cubit;
       },
-      act: (_) async => cubit.mint(amount: 1000),
+      act: (_) async => cubit.mint(
+        amount: 1000,
+        address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+      ),
       expect: () => [
         TokenState(isLoading: true),
         TokenState(isLoading: false),
@@ -70,7 +73,10 @@ void main() {
 
         return cubit;
       },
-      act: (_) async => cubit.mint(amount: 1000),
+      act: (_) async => cubit.mint(
+        amount: 1000,
+        address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+      ),
       expect: () => [
         TokenState(isLoading: true),
         TokenState(isLoading: false, failure: const UnexpectedFailure()),
@@ -91,7 +97,10 @@ void main() {
 
         return cubit;
       },
-      act: (_) async => cubit.burn(amount: 1000),
+      act: (_) async => cubit.burn(
+        amount: 1000,
+        address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+      ),
       expect: () => [
         TokenState(isLoading: true),
         TokenState(isLoading: false),
@@ -109,7 +118,10 @@ void main() {
 
         return cubit;
       },
-      act: (_) async => cubit.burn(amount: 1000),
+      act: (_) async => cubit.burn(
+        amount: 1000,
+        address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+      ),
       expect: () => [
         TokenState(isLoading: true),
         TokenState(isLoading: false, failure: const UnexpectedFailure()),

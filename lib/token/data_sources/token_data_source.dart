@@ -1,11 +1,12 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_token/core/error/failure.dart';
 import 'package:flutter_token/core/platform/smart_contract_web3_client.dart';
 import 'package:injectable/injectable.dart';
 import 'package:web3dart/web3dart.dart';
 
 abstract class TokenDataSource {
-  Future<void> mint({required int amount});
-  Future<void> burn({required int amount});
+  Future<void> mint({required int amount, String? address});
+  Future<void> burn({required int amount, String? address});
   Future<void> transfer({
     required String addressHexString,
     required int amount,
@@ -25,7 +26,7 @@ class TokenDataSourceImpl extends TokenDataSource {
   TokenDataSourceImpl({required this.client});
 
   @override
-  Future<void> mint({required int amount}) async {
+  Future<void> mint({required int amount, String? address}) async {
     try {
       final contract = await client.getContract(
         contractName: contractName,
@@ -34,7 +35,11 @@ class TokenDataSourceImpl extends TokenDataSource {
       await client.sendTransaction(
         contract: contract,
         functionName: 'mint',
-        params: [BigInt.from(amount)],
+        params: [
+          address ??
+              EthPrivateKey.fromHex(dotenv.env['WALLET_PRIVATE_KEY']!).address,
+          BigInt.from(amount),
+        ],
       );
     } on Exception catch (e) {
       throw UnexpectedFailure(message: e.toString());
@@ -42,7 +47,7 @@ class TokenDataSourceImpl extends TokenDataSource {
   }
 
   @override
-  Future<void> burn({required int amount}) async {
+  Future<void> burn({required int amount, String? address}) async {
     try {
       final contract = await client.getContract(
         contractName: contractName,
@@ -51,7 +56,11 @@ class TokenDataSourceImpl extends TokenDataSource {
       await client.sendTransaction(
         contract: contract,
         functionName: 'burn',
-        params: [BigInt.from(amount)],
+        params: [
+          address ??
+              EthPrivateKey.fromHex(dotenv.env['WALLET_PRIVATE_KEY']!).address,
+          BigInt.from(amount),
+        ],
       );
     } on Exception catch (e) {
       throw UnexpectedFailure(message: e.toString());

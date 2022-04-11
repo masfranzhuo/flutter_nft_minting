@@ -3,33 +3,57 @@ const Token = artifacts.require('Token');
 // 1 Ether = 1000000000000000000 Wei
 contract('Token', (accounts) => {
   describe('mint', () => {
+    it('should return error message "Invalid burn recipient" when executed by zero address', async () => {
+      try {
+        const token = await Token.deployed();
+        await token.mint('0x0000000000000000000000000000000000000000', 1000);
+      } catch (error) {
+        assert.equal(error.reason, 'Invalid burn recipient');
+      }
+    });
     it('should return error message "Operation unauthorised" when executed by not the owner of contract', async () => {
       try {
         const token = await Token.deployed();
-        await token.mint(1000, { from: accounts[1] });
+        await token.mint(accounts[1], 1000);
       } catch (error) {
         assert.equal(error.reason, 'Operation unauthorised');
       }
     });
     it('should return token total supply = 2000000000000000000000 wei', async () => {
       const token = await Token.deployed();
-      await token.mint(1000, { from: accounts[0] });
+      await token.mint(accounts[0], 1000);
       const result = await token.totalSupply();
       assert(result.toString() == '2000000000000000000000');
     });
   });
   describe('burn', () => {
+    it('should return error message "Invalid burn recipient" when executed by zero address', async () => {
+      try {
+        const token = await Token.deployed();
+        await token.burn('0x0000000000000000000000000000000000000000', 1000);
+      } catch (error) {
+        assert.equal(error.reason, 'Invalid burn recipient');
+      }
+    });
+    it('should return error message "Operation unauthorised" when executed by not the owner of contract', async () => {
+      try {
+        const token = await Token.deployed();
+        await token.burn(accounts[1], 1000);
+      } catch (error) {
+        assert.equal(error.reason, 'Operation unauthorised');
+      }
+    });
     it('should return error message "Burn amount exceeds balance" when burn amount larger than wallet amount', async () => {
       try {
         const token = await Token.deployed();
-        await token.burn(3000);
+        await token.burn(accounts[0], 3000);
       } catch (error) {
         assert.equal(error.reason, 'Burn amount exceeds balance');
       }
     });
     it('should return token total supply = 1000000000000000000000 wei', async () => {
       const token = await Token.deployed();
-      await token.burn(1000);
+      await token.burn(accounts[0], 1000);
       const result = await token.totalSupply();
       assert(result.toString() == '1000000000000000000000');
     });

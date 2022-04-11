@@ -6,8 +6,8 @@ import 'package:flutter_token/token/entities/token.dart';
 import 'package:flutter_token/token/use_cases/get_name.dart';
 import 'package:flutter_token/token/use_cases/get_symbol.dart';
 import 'package:flutter_token/token/use_cases/get_total_supply.dart';
-import 'package:flutter_token/token/use_cases/mint.dart';
-import 'package:flutter_token/token/use_cases/burn.dart';
+import 'package:flutter_token/token/use_cases/mint.dart' as mnt;
+import 'package:flutter_token/token/use_cases/burn.dart' as brn;
 import 'package:flutter_token/token/use_cases/transfer.dart' as trf;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -16,16 +16,16 @@ part 'token_cubit.freezed.dart';
 
 @singleton
 class TokenCubit extends Cubit<TokenState> {
-  final Mint _mint;
-  final Burn _burn;
+  final mnt.Mint _mint;
+  final brn.Burn _burn;
   final trf.Transfer _transfer;
   final GetName _getName;
   final GetSymbol _getSymbol;
   final GetTotalSupply _getTotalSupply;
 
   TokenCubit({
-    required Mint mint,
-    required Burn burn,
+    required mnt.Mint mint,
+    required brn.Burn burn,
     required trf.Transfer transfer,
     required GetName getName,
     required GetSymbol getSymbol,
@@ -38,10 +38,13 @@ class TokenCubit extends Cubit<TokenState> {
         _getTotalSupply = getTotalSupply,
         super(TokenState());
 
-  void mint({required int amount}) async {
+  void mint({required int amount, String? address}) async {
     emit(state.copyWith(isLoading: true));
 
-    final result = await _mint(amount);
+    final result = await _mint(mnt.Params(
+      amount: amount,
+      address: address,
+    ));
     result.fold(
       (failure) => emit(state.copyWith(
         failure: failure,
@@ -51,10 +54,13 @@ class TokenCubit extends Cubit<TokenState> {
     );
   }
 
-  void burn({required int amount}) async {
+  void burn({required int amount, String? address}) async {
     emit(state.copyWith(isLoading: true));
 
-    final result = await _burn(amount);
+    final result = await _burn(brn.Params(
+      amount: amount,
+      address: address,
+    ));
     result.fold(
       (failure) => emit(state.copyWith(
         failure: failure,
@@ -71,7 +77,7 @@ class TokenCubit extends Cubit<TokenState> {
       addressHexString: addressHexString,
       amount: amount,
     ));
-    
+
     result.fold(
       (failure) => emit(state.copyWith(
         failure: failure,

@@ -4,8 +4,8 @@ import 'package:flutter_token/token/data_sources/token_data_source.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class TokenRepository {
-  Future<Either<Failure, Unit>> mint({required int amount});
-  Future<Either<Failure, Unit>> burn({required int amount});
+  Future<Either<Failure, Unit>> mint({required int amount, String? address});
+  Future<Either<Failure, Unit>> burn({required int amount, String? address});
   Future<Either<Failure, Unit>> transfer({
     required String addressHexString,
     required int amount,
@@ -22,9 +22,12 @@ class TokenRepositoryImpl extends TokenRepository {
   TokenRepositoryImpl({required this.dataSource});
 
   @override
-  Future<Either<Failure, Unit>> burn({required int amount}) async {
+  Future<Either<Failure, Unit>> burn({
+    required int amount,
+    String? address,
+  }) async {
     try {
-      await dataSource.burn(amount: amount);
+      await dataSource.burn(amount: amount, address: address);
 
       return const Right(unit);
     } on Exception catch (e) {
@@ -33,9 +36,12 @@ class TokenRepositoryImpl extends TokenRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> mint({required int amount}) async {
+  Future<Either<Failure, Unit>> mint({
+    required int amount,
+    String? address,
+  }) async {
     try {
-      await dataSource.mint(amount: amount);
+      await dataSource.mint(amount: amount, address: address);
 
       return const Right(unit);
     } on Exception catch (e) {

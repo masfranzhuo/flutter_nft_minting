@@ -18,12 +18,21 @@ void main() {
   });
 
   test('should call mint()', () async {
-    when(mockTokenRepository.mint(amount: anyNamed('amount'))).thenAnswer(
+    when(mockTokenRepository.mint(
+      amount: anyNamed('amount'),
+      address: anyNamed('address'),
+    )).thenAnswer(
       (_) async => const Right(unit),
     );
 
-    await mint(1000);
+    await mint(const Params(
+      amount: 1000,
+      address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+    ));
 
-    verify(mockTokenRepository.mint(amount: anyNamed('amount')));
+    verify(mockTokenRepository.mint(
+      amount: anyNamed('amount'),
+      address: anyNamed('address'),
+    ));
   });
 }

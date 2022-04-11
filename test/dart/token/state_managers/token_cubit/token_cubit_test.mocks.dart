@@ -43,7 +43,7 @@ class MockMint extends _i1.Mock implements _i4.Mint {
       (super.noSuchMethod(Invocation.getter(#repository),
           returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>> call(int? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>> call(_i4.Params? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
               returnValue: Future<_i3.Either<_i6.Failure, _i3.Unit>>.value(
                   _FakeEither_1<_i6.Failure, _i3.Unit>()))
@@ -63,7 +63,7 @@ class MockBurn extends _i1.Mock implements _i7.Burn {
       (super.noSuchMethod(Invocation.getter(#repository),
           returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>> call(int? params) =>
+  _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>> call(_i7.Params? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
               returnValue: Future<_i3.Either<_i6.Failure, _i3.Unit>>.value(
                   _FakeEither_1<_i6.Failure, _i3.Unit>()))

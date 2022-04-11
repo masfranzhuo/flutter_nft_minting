@@ -22,43 +22,74 @@ void main() {
 
   group('mint', () {
     test('should call mint()', () async {
-      when(mockTokenDataSource.mint(amount: anyNamed('amount')))
-          .thenAnswer((_) async => unit);
+      when(mockTokenDataSource.mint(
+        amount: anyNamed('amount'),
+        address: anyNamed('address'),
+      )).thenAnswer((_) async => unit);
 
-      await repository.mint(amount: 1000);
+      await repository.mint(
+        amount: 1000,
+        address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+      );
 
-      verify(mockTokenDataSource.mint(amount: anyNamed('amount')));
+      verify(mockTokenDataSource.mint(
+        amount: anyNamed('amount'),
+        address: anyNamed('address'),
+      ));
     });
 
     test('should return UnexpectedFailure()', () async {
-      when(mockTokenDataSource.mint(amount: anyNamed('amount')))
-          .thenThrow(Exception());
+      when(mockTokenDataSource.mint(
+        amount: anyNamed('amount'),
+        address: anyNamed('address'),
+      )).thenThrow(Exception());
 
-      final result = await repository.mint(amount: 1000);
+      final result = await repository.mint(
+        amount: 1000,
+        address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+      );
 
-      verify(mockTokenDataSource.mint(amount: anyNamed('amount')));
+      verify(mockTokenDataSource.mint(
+        amount: anyNamed('amount'),
+        address: anyNamed('address'),
+      ));
       expect((result as Left).value, isA<UnexpectedFailure>());
     });
   });
 
   group('burn', () {
     test('should call burn()', () async {
-      when(mockTokenDataSource.burn(amount: anyNamed('amount'))).thenAnswer(
-        (_) async => unit,
+      when(mockTokenDataSource.burn(
+        amount: anyNamed('amount'),
+        address: anyNamed('address'),
+      )).thenAnswer((_) async => unit);
+
+      await repository.burn(
+        amount: 1000,
+        address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
       );
 
-      await repository.burn(amount: 1000);
-
-      verify(mockTokenDataSource.burn(amount: anyNamed('amount')));
+      verify(mockTokenDataSource.burn(
+        amount: anyNamed('amount'),
+        address: anyNamed('address'),
+      ));
     });
 
     test('should return UnexpectedFailure()', () async {
-      when(mockTokenDataSource.burn(amount: anyNamed('amount')))
-          .thenThrow(Exception());
+      when(mockTokenDataSource.burn(
+        amount: anyNamed('amount'),
+        address: anyNamed('address'),
+      )).thenThrow(Exception());
 
-      final result = await repository.burn(amount: 1000);
+      final result = await repository.burn(
+        amount: 1000,
+        address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+      );
 
-      verify(mockTokenDataSource.burn(amount: anyNamed('amount')));
+      verify(mockTokenDataSource.burn(
+        amount: anyNamed('amount'),
+        address: anyNamed('address'),
+      ));
       expect((result as Left).value, isA<UnexpectedFailure>());
     });
   });

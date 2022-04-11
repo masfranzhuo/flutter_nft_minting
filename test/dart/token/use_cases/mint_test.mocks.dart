@@ -30,17 +30,21 @@ class MockTokenRepository extends _i1.Mock implements _i3.TokenRepository {
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>> mint({int? amount}) =>
-      (super.noSuchMethod(Invocation.method(#mint, [], {#amount: amount}),
-              returnValue: Future<_i2.Either<_i5.Failure, _i2.Unit>>.value(
-                  _FakeEither_0<_i5.Failure, _i2.Unit>()))
-          as _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>>);
+  _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>> mint(
+          {int? amount, String? address}) =>
+      (super.noSuchMethod(
+          Invocation.method(#mint, [], {#amount: amount, #address: address}),
+          returnValue: Future<_i2.Either<_i5.Failure, _i2.Unit>>.value(
+              _FakeEither_0<_i5.Failure, _i2.Unit>())) as _i4
+          .Future<_i2.Either<_i5.Failure, _i2.Unit>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>> burn({int? amount}) =>
-      (super.noSuchMethod(Invocation.method(#burn, [], {#amount: amount}),
-              returnValue: Future<_i2.Either<_i5.Failure, _i2.Unit>>.value(
-                  _FakeEither_0<_i5.Failure, _i2.Unit>()))
-          as _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>>);
+  _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>> burn(
+          {int? amount, String? address}) =>
+      (super.noSuchMethod(
+          Invocation.method(#burn, [], {#amount: amount, #address: address}),
+          returnValue: Future<_i2.Either<_i5.Failure, _i2.Unit>>.value(
+              _FakeEither_0<_i5.Failure, _i2.Unit>())) as _i4
+          .Future<_i2.Either<_i5.Failure, _i2.Unit>>);
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>> transfer(
           {String? addressHexString, int? amount}) =>

@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_token/core/error/failure.dart';
 import 'package:flutter_token/core/platform/smart_contract_web3_client.dart';
@@ -15,13 +16,42 @@ void main() {
   late MockDeployedContract mockDeployedContract;
 
   setUp(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    dotenv.testLoad(fileInput: '''
+      INFURA_API_KEY=INFURA_API_KEY
+      WALLET_PRIVATE_KEY=67f72b3f3eec31c718be95e2f53a883cbc63b5f2baf9427cb0ee84e020f65d1e
+    ''');
+
     mockClient = MockSmartContractWeb3Client();
     mockDeployedContract = MockDeployedContract();
     dataSource = TokenDataSourceImpl(client: mockClient);
   });
 
   group('mint', () {
-    test('should call mint()', () async {
+    test('should call mint() when address provided', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.sendTransaction(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
+      )).thenAnswer((_) async => true);
+
+      await dataSource.mint(
+        amount: 1000,
+        address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+      );
+
+      verify(mockClient.sendTransaction(
+        contract: mockDeployedContract,
+        functionName: 'mint',
+        params: anyNamed('params'),
+      ));
+    });
+
+    test('should call mint() when address not provided', () async {
       when(mockClient.getContract(
         contractName: anyNamed('contractName'),
         contractFileLocation: anyNamed('contractFileLocation'),
@@ -60,7 +90,30 @@ void main() {
   });
 
   group('burn', () {
-    test('should call burn()', () async {
+    test('should call burn() when address provided', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.sendTransaction(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
+      )).thenAnswer((_) async => true);
+
+      await dataSource.burn(
+        amount: 1000,
+        address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+      );
+
+      verify(mockClient.sendTransaction(
+        contract: mockDeployedContract,
+        functionName: 'burn',
+        params: anyNamed('params'),
+      ));
+    });
+
+    test('should call burn() when address not provided', () async {
       when(mockClient.getContract(
         contractName: anyNamed('contractName'),
         contractFileLocation: anyNamed('contractFileLocation'),

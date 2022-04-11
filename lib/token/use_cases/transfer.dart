@@ -23,8 +23,5 @@ class Params {
   final String addressHexString;
   final int amount;
 
-  const Params({
-    required this.addressHexString,
-    required this.amount,
-  });
+  const Params({required this.addressHexString, required this.amount});
 }
