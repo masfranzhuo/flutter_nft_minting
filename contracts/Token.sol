@@ -35,7 +35,7 @@ contract Token is Stakeable {
 
     function _mint(address _account, uint256 _amount) internal {
         require(_account != address(0), "Invalid burn recipient");
-        require(_account == owner, "Operation unauthorised");
+        require(owner == msg.sender, "Operation unauthorised");
 
         totalSupply += (_amount * _wei);
         balanceOf[_account] += (_amount * _wei);
@@ -45,7 +45,7 @@ contract Token is Stakeable {
 
     function _burn(address _account, uint256 _amount) internal {
         require(_account != address(0), "Invalid burn recipient");
-        require(_account == owner, "Operation unauthorised");
+        // require(owner == msg.sender, "Operation unauthorised");
         require(totalSupply > _amount * _wei, "Burn amount exceeds balance");
 
         totalSupply -= (_amount * _wei);
@@ -69,7 +69,7 @@ contract Token is Stakeable {
         returns (bool success)
     {
         require(_to != address(0), "Receiver address invalid");
-        require(_value >= 0, "Value must be greater or equal to 0");
+        require(_value > 0, "Value must be greater to 0");
         require(balanceOf[msg.sender] > _value, "Not enough balance");
 
         balanceOf[msg.sender] -= (_value);
@@ -81,11 +81,11 @@ contract Token is Stakeable {
 
     function stake(uint256 _amount) public {
         require(
-            _amount < balanceOf[msg.sender],
-            "DevToken: Cannot stake more than you own"
+            _amount * _wei < balanceOf[msg.sender],
+            "Cannot stake more than you own"
         );
 
-        _stake(_amount);
+        _stake(_amount * _wei);
 
         _burn(msg.sender, _amount);
     }
