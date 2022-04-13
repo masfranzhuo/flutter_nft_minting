@@ -19,11 +19,11 @@ contract('Token', (accounts) => {
         assert.equal(error.reason, 'Operation unauthorised');
       }
     });
-    it('should return token total supply = 2000000000000000000000 wei', async () => {
+    it('should have token total supply = 2000000000000000000000 wei', async () => {
       const token = await Token.deployed();
       await token.mint(accounts[0], 1000);
       const result = await token.totalSupply();
-      assert(result.toString() == '2000000000000000000000');
+      assert.equal(result.toString(), '2000000000000000000000');
     });
   });
   describe('burn', () => {
@@ -51,21 +51,21 @@ contract('Token', (accounts) => {
         assert.equal(error.reason, 'Burn amount exceeds balance');
       }
     });
-    it('should return token total supply = 1000000000000000000000 wei', async () => {
+    it('should have token total supply = 1000000000000000000000 wei', async () => {
       const token = await Token.deployed();
       await token.burn(accounts[0], 1000);
       const result = await token.totalSupply();
-      assert(result.toString() == '1000000000000000000000');
+      assert.equal(result.toString(), '1000000000000000000000');
     });
   });
   describe('transfer', () => {
-    it('should return balance of account[0] = 999999000000000000000 and account[1] = 1000000000000000', async () => {
+    it('should have balance of account[0] = 999999000000000000000 and account[1] = 1000000000000000', async () => {
       const token = await Token.deployed();
       await token.transfer(accounts[1], 1000000000000000);
       const resultAcc0 = await token.balanceOf.call(accounts[0]);
       const resultAcc1 = await token.balanceOf.call(accounts[1]);
-      assert(resultAcc0.toString() == '999999000000000000000');
-      assert(resultAcc1.toString() == '1000000000000000');
+      assert.equal(resultAcc0.toString(), '999999000000000000000');
+      assert.equal(resultAcc1.toString(), '1000000000000000');
     });
     it('should return error message "Value must be greater to 0" when amount to transfer <= 0', async () => {
       try {

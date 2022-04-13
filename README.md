@@ -15,3 +15,8 @@ A sample Flutter project with smart contract.
 > truffle compile
 > truffle migrate --network [network name]
 ```
+
+### Resources
+
+- [Building a Decentralized Application with BEP-20 contract in Solidity](https://itnext.io/building-a-decentralized-application-with-bep-20-contract-in-solidity-d2c066447aa6)
+- [Creating a Inheritable Staking contract in Solidity](https://itnext.io/creating-a-inheritable-staking-contract-in-solidity-7804ae2d7a32)

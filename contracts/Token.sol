@@ -89,4 +89,11 @@ contract Token is Stakeable {
 
         _burn(msg.sender, _amount);
     }
+
+    function withdrawStake(uint256 _amount, uint256 _stakeIndex) public {
+        uint256 amountToMint = _withdrawStake(_amount * _wei, _stakeIndex) /
+            _wei;
+
+        _mint(msg.sender, amountToMint);
+    }
 }
