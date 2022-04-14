@@ -7,6 +7,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:web3dart/web3dart.dart';
 
+import '../entities/entity_helpers.dart';
 import 'token_data_source_test.mocks.dart';
 
 @GenerateMocks([SmartContractWeb3Client, DeployedContract])
@@ -302,6 +303,50 @@ void main() {
 
       expect(
         () async => await dataSource.getTotalSupply(),
+        throwsA(isA<UnexpectedFailure>()),
+      );
+    });
+  });
+
+  group('getStakingSummary', () {
+    test('should return staking summary and call hasStake', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.callContract(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
+      )).thenAnswer((_) async => [stakingSummaryJson]);
+
+      final result = await dataSource.getStakingSummary(
+        address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+      );
+
+      verify(mockClient.callContract(
+        contract: mockDeployedContract,
+        functionName: 'hasStake',
+        params: anyNamed('params'),
+      ));
+      expect(result, stakingSummaryFixture);
+    });
+
+    test('should throw UnexpectedFailure()', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.callContract(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
+      )).thenThrow(Exception());
+
+      expect(
+        () async => await dataSource.getStakingSummary(
+          address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+        ),
         throwsA(isA<UnexpectedFailure>()),
       );
     });

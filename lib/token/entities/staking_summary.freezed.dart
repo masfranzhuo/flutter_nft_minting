@@ -22,7 +22,9 @@ class _$StakingSummaryTearOff {
   const _$StakingSummaryTearOff();
 
   _StakingSummary call(
-      {required int totalAmount, required List<Stake> stakes}) {
+      {@JsonKey(fromJson: etherFromJson, toJson: etherToJson)
+          int totalAmount = 0,
+      List<Stake> stakes = const []}) {
     return _StakingSummary(
       totalAmount: totalAmount,
       stakes: stakes,
@@ -39,6 +41,7 @@ const $StakingSummary = _$StakingSummaryTearOff();
 
 /// @nodoc
 mixin _$StakingSummary {
+  @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
   int get totalAmount => throw _privateConstructorUsedError;
   List<Stake> get stakes => throw _privateConstructorUsedError;
 
@@ -53,7 +56,9 @@ abstract class $StakingSummaryCopyWith<$Res> {
   factory $StakingSummaryCopyWith(
           StakingSummary value, $Res Function(StakingSummary) then) =
       _$StakingSummaryCopyWithImpl<$Res>;
-  $Res call({int totalAmount, List<Stake> stakes});
+  $Res call(
+      {@JsonKey(fromJson: etherFromJson, toJson: etherToJson) int totalAmount,
+      List<Stake> stakes});
 }
 
 /// @nodoc
@@ -90,7 +95,9 @@ abstract class _$StakingSummaryCopyWith<$Res>
           _StakingSummary value, $Res Function(_StakingSummary) then) =
       __$StakingSummaryCopyWithImpl<$Res>;
   @override
-  $Res call({int totalAmount, List<Stake> stakes});
+  $Res call(
+      {@JsonKey(fromJson: etherFromJson, toJson: etherToJson) int totalAmount,
+      List<Stake> stakes});
 }
 
 /// @nodoc
@@ -123,15 +130,22 @@ class __$StakingSummaryCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(
+    checked: true, anyMap: true, includeIfNull: false, explicitToJson: true)
 class _$_StakingSummary implements _StakingSummary {
-  _$_StakingSummary({required this.totalAmount, required this.stakes});
+  _$_StakingSummary(
+      {@JsonKey(fromJson: etherFromJson, toJson: etherToJson)
+          this.totalAmount = 0,
+      this.stakes = const []});
 
   factory _$_StakingSummary.fromJson(Map<String, dynamic> json) =>
       _$$_StakingSummaryFromJson(json);
 
   @override
+  @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
   final int totalAmount;
+  @JsonKey()
   @override
   final List<Stake> stakes;
 
@@ -169,13 +183,14 @@ class _$_StakingSummary implements _StakingSummary {
 
 abstract class _StakingSummary implements StakingSummary {
   factory _StakingSummary(
-      {required int totalAmount,
-      required List<Stake> stakes}) = _$_StakingSummary;
+      {@JsonKey(fromJson: etherFromJson, toJson: etherToJson) int totalAmount,
+      List<Stake> stakes}) = _$_StakingSummary;
 
   factory _StakingSummary.fromJson(Map<String, dynamic> json) =
       _$_StakingSummary.fromJson;
 
   @override
+  @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
   int get totalAmount;
   @override
   List<Stake> get stakes;

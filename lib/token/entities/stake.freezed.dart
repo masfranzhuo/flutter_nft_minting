@@ -23,12 +23,15 @@ class _$StakeTearOff {
 
   _Stake call(
       {required String address,
-      required String sinceTimestamp,
-      required int amount,
-      required int claimable}) {
+      @JsonKey(fromJson: dateTimeFromJson, toJson: dateTimeToJson)
+          required DateTime since,
+      @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
+          required int amount,
+      @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
+          int claimable = 0}) {
     return _Stake(
       address: address,
-      sinceTimestamp: sinceTimestamp,
+      since: since,
       amount: amount,
       claimable: claimable,
     );
@@ -45,8 +48,11 @@ const $Stake = _$StakeTearOff();
 /// @nodoc
 mixin _$Stake {
   String get address => throw _privateConstructorUsedError;
-  String get sinceTimestamp => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: dateTimeFromJson, toJson: dateTimeToJson)
+  DateTime get since => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
   int get amount => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
   int get claimable => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -58,7 +64,14 @@ mixin _$Stake {
 abstract class $StakeCopyWith<$Res> {
   factory $StakeCopyWith(Stake value, $Res Function(Stake) then) =
       _$StakeCopyWithImpl<$Res>;
-  $Res call({String address, String sinceTimestamp, int amount, int claimable});
+  $Res call(
+      {String address,
+      @JsonKey(fromJson: dateTimeFromJson, toJson: dateTimeToJson)
+          DateTime since,
+      @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
+          int amount,
+      @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
+          int claimable});
 }
 
 /// @nodoc
@@ -72,7 +85,7 @@ class _$StakeCopyWithImpl<$Res> implements $StakeCopyWith<$Res> {
   @override
   $Res call({
     Object? address = freezed,
-    Object? sinceTimestamp = freezed,
+    Object? since = freezed,
     Object? amount = freezed,
     Object? claimable = freezed,
   }) {
@@ -81,10 +94,10 @@ class _$StakeCopyWithImpl<$Res> implements $StakeCopyWith<$Res> {
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
-      sinceTimestamp: sinceTimestamp == freezed
-          ? _value.sinceTimestamp
-          : sinceTimestamp // ignore: cast_nullable_to_non_nullable
-              as String,
+      since: since == freezed
+          ? _value.since
+          : since // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -102,7 +115,14 @@ abstract class _$StakeCopyWith<$Res> implements $StakeCopyWith<$Res> {
   factory _$StakeCopyWith(_Stake value, $Res Function(_Stake) then) =
       __$StakeCopyWithImpl<$Res>;
   @override
-  $Res call({String address, String sinceTimestamp, int amount, int claimable});
+  $Res call(
+      {String address,
+      @JsonKey(fromJson: dateTimeFromJson, toJson: dateTimeToJson)
+          DateTime since,
+      @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
+          int amount,
+      @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
+          int claimable});
 }
 
 /// @nodoc
@@ -117,7 +137,7 @@ class __$StakeCopyWithImpl<$Res> extends _$StakeCopyWithImpl<$Res>
   @override
   $Res call({
     Object? address = freezed,
-    Object? sinceTimestamp = freezed,
+    Object? since = freezed,
     Object? amount = freezed,
     Object? claimable = freezed,
   }) {
@@ -126,10 +146,10 @@ class __$StakeCopyWithImpl<$Res> extends _$StakeCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
-      sinceTimestamp: sinceTimestamp == freezed
-          ? _value.sinceTimestamp
-          : sinceTimestamp // ignore: cast_nullable_to_non_nullable
-              as String,
+      since: since == freezed
+          ? _value.since
+          : since // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -147,9 +167,12 @@ class __$StakeCopyWithImpl<$Res> extends _$StakeCopyWithImpl<$Res>
 class _$_Stake implements _Stake {
   _$_Stake(
       {required this.address,
-      required this.sinceTimestamp,
-      required this.amount,
-      required this.claimable});
+      @JsonKey(fromJson: dateTimeFromJson, toJson: dateTimeToJson)
+          required this.since,
+      @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
+          required this.amount,
+      @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
+          this.claimable = 0});
 
   factory _$_Stake.fromJson(Map<String, dynamic> json) =>
       _$$_StakeFromJson(json);
@@ -157,15 +180,18 @@ class _$_Stake implements _Stake {
   @override
   final String address;
   @override
-  final String sinceTimestamp;
+  @JsonKey(fromJson: dateTimeFromJson, toJson: dateTimeToJson)
+  final DateTime since;
   @override
+  @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
   final int amount;
   @override
+  @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
   final int claimable;
 
   @override
   String toString() {
-    return 'Stake(address: $address, sinceTimestamp: $sinceTimestamp, amount: $amount, claimable: $claimable)';
+    return 'Stake(address: $address, since: $since, amount: $amount, claimable: $claimable)';
   }
 
   @override
@@ -174,8 +200,7 @@ class _$_Stake implements _Stake {
         (other.runtimeType == runtimeType &&
             other is _Stake &&
             const DeepCollectionEquality().equals(other.address, address) &&
-            const DeepCollectionEquality()
-                .equals(other.sinceTimestamp, sinceTimestamp) &&
+            const DeepCollectionEquality().equals(other.since, since) &&
             const DeepCollectionEquality().equals(other.amount, amount) &&
             const DeepCollectionEquality().equals(other.claimable, claimable));
   }
@@ -184,7 +209,7 @@ class _$_Stake implements _Stake {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(address),
-      const DeepCollectionEquality().hash(sinceTimestamp),
+      const DeepCollectionEquality().hash(since),
       const DeepCollectionEquality().hash(amount),
       const DeepCollectionEquality().hash(claimable));
 
@@ -202,19 +227,25 @@ class _$_Stake implements _Stake {
 abstract class _Stake implements Stake {
   factory _Stake(
       {required String address,
-      required String sinceTimestamp,
-      required int amount,
-      required int claimable}) = _$_Stake;
+      @JsonKey(fromJson: dateTimeFromJson, toJson: dateTimeToJson)
+          required DateTime since,
+      @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
+          required int amount,
+      @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
+          int claimable}) = _$_Stake;
 
   factory _Stake.fromJson(Map<String, dynamic> json) = _$_Stake.fromJson;
 
   @override
   String get address;
   @override
-  String get sinceTimestamp;
+  @JsonKey(fromJson: dateTimeFromJson, toJson: dateTimeToJson)
+  DateTime get since;
   @override
+  @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
   int get amount;
   @override
+  @JsonKey(fromJson: etherFromJson, toJson: etherToJson)
   int get claimable;
   @override
   @JsonKey(ignore: true)
