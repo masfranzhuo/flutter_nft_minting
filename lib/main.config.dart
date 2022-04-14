@@ -10,15 +10,17 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:web3dart/web3dart.dart' as _i5;
 
 import 'core/platform/smart_contract_web3_client.dart' as _i4;
-import 'core/utility/injectable_module.injectable.dart' as _i15;
+import 'core/utility/injectable_module.injectable.dart' as _i17;
 import 'token/data_sources/token_data_source.dart' as _i6;
 import 'token/repositories/token_repository.dart' as _i7;
-import 'token/state_managers/token_cubit/token_cubit.dart' as _i14;
+import 'token/state_managers/token_cubit/token_cubit.dart' as _i16;
 import 'token/use_cases/burn.dart' as _i9;
 import 'token/use_cases/get_name.dart' as _i10;
-import 'token/use_cases/get_symbol.dart' as _i11;
-import 'token/use_cases/get_total_supply.dart' as _i12;
-import 'token/use_cases/mint.dart' as _i13;
+import 'token/use_cases/get_staking_summary.dart' as _i11;
+import 'token/use_cases/get_symbol.dart' as _i12;
+import 'token/use_cases/get_total_supply.dart' as _i13;
+import 'token/use_cases/mint.dart' as _i14;
+import 'token/use_cases/stake_token.dart' as _i15;
 import 'token/use_cases/transfer.dart'
     as _i8; // ignore_for_file: unnecessary_lambdas
 
@@ -42,20 +44,24 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i9.Burn>(() => _i9.Burn(repository: get<_i7.TokenRepository>()));
   gh.lazySingleton<_i10.GetName>(
       () => _i10.GetName(repository: get<_i7.TokenRepository>()));
-  gh.lazySingleton<_i11.GetSymbol>(
-      () => _i11.GetSymbol(repository: get<_i7.TokenRepository>()));
-  gh.lazySingleton<_i12.GetTotalSupply>(
-      () => _i12.GetTotalSupply(repository: get<_i7.TokenRepository>()));
-  gh.factory<_i13.Mint>(
-      () => _i13.Mint(repository: get<_i7.TokenRepository>()));
-  gh.singleton<_i14.TokenCubit>(_i14.TokenCubit(
-      mint: get<_i13.Mint>(),
+  gh.lazySingleton<_i11.GetStakingSummary>(
+      () => _i11.GetStakingSummary(repository: get<_i7.TokenRepository>()));
+  gh.lazySingleton<_i12.GetSymbol>(
+      () => _i12.GetSymbol(repository: get<_i7.TokenRepository>()));
+  gh.lazySingleton<_i13.GetTotalSupply>(
+      () => _i13.GetTotalSupply(repository: get<_i7.TokenRepository>()));
+  gh.factory<_i14.Mint>(
+      () => _i14.Mint(repository: get<_i7.TokenRepository>()));
+  gh.factory<_i15.StakeToken>(
+      () => _i15.StakeToken(repository: get<_i7.TokenRepository>()));
+  gh.singleton<_i16.TokenCubit>(_i16.TokenCubit(
+      mint: get<_i14.Mint>(),
       burn: get<_i9.Burn>(),
       transfer: get<_i8.Transfer>(),
       getName: get<_i10.GetName>(),
-      getSymbol: get<_i11.GetSymbol>(),
-      getTotalSupply: get<_i12.GetTotalSupply>()));
+      getSymbol: get<_i12.GetSymbol>(),
+      getTotalSupply: get<_i13.GetTotalSupply>()));
   return get;
 }
 
-class _$InjectableModule extends _i15.InjectableModule {}
+class _$InjectableModule extends _i17.InjectableModule {}

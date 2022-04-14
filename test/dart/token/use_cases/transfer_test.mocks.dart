@@ -6,6 +6,7 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:flutter_token/core/error/failure.dart' as _i5;
+import 'package:flutter_token/token/entities/staking_summary.dart' as _i6;
 import 'package:flutter_token/token/repositories/token_repository.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -72,4 +73,28 @@ class MockTokenRepository extends _i1.Mock implements _i3.TokenRepository {
               returnValue: Future<_i2.Either<_i5.Failure, int>>.value(
                   _FakeEither_0<_i5.Failure, int>()))
           as _i4.Future<_i2.Either<_i5.Failure, int>>);
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>> stakeToken({int? amount}) =>
+      (super.noSuchMethod(Invocation.method(#stakeToken, [], {#amount: amount}),
+              returnValue: Future<_i2.Either<_i5.Failure, _i2.Unit>>.value(
+                  _FakeEither_0<_i5.Failure, _i2.Unit>()))
+          as _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>>);
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>> withdrawStake(
+          {int? amount, int? index = 0}) =>
+      (super.noSuchMethod(
+              Invocation.method(
+                  #withdrawStake, [], {#amount: amount, #index: index}),
+              returnValue: Future<_i2.Either<_i5.Failure, _i2.Unit>>.value(
+                  _FakeEither_0<_i5.Failure, _i2.Unit>()))
+          as _i4.Future<_i2.Either<_i5.Failure, _i2.Unit>>);
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, _i6.StakingSummary>> getStakingSummary(
+          {String? address}) =>
+      (super.noSuchMethod(
+              Invocation.method(#getStakingSummary, [], {#address: address}),
+              returnValue:
+                  Future<_i2.Either<_i5.Failure, _i6.StakingSummary>>.value(
+                      _FakeEither_0<_i5.Failure, _i6.StakingSummary>()))
+          as _i4.Future<_i2.Either<_i5.Failure, _i6.StakingSummary>>);
 }
