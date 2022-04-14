@@ -25,5 +25,11 @@ void main() {
         stakingSummaryFixture,
       );
     });
+    test('fromList', () {
+      expect(
+        StakingSummary.fromList(stakingSummaryList),
+        stakingSummaryFixture,
+      );
+    });
   });
 }

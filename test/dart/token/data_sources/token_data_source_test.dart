@@ -318,7 +318,7 @@ void main() {
         contract: anyNamed('contract'),
         functionName: anyNamed('functionName'),
         params: anyNamed('params'),
-      )).thenAnswer((_) async => [stakingSummaryJson]);
+      )).thenAnswer((_) async => stakingSummaryList);
 
       final result = await dataSource.getStakingSummary(
         address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
@@ -347,6 +347,45 @@ void main() {
         () async => await dataSource.getStakingSummary(
           address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
         ),
+        throwsA(isA<UnexpectedFailure>()),
+      );
+    });
+  });
+
+  group('stakeToken', () {
+    test('should call stakeToken()', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.sendTransaction(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
+      )).thenAnswer((_) async => true);
+
+      await dataSource.stakeToken(amount: 1000);
+
+      verify(mockClient.sendTransaction(
+        contract: mockDeployedContract,
+        functionName: 'stake',
+        params: anyNamed('params'),
+      ));
+    });
+
+    test('should throw UnexpectedFailure()', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.sendTransaction(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
+      )).thenThrow(Exception());
+
+      expect(
+        () async => dataSource.stakeToken(amount: 1000),
         throwsA(isA<UnexpectedFailure>()),
       );
     });

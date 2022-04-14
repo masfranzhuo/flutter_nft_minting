@@ -1,6 +1,7 @@
 import 'package:flutter_token/core/utility/formater.dart';
 import 'package:flutter_token/token/entities/stake.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:web3dart/web3dart.dart';
 
 part 'staking_summary.freezed.dart';
 part 'staking_summary.g.dart';
@@ -22,4 +23,18 @@ class StakingSummary with _$StakingSummary {
 
   factory StakingSummary.fromJson(Map<String, dynamic> json) =>
       _$StakingSummaryFromJson(json);
+
+  factory StakingSummary.fromList(List<dynamic> list) => StakingSummary(
+        totalAmount: etherFromJson(list[0] as BigInt),
+        stakes: (list[1] as List<dynamic>)
+            .map(
+              (stake) => Stake(
+                address: (stake[0] as EthereumAddress).toString(),
+                amount: etherFromJson(stake[1] as BigInt),
+                since: dateTimeFromJson((stake[2] as BigInt).toString()),
+                claimable: etherFromJson(stake[3] as BigInt),
+              ),
+            )
+            .toList(),
+      );
 }

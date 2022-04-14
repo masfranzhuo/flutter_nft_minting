@@ -6,6 +6,7 @@ import 'package:flutter_token/token/repositories/token_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../entities/entity_helpers.dart';
 import 'token_repository_test.mocks.dart';
 
 @GenerateMocks([TokenDataSource])
@@ -189,6 +190,61 @@ void main() {
       final result = await repository.getTotalSupply();
 
       verify(mockTokenDataSource.getTotalSupply());
+      expect((result as Left).value, isA<UnexpectedFailure>());
+    });
+  });
+
+  group('getStakingSummary', () {
+    test('should return staking summary', () async {
+      when(mockTokenDataSource.getStakingSummary(
+        address: anyNamed('address'),
+      )).thenAnswer((_) async => stakingSummaryFixture);
+
+      final result = await repository.getStakingSummary(
+        address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+      );
+
+      verify(mockTokenDataSource.getStakingSummary(
+        address: anyNamed('address'),
+      ));
+      expect((result as Right).value, stakingSummaryFixture);
+    });
+
+    test('should return UnexpectedFailure()', () async {
+      when(mockTokenDataSource.getStakingSummary(
+        address: anyNamed('address'),
+      )).thenThrow(Exception());
+
+      final result = await repository.getStakingSummary(
+        address: '0x47E2935e04CdA3bAFD7e399244d430914939D544',
+      );
+
+      verify(mockTokenDataSource.getStakingSummary(
+        address: anyNamed('address'),
+      ));
+      expect((result as Left).value, isA<UnexpectedFailure>());
+    });
+  });
+
+  group('stakeToken', () {
+    test('should call stakeToken()', () async {
+      when(mockTokenDataSource.stakeToken(
+        amount: anyNamed('amount'),
+      )).thenAnswer((_) async => unit);
+
+      await repository.stakeToken(amount: 1000);
+
+      verify(mockTokenDataSource.stakeToken(amount: anyNamed('amount')));
+    });
+
+    test('should return UnexpectedFailure()', () async {
+      when(mockTokenDataSource.stakeToken(
+        amount: anyNamed('amount'),
+      )).thenThrow(Exception());
+
+      final result = await repository.stakeToken(amount: 1000);
+
+      verify(mockTokenDataSource.stakeToken(amount: anyNamed('amount')));
       expect((result as Left).value, isA<UnexpectedFailure>());
     });
   });

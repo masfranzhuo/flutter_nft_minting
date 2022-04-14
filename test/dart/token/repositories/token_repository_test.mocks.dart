@@ -2,9 +2,10 @@
 // in flutter_token/test/dart/token/repositories/token_repository_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
-import 'package:flutter_token/token/data_sources/token_data_source.dart' as _i2;
+import 'package:flutter_token/token/data_sources/token_data_source.dart' as _i3;
+import 'package:flutter_token/token/entities/staking_summary.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -17,41 +18,62 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
+class _FakeStakingSummary_0 extends _i1.Fake implements _i2.StakingSummary {}
+
 /// A class which mocks [TokenDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTokenDataSource extends _i1.Mock implements _i2.TokenDataSource {
+class MockTokenDataSource extends _i1.Mock implements _i3.TokenDataSource {
   MockTokenDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<void> mint({int? amount, String? address}) => (super.noSuchMethod(
+  _i4.Future<void> mint({int? amount, String? address}) => (super.noSuchMethod(
       Invocation.method(#mint, [], {#amount: amount, #address: address}),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
-  _i3.Future<void> burn({int? amount, String? address}) => (super.noSuchMethod(
+  _i4.Future<void> burn({int? amount, String? address}) => (super.noSuchMethod(
       Invocation.method(#burn, [], {#amount: amount, #address: address}),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
-  _i3.Future<void> transfer({String? addressHexString, int? amount}) =>
+  _i4.Future<void> transfer({String? addressHexString, int? amount}) =>
       (super.noSuchMethod(
           Invocation.method(#transfer, [],
               {#addressHexString: addressHexString, #amount: amount}),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
-  _i3.Future<String> getName() =>
+  _i4.Future<String> getName() =>
       (super.noSuchMethod(Invocation.method(#getName, []),
-          returnValue: Future<String>.value('')) as _i3.Future<String>);
+          returnValue: Future<String>.value('')) as _i4.Future<String>);
   @override
-  _i3.Future<String> getSymbol() =>
+  _i4.Future<String> getSymbol() =>
       (super.noSuchMethod(Invocation.method(#getSymbol, []),
-          returnValue: Future<String>.value('')) as _i3.Future<String>);
+          returnValue: Future<String>.value('')) as _i4.Future<String>);
   @override
-  _i3.Future<int> getTotalSupply() =>
+  _i4.Future<int> getTotalSupply() =>
       (super.noSuchMethod(Invocation.method(#getTotalSupply, []),
-          returnValue: Future<int>.value(0)) as _i3.Future<int>);
+          returnValue: Future<int>.value(0)) as _i4.Future<int>);
+  @override
+  _i4.Future<void> stakeToken({int? amount}) =>
+      (super.noSuchMethod(Invocation.method(#stakeToken, [], {#amount: amount}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  _i4.Future<void> withdrawStake({int? amount, int? index = 0}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #withdrawStake, [], {#amount: amount, #index: index}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  _i4.Future<_i2.StakingSummary> getStakingSummary({String? address}) =>
+      (super.noSuchMethod(
+              Invocation.method(#getStakingSummary, [], {#address: address}),
+              returnValue:
+                  Future<_i2.StakingSummary>.value(_FakeStakingSummary_0()))
+          as _i4.Future<_i2.StakingSummary>);
 }

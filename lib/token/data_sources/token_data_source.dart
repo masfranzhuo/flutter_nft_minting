@@ -164,8 +164,7 @@ class TokenDataSourceImpl extends TokenDataSource {
         params: [EthereumAddress.fromHex(address)],
       );
 
-      print(result[0].toString());
-      return StakingSummary.fromJson(result[0] as Map<String, dynamic>);
+      return StakingSummary.fromList(result as List<dynamic>);
     } on Exception catch (e) {
       throw UnexpectedFailure(message: e.toString());
     }
@@ -173,8 +172,19 @@ class TokenDataSourceImpl extends TokenDataSource {
 
   @override
   Future<void> stakeToken({required int amount}) async {
-    // TODO: implement stakeToken
-    throw UnimplementedError();
+    try {
+      final contract = await client.getContract(
+        contractName: contractName,
+        contractFileLocation: contractFileLocation,
+      );
+      await client.sendTransaction(
+        contract: contract,
+        functionName: 'stake',
+        params: [BigInt.from(amount)],
+      );
+    } on Exception catch (e) {
+      throw UnexpectedFailure(message: e.toString());
+    }
   }
 
   @override
@@ -183,52 +193,3 @@ class TokenDataSourceImpl extends TokenDataSource {
     throw UnimplementedError();
   }
 }
-
-// [
-//   '100000000000000000000',
-//   [
-//     [
-//       '0x0000000000000000000000000000000000000000',
-//       '0',
-//       '0',
-//       '0',
-//       user: '0x0000000000000000000000000000000000000000',
-//       amount: '0',
-//       since: '0',
-//       claimable: '0'
-//     ],
-//     [
-//       '0xCd23CCcdD5BF3Bf4d8c21ee41F9fEB7F4b871326',
-//       '100000000000000000000',
-//       '1649850984',
-//       '2000000000000000000',
-//       user: '0xCd23CCcdD5BF3Bf4d8c21ee41F9fEB7F4b871326',
-//       amount: '100000000000000000000',
-//       since: '1649850984',
-//       claimable: '2000000000000000000'
-//     ]
-//   ],
-//   totalAmount: '100000000000000000000',
-//   stakes: [
-//     [
-//       '0x0000000000000000000000000000000000000000',
-//       '0',
-//       '0',
-//       '0',
-//       user: '0x0000000000000000000000000000000000000000',
-//       amount: '0',
-//       since: '0',
-//       claimable: '0'
-//     ],
-//     [
-//       '0xCd23CCcdD5BF3Bf4d8c21ee41F9fEB7F4b871326',
-//       '100000000000000000000',
-//       '1649850984',
-//       '2000000000000000000',
-//       user: '0xCd23CCcdD5BF3Bf4d8c21ee41F9fEB7F4b871326',
-//       amount: '100000000000000000000',
-//       since: '1649850984',
-//       claimable: '2000000000000000000'
-//     ]
-//   ]
-// ]

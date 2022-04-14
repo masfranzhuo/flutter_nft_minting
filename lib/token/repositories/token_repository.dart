@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_token/core/error/failure.dart';
 import 'package:flutter_token/token/data_sources/token_data_source.dart';
+import 'package:flutter_token/token/entities/staking_summary.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class TokenRepository {
@@ -13,6 +14,14 @@ abstract class TokenRepository {
   Future<Either<Failure, String>> getName();
   Future<Either<Failure, String>> getSymbol();
   Future<Either<Failure, int>> getTotalSupply();
+  Future<Either<Failure, Unit>> stakeToken({required int amount});
+  Future<Either<Failure, Unit>> withdrawStake({
+    required int amount,
+    int index = 0,
+  });
+  Future<Either<Failure, StakingSummary>> getStakingSummary({
+    required String address,
+  });
 }
 
 @LazySingleton(as: TokenRepository)
@@ -97,5 +106,38 @@ class TokenRepositoryImpl extends TokenRepository {
     } on Exception catch (e) {
       return Left(UnexpectedFailure(message: e.toString()));
     }
+  }
+
+  @override
+  Future<Either<Failure, StakingSummary>> getStakingSummary({
+    required String address,
+  }) async {
+    try {
+      final result = await dataSource.getStakingSummary(address: address);
+
+      return Right(result);
+    } on Exception catch (e) {
+      return Left(UnexpectedFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> stakeToken({required int amount}) async {
+    try {
+      await dataSource.stakeToken(amount: amount);
+
+      return const Right(unit);
+    } on Exception catch (e) {
+      return Left(UnexpectedFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> withdrawStake({
+    required int amount,
+    int index = 0,
+  }) async {
+    // TODO: implement withdrawStake
+    throw UnimplementedError();
   }
 }
