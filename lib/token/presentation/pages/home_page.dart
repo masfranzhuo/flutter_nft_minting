@@ -68,10 +68,30 @@ class HomePage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: () => _getIt<TokenCubit>().get(),
+                          onPressed: () => _getIt<TokenCubit>().stakeToken(
+                            amount: 100,
+                          ),
                           child: const Text('Stake'),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () => _getIt<TokenCubit>().get(
+                              address:
+                                  '0x1cb728ab78fcf1d8688ddad7fc6aeb2cba96c15f'),
+                          child: const Text('Unstake'),
+                        ),
+                      ),
+                      state.stakingSummary != null
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: state.stakingSummary!.stakes
+                                  .map((e) => Text(
+                                      'Stake Amount: ${e.amount.toString()} at ${e.since}'))
+                                  .toList(),
+                            )
+                          : SizedBox.fromSize(),
                     ],
                   ),
           ),

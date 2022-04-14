@@ -7,6 +7,8 @@ import 'package:flutter_token/token/state_managers/token_cubit/token_cubit.dart'
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../entities/entity_helpers.dart';
+
 class MockTokenCubit extends MockCubit<TokenState> implements TokenCubit {}
 
 class FakeTokenState extends Fake implements TokenState {}
@@ -33,7 +35,7 @@ void main() {
   });
 
   testWidgets(
-      'should find text = "Token details:", 3 other text widgets with token value and 4 elevated button',
+      'should find text = "Token details:", 3 other text widgets with token value and 5 elevated button',
       (WidgetTester tester) async {
     when(() => mockTokenCubit.state).thenReturn(TokenState(token: token));
 
@@ -45,7 +47,7 @@ void main() {
     expect(find.text(token.symbol), findsOneWidget);
     expect(find.text(token.totalSupply.toString()), findsOneWidget);
 
-    expect(find.byType(ElevatedButton), findsNWidgets(4));
+    expect(find.byType(ElevatedButton), findsNWidgets(5));
   });
 
   testWidgets(
@@ -57,6 +59,38 @@ void main() {
     await tester.pump();
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
+  });
+
+  testWidgets('should find SizedBox widget when no token staked',
+      (WidgetTester tester) async {
+    when(() => mockTokenCubit.state).thenReturn(TokenState());
+
+    await tester.pumpWidget(const MyApp());
+    await tester.pump();
+
+    expect(find.byType(SizedBox), findsOneWidget);
+  });
+
+  testWidgets(
+      'should find Column with stake amount widget when has token staked',
+      (WidgetTester tester) async {
+    when(() => mockTokenCubit.state).thenReturn(TokenState(
+      stakingSummary: stakingSummaryFixture,
+    ));
+
+    await tester.pumpWidget(const MyApp());
+    await tester.pump();
+
+    expect(
+      find.byWidgetPredicate(
+        (w) =>
+            w is Column &&
+            w.children[0] is Text &&
+            (w.children[0] as Text).data ==
+                'Stake Amount: ${stakingSummaryFixture.stakes[0].amount} at ${stakingSummaryFixture.stakes[0].since}',
+      ),
+      findsOneWidget,
+    );
   });
 
   testWidgets('should tap mint button and call mint()',
@@ -139,7 +173,8 @@ void main() {
     );
   });
 
-  testWidgets('should tap stake button', (WidgetTester tester) async {
+  testWidgets('should tap stake button and call stakeToken()',
+      (WidgetTester tester) async {
     when(() => mockTokenCubit.state).thenReturn(TokenState());
     whenListen(
       mockTokenCubit,
@@ -156,6 +191,30 @@ void main() {
           w is ElevatedButton &&
           w.child is Text &&
           (w.child as Text).data == 'Stake',
+    );
+    await tester.tap(button);
+    await tester.pump();
+
+    verify(() => mockTokenCubit.stakeToken(amount: any(named: 'amount')));
+  });
+
+  testWidgets('should tap unstake button', (WidgetTester tester) async {
+    when(() => mockTokenCubit.state).thenReturn(TokenState());
+    whenListen(
+      mockTokenCubit,
+      Stream.fromIterable([
+        TokenState(),
+        TokenState(token: token),
+      ]),
+    );
+
+    await tester.pumpWidget(const MyApp());
+
+    final button = find.byWidgetPredicate(
+      (w) =>
+          w is ElevatedButton &&
+          w.child is Text &&
+          (w.child as Text).data == 'Unstake',
     );
     await tester.tap(button);
     await tester.pump();

@@ -60,7 +60,9 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       transfer: get<_i8.Transfer>(),
       getName: get<_i10.GetName>(),
       getSymbol: get<_i12.GetSymbol>(),
-      getTotalSupply: get<_i13.GetTotalSupply>()));
+      getTotalSupply: get<_i13.GetTotalSupply>(),
+      getStakingSummary: get<_i11.GetStakingSummary>(),
+      stakeToken: get<_i15.StakeToken>()));
   return get;
 }
 

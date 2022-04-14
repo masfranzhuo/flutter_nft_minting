@@ -7,12 +7,15 @@ import 'dart:async' as _i5;
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:flutter_token/core/error/failure.dart' as _i6;
 import 'package:flutter_token/core/use_case.dart' as _i10;
+import 'package:flutter_token/token/entities/staking_summary.dart' as _i14;
 import 'package:flutter_token/token/repositories/token_repository.dart' as _i2;
 import 'package:flutter_token/token/use_cases/burn.dart' as _i7;
 import 'package:flutter_token/token/use_cases/get_name.dart' as _i9;
+import 'package:flutter_token/token/use_cases/get_staking_summary.dart' as _i13;
 import 'package:flutter_token/token/use_cases/get_symbol.dart' as _i11;
 import 'package:flutter_token/token/use_cases/get_total_supply.dart' as _i12;
 import 'package:flutter_token/token/use_cases/mint.dart' as _i4;
+import 'package:flutter_token/token/use_cases/stake_token.dart' as _i15;
 import 'package:flutter_token/token/use_cases/transfer.dart' as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -148,4 +151,46 @@ class MockGetTotalSupply extends _i1.Mock implements _i12.GetTotalSupply {
               returnValue: Future<_i3.Either<_i6.Failure, int>>.value(
                   _FakeEither_1<_i6.Failure, int>()))
           as _i5.Future<_i3.Either<_i6.Failure, int>>);
+}
+
+/// A class which mocks [GetStakingSummary].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetStakingSummary extends _i1.Mock implements _i13.GetStakingSummary {
+  MockGetStakingSummary() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.TokenRepository get repository =>
+      (super.noSuchMethod(Invocation.getter(#repository),
+          returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, _i14.StakingSummary>> call(
+          _i13.Params? params) =>
+      (super.noSuchMethod(Invocation.method(#call, [params]),
+              returnValue:
+                  Future<_i3.Either<_i6.Failure, _i14.StakingSummary>>.value(
+                      _FakeEither_1<_i6.Failure, _i14.StakingSummary>()))
+          as _i5.Future<_i3.Either<_i6.Failure, _i14.StakingSummary>>);
+}
+
+/// A class which mocks [StakeToken].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockStakeToken extends _i1.Mock implements _i15.StakeToken {
+  MockStakeToken() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.TokenRepository get repository =>
+      (super.noSuchMethod(Invocation.getter(#repository),
+          returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>> call(_i15.Params? params) =>
+      (super.noSuchMethod(Invocation.method(#call, [params]),
+              returnValue: Future<_i3.Either<_i6.Failure, _i3.Unit>>.value(
+                  _FakeEither_1<_i6.Failure, _i3.Unit>()))
+          as _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>>);
 }

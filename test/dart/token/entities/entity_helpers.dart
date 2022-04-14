@@ -10,12 +10,12 @@ final tokenJson = <String, dynamic>{
   'totalSupply': 1000,
 };
 
-final timeStamp = (DateTime.now().microsecondsSinceEpoch).toString();
+final timeStamp = (DateTime.now().millisecondsSinceEpoch).toString();
 final stakeFixture = Stake(
   address: '0x47e2935e04cda3bafd7e399244d430914939d544',
   amount: 100,
   claimable: 50,
-  since: DateTime.fromMicrosecondsSinceEpoch(int.parse(timeStamp)),
+  since: DateTime.fromMillisecondsSinceEpoch(int.parse(timeStamp)),
 );
 final stakeJson = <String, dynamic>{
   'address': '0x47e2935e04cda3bafd7e399244d430914939d544',

@@ -17,11 +17,16 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$TokenStateTearOff {
   const _$TokenStateTearOff();
 
-  _TokenState call({Failure? failure, bool isLoading = false, Token? token}) {
+  _TokenState call(
+      {Failure? failure,
+      bool isLoading = false,
+      Token? token,
+      StakingSummary? stakingSummary}) {
     return _TokenState(
       failure: failure,
       isLoading: isLoading,
       token: token,
+      stakingSummary: stakingSummary,
     );
   }
 }
@@ -34,6 +39,7 @@ mixin _$TokenState {
   Failure? get failure => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   Token? get token => throw _privateConstructorUsedError;
+  StakingSummary? get stakingSummary => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TokenStateCopyWith<TokenState> get copyWith =>
@@ -45,9 +51,14 @@ abstract class $TokenStateCopyWith<$Res> {
   factory $TokenStateCopyWith(
           TokenState value, $Res Function(TokenState) then) =
       _$TokenStateCopyWithImpl<$Res>;
-  $Res call({Failure? failure, bool isLoading, Token? token});
+  $Res call(
+      {Failure? failure,
+      bool isLoading,
+      Token? token,
+      StakingSummary? stakingSummary});
 
   $TokenCopyWith<$Res>? get token;
+  $StakingSummaryCopyWith<$Res>? get stakingSummary;
 }
 
 /// @nodoc
@@ -63,6 +74,7 @@ class _$TokenStateCopyWithImpl<$Res> implements $TokenStateCopyWith<$Res> {
     Object? failure = freezed,
     Object? isLoading = freezed,
     Object? token = freezed,
+    Object? stakingSummary = freezed,
   }) {
     return _then(_value.copyWith(
       failure: failure == freezed
@@ -77,6 +89,10 @@ class _$TokenStateCopyWithImpl<$Res> implements $TokenStateCopyWith<$Res> {
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as Token?,
+      stakingSummary: stakingSummary == freezed
+          ? _value.stakingSummary
+          : stakingSummary // ignore: cast_nullable_to_non_nullable
+              as StakingSummary?,
     ));
   }
 
@@ -90,6 +106,17 @@ class _$TokenStateCopyWithImpl<$Res> implements $TokenStateCopyWith<$Res> {
       return _then(_value.copyWith(token: value));
     });
   }
+
+  @override
+  $StakingSummaryCopyWith<$Res>? get stakingSummary {
+    if (_value.stakingSummary == null) {
+      return null;
+    }
+
+    return $StakingSummaryCopyWith<$Res>(_value.stakingSummary!, (value) {
+      return _then(_value.copyWith(stakingSummary: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -98,10 +125,16 @@ abstract class _$TokenStateCopyWith<$Res> implements $TokenStateCopyWith<$Res> {
           _TokenState value, $Res Function(_TokenState) then) =
       __$TokenStateCopyWithImpl<$Res>;
   @override
-  $Res call({Failure? failure, bool isLoading, Token? token});
+  $Res call(
+      {Failure? failure,
+      bool isLoading,
+      Token? token,
+      StakingSummary? stakingSummary});
 
   @override
   $TokenCopyWith<$Res>? get token;
+  @override
+  $StakingSummaryCopyWith<$Res>? get stakingSummary;
 }
 
 /// @nodoc
@@ -119,6 +152,7 @@ class __$TokenStateCopyWithImpl<$Res> extends _$TokenStateCopyWithImpl<$Res>
     Object? failure = freezed,
     Object? isLoading = freezed,
     Object? token = freezed,
+    Object? stakingSummary = freezed,
   }) {
     return _then(_TokenState(
       failure: failure == freezed
@@ -133,6 +167,10 @@ class __$TokenStateCopyWithImpl<$Res> extends _$TokenStateCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as Token?,
+      stakingSummary: stakingSummary == freezed
+          ? _value.stakingSummary
+          : stakingSummary // ignore: cast_nullable_to_non_nullable
+              as StakingSummary?,
     ));
   }
 }
@@ -140,7 +178,9 @@ class __$TokenStateCopyWithImpl<$Res> extends _$TokenStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_TokenState extends _TokenState {
-  _$_TokenState({this.failure, this.isLoading = false, this.token}) : super._();
+  _$_TokenState(
+      {this.failure, this.isLoading = false, this.token, this.stakingSummary})
+      : super._();
 
   @override
   final Failure? failure;
@@ -149,10 +189,12 @@ class _$_TokenState extends _TokenState {
   final bool isLoading;
   @override
   final Token? token;
+  @override
+  final StakingSummary? stakingSummary;
 
   @override
   String toString() {
-    return 'TokenState(failure: $failure, isLoading: $isLoading, token: $token)';
+    return 'TokenState(failure: $failure, isLoading: $isLoading, token: $token, stakingSummary: $stakingSummary)';
   }
 
   @override
@@ -162,7 +204,9 @@ class _$_TokenState extends _TokenState {
             other is _TokenState &&
             const DeepCollectionEquality().equals(other.failure, failure) &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
-            const DeepCollectionEquality().equals(other.token, token));
+            const DeepCollectionEquality().equals(other.token, token) &&
+            const DeepCollectionEquality()
+                .equals(other.stakingSummary, stakingSummary));
   }
 
   @override
@@ -170,7 +214,8 @@ class _$_TokenState extends _TokenState {
       runtimeType,
       const DeepCollectionEquality().hash(failure),
       const DeepCollectionEquality().hash(isLoading),
-      const DeepCollectionEquality().hash(token));
+      const DeepCollectionEquality().hash(token),
+      const DeepCollectionEquality().hash(stakingSummary));
 
   @JsonKey(ignore: true)
   @override
@@ -179,8 +224,11 @@ class _$_TokenState extends _TokenState {
 }
 
 abstract class _TokenState extends TokenState {
-  factory _TokenState({Failure? failure, bool isLoading, Token? token}) =
-      _$_TokenState;
+  factory _TokenState(
+      {Failure? failure,
+      bool isLoading,
+      Token? token,
+      StakingSummary? stakingSummary}) = _$_TokenState;
   _TokenState._() : super._();
 
   @override
@@ -189,6 +237,8 @@ abstract class _TokenState extends TokenState {
   bool get isLoading;
   @override
   Token? get token;
+  @override
+  StakingSummary? get stakingSummary;
   @override
   @JsonKey(ignore: true)
   _$TokenStateCopyWith<_TokenState> get copyWith =>

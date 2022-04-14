@@ -31,7 +31,9 @@ class StakingSummary with _$StakingSummary {
               (stake) => Stake(
                 address: (stake[0] as EthereumAddress).toString(),
                 amount: etherFromJson(stake[1] as BigInt),
-                since: dateTimeFromJson((stake[2] as BigInt).toString()),
+                since: dateTimeFromJson(
+                  (stake[2] as BigInt).toString(),
+                ),
                 claimable: etherFromJson(stake[3] as BigInt),
               ),
             )
