@@ -1,7 +1,7 @@
 import 'package:web3dart/web3dart.dart';
 
 DateTime dateTimeFromJson(String timestamp) =>
-    DateTime.fromMillisecondsSinceEpoch(int.parse(timestamp));
+    DateTime.fromMillisecondsSinceEpoch(int.parse(timestamp.padRight(13, '0')));
 
 String dateTimeToJson(DateTime dateTime) =>
     dateTime.millisecondsSinceEpoch.toString();
