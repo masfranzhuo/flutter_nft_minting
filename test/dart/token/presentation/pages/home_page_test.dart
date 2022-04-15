@@ -85,9 +85,15 @@ void main() {
       find.byWidgetPredicate(
         (w) =>
             w is Column &&
-            w.children[0] is Text &&
-            (w.children[0] as Text).data ==
-                'Stake Amount: ${stakingSummaryFixture.stakes[0].amount} at ${stakingSummaryFixture.stakes[0].since}',
+            w.children[0] is Row &&
+            (w.children[0] as Row).children[0] is Text &&
+            ((w.children[0] as Row).children[0] as Text).data ==
+                '1. Stake Amount: ${stakingSummaryFixture.stakes[0].amount} at ${stakingSummaryFixture.stakes[0].since}' &&
+            (w.children[0] as Row).children[1] is TextButton &&
+            ((w.children[0] as Row).children[1] as TextButton).child is Text &&
+            (((w.children[0] as Row).children[1] as TextButton).child as Text)
+                    .data ==
+                'Unstake',
       ),
       findsOneWidget,
     );
@@ -198,7 +204,7 @@ void main() {
     verify(() => mockTokenCubit.stakeToken(amount: any(named: 'amount')));
   });
 
-  testWidgets('should tap unstake button', (WidgetTester tester) async {
+  testWidgets('should tap refresh button', (WidgetTester tester) async {
     when(() => mockTokenCubit.state).thenReturn(TokenState());
     whenListen(
       mockTokenCubit,
@@ -214,9 +220,35 @@ void main() {
       (w) =>
           w is ElevatedButton &&
           w.child is Text &&
-          (w.child as Text).data == 'Unstake',
+          (w.child as Text).data == 'Refresh',
     );
     await tester.tap(button);
     await tester.pump();
+  });
+
+  testWidgets('should tap unstake button and call withdrawStake()',
+      (WidgetTester tester) async {
+    when(() => mockTokenCubit.state).thenReturn(TokenState(
+      stakingSummary: stakingSummaryFixture,
+    ));
+    whenListen(
+      mockTokenCubit,
+      Stream.fromIterable([
+        TokenState(stakingSummary: stakingSummaryFixture),
+        TokenState(stakingSummary: stakingSummaryFixture),
+      ]),
+    );
+
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.byKey(const Key('key-unstake-0')));
+    await tester.pump();
+
+    verify(
+      () => mockTokenCubit.withdrawStake(
+        amount: any(named: 'amount'),
+        index: any(named: 'index'),
+      ),
+    );
   });
 }

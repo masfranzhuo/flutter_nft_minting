@@ -80,15 +80,34 @@ class HomePage extends StatelessWidget {
                           onPressed: () => _getIt<TokenCubit>().get(
                               address:
                                   '0x1cb728ab78fcf1d8688ddad7fc6aeb2cba96c15f'),
-                          child: const Text('Unstake'),
+                          child: const Text('Refresh'),
                         ),
                       ),
                       state.stakingSummary != null
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: state.stakingSummary!.stakes
-                                  .map((e) => Text(
-                                      'Stake Amount: ${e.amount.toString()} at ${e.since}'))
+                                  .asMap()
+                                  .entries
+                                  .map(
+                                    (e) => Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                            '${e.key + 1}. Stake Amount: ${e.value.amount.toString()} at ${e.value.since}'),
+                                        TextButton(
+                                          key: Key('key-unstake-${e.key}'),
+                                          child: const Text('Unstake'),
+                                          onPressed: () => _getIt<TokenCubit>()
+                                              .withdrawStake(
+                                            amount: e.value.amount,
+                                            index: e.key,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
                                   .toList(),
                             )
                           : SizedBox.fromSize(),

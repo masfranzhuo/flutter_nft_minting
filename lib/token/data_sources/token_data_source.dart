@@ -197,7 +197,7 @@ class TokenDataSourceImpl extends TokenDataSource {
       await client.sendTransaction(
         contract: contract,
         functionName: 'withdrawStake',
-        params: [BigInt.from(amount), index],
+        params: [BigInt.from(amount), BigInt.from(index)],
       );
     } on Exception catch (e) {
       throw UnexpectedFailure(message: e.toString());
