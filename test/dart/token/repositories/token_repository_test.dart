@@ -248,4 +248,35 @@ void main() {
       expect((result as Left).value, isA<UnexpectedFailure>());
     });
   });
+
+  group('withdrawStake', () {
+    test('should call withdrawStake()', () async {
+      when(mockTokenDataSource.withdrawStake(
+        amount: anyNamed('amount'),
+        index: anyNamed('index'),
+      )).thenAnswer((_) async => unit);
+
+      await repository.withdrawStake(amount: 1000, index: 0);
+
+      verify(mockTokenDataSource.withdrawStake(
+        amount: anyNamed('amount'),
+        index: anyNamed('index'),
+      ));
+    });
+
+    test('should return UnexpectedFailure()', () async {
+      when(mockTokenDataSource.withdrawStake(
+        amount: anyNamed('amount'),
+        index: anyNamed('index'),
+      )).thenThrow(Exception());
+
+      final result = await repository.withdrawStake(amount: 1000, index: 0);
+
+      verify(mockTokenDataSource.withdrawStake(
+        amount: anyNamed('amount'),
+        index: anyNamed('index'),
+      ));
+      expect((result as Left).value, isA<UnexpectedFailure>());
+    });
+  });
 }

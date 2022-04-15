@@ -137,7 +137,12 @@ class TokenRepositoryImpl extends TokenRepository {
     required int amount,
     int index = 0,
   }) async {
-    // TODO: implement withdrawStake
-    throw UnimplementedError();
+    try {
+      await dataSource.withdrawStake(amount: amount, index: index);
+
+      return const Right(unit);
+    } on Exception catch (e) {
+      return Left(UnexpectedFailure(message: e.toString()));
+    }
   }
 }

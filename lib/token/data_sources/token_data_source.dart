@@ -189,7 +189,18 @@ class TokenDataSourceImpl extends TokenDataSource {
 
   @override
   Future<void> withdrawStake({required int amount, int index = 0}) async {
-    // TODO: implement withdrawStake
-    throw UnimplementedError();
+    try {
+      final contract = await client.getContract(
+        contractName: contractName,
+        contractFileLocation: contractFileLocation,
+      );
+      await client.sendTransaction(
+        contract: contract,
+        functionName: 'withdrawStake',
+        params: [BigInt.from(amount), index],
+      );
+    } on Exception catch (e) {
+      throw UnexpectedFailure(message: e.toString());
+    }
   }
 }

@@ -12,6 +12,7 @@ import 'package:flutter_token/token/use_cases/get_total_supply.dart';
 import 'package:flutter_token/token/use_cases/mint.dart';
 import 'package:flutter_token/token/use_cases/stake_token.dart';
 import 'package:flutter_token/token/use_cases/transfer.dart';
+import 'package:flutter_token/token/use_cases/withdraw_stake.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -27,6 +28,7 @@ import 'token_cubit_test.mocks.dart';
   GetTotalSupply,
   GetStakingSummary,
   StakeToken,
+  WithdrawStake,
 ])
 void main() {
   late TokenCubit cubit;
@@ -38,6 +40,7 @@ void main() {
   late MockGetTotalSupply mockGetTotalSupply;
   late MockGetStakingSummary mockGetStakingSummary;
   late MockStakeToken mockStakeToken;
+  late MockWithdrawStake mockWithdrawStake;
 
   setUp(() {
     mockMint = MockMint();
@@ -48,6 +51,7 @@ void main() {
     mockGetTotalSupply = MockGetTotalSupply();
     mockGetStakingSummary = MockGetStakingSummary();
     mockStakeToken = MockStakeToken();
+    mockWithdrawStake = MockWithdrawStake();
     cubit = TokenCubit(
       mint: mockMint,
       burn: mockBurn,
@@ -57,6 +61,7 @@ void main() {
       getTotalSupply: mockGetTotalSupply,
       getStakingSummary: mockGetStakingSummary,
       stakeToken: mockStakeToken,
+      withdrawStake: mockWithdrawStake,
     );
   });
 
@@ -345,6 +350,45 @@ void main() {
       ],
       verify: (_) async {
         verify(mockStakeToken(any));
+      },
+    );
+  });
+
+  group('withdrawStake', () {
+    blocTest(
+      'should emit isLoading true, then false',
+      build: () {
+        when(mockWithdrawStake(any)).thenAnswer(
+          (_) async => const Right(unit),
+        );
+
+        return cubit;
+      },
+      act: (_) async => cubit.withdrawStake(amount: 1000, index: 0),
+      expect: () => [
+        TokenState(isLoading: true),
+        TokenState(isLoading: false),
+      ],
+      verify: (_) async {
+        verify(mockWithdrawStake(any));
+      },
+    );
+    blocTest(
+      'should emit failure',
+      build: () {
+        when(mockWithdrawStake(any)).thenAnswer(
+          (_) async => const Left(UnexpectedFailure()),
+        );
+
+        return cubit;
+      },
+      act: (_) async => cubit.withdrawStake(amount: 1000, index: 0),
+      expect: () => [
+        TokenState(isLoading: true),
+        TokenState(isLoading: false, failure: const UnexpectedFailure()),
+      ],
+      verify: (_) async {
+        verify(mockWithdrawStake(any));
       },
     );
   });

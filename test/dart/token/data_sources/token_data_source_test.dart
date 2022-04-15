@@ -390,4 +390,43 @@ void main() {
       );
     });
   });
+
+  group('withdrawStake', () {
+    test('should call withdrawStake()', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.sendTransaction(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
+      )).thenAnswer((_) async => true);
+
+      await dataSource.withdrawStake(amount: 1000, index: 0);
+
+      verify(mockClient.sendTransaction(
+        contract: mockDeployedContract,
+        functionName: 'withdrawStake',
+        params: anyNamed('params'),
+      ));
+    });
+
+    test('should throw UnexpectedFailure()', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.sendTransaction(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
+      )).thenThrow(Exception());
+
+      expect(
+        () async => dataSource.withdrawStake(amount: 1000, index: 0),
+        throwsA(isA<UnexpectedFailure>()),
+      );
+    });
+  });
 }

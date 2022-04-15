@@ -12,6 +12,7 @@ import 'package:flutter_token/token/use_cases/mint.dart' as mnt;
 import 'package:flutter_token/token/use_cases/burn.dart' as brn;
 import 'package:flutter_token/token/use_cases/stake_token.dart' as st;
 import 'package:flutter_token/token/use_cases/transfer.dart' as trf;
+import 'package:flutter_token/token/use_cases/withdraw_stake.dart' as wds;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -27,6 +28,7 @@ class TokenCubit extends Cubit<TokenState> {
   final GetTotalSupply _getTotalSupply;
   final gss.GetStakingSummary _getStakingSummary;
   final st.StakeToken _stakeToken;
+  final wds.WithdrawStake _withdrawStake;
 
   TokenCubit({
     required mnt.Mint mint,
@@ -37,6 +39,7 @@ class TokenCubit extends Cubit<TokenState> {
     required GetTotalSupply getTotalSupply,
     required gss.GetStakingSummary getStakingSummary,
     required st.StakeToken stakeToken,
+    required wds.WithdrawStake withdrawStake,
   })  : _mint = mint,
         _burn = burn,
         _transfer = transfer,
@@ -45,6 +48,7 @@ class TokenCubit extends Cubit<TokenState> {
         _getTotalSupply = getTotalSupply,
         _getStakingSummary = getStakingSummary,
         _stakeToken = stakeToken,
+        _withdrawStake = withdrawStake,
         super(TokenState());
 
   void mint({required int amount, String? address}) async {
@@ -135,6 +139,22 @@ class TokenCubit extends Cubit<TokenState> {
     emit(state.copyWith(isLoading: true));
 
     final result = await _stakeToken(st.Params(amount: amount));
+    result.fold(
+      (failure) => emit(state.copyWith(
+        failure: failure,
+        isLoading: false,
+      )),
+      (_) => emit(state.copyWith(isLoading: false)),
+    );
+  }
+
+  void withdrawStake({required int amount, required int index}) async {
+    emit(state.copyWith(isLoading: true));
+
+    final result = await _withdrawStake(wds.Params(
+      amount: amount,
+      index: index,
+    ));
     result.fold(
       (failure) => emit(state.copyWith(
         failure: failure,

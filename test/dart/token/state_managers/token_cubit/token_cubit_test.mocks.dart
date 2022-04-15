@@ -17,6 +17,7 @@ import 'package:flutter_token/token/use_cases/get_total_supply.dart' as _i12;
 import 'package:flutter_token/token/use_cases/mint.dart' as _i4;
 import 'package:flutter_token/token/use_cases/stake_token.dart' as _i15;
 import 'package:flutter_token/token/use_cases/transfer.dart' as _i8;
+import 'package:flutter_token/token/use_cases/withdraw_stake.dart' as _i16;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -189,6 +190,26 @@ class MockStakeToken extends _i1.Mock implements _i15.StakeToken {
           returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
   @override
   _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>> call(_i15.Params? params) =>
+      (super.noSuchMethod(Invocation.method(#call, [params]),
+              returnValue: Future<_i3.Either<_i6.Failure, _i3.Unit>>.value(
+                  _FakeEither_1<_i6.Failure, _i3.Unit>()))
+          as _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>>);
+}
+
+/// A class which mocks [WithdrawStake].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockWithdrawStake extends _i1.Mock implements _i16.WithdrawStake {
+  MockWithdrawStake() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.TokenRepository get repository =>
+      (super.noSuchMethod(Invocation.getter(#repository),
+          returnValue: _FakeTokenRepository_0()) as _i2.TokenRepository);
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, _i3.Unit>> call(_i16.Params? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
               returnValue: Future<_i3.Either<_i6.Failure, _i3.Unit>>.value(
                   _FakeEither_1<_i6.Failure, _i3.Unit>()))
