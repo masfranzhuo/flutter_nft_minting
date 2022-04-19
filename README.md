@@ -1,9 +1,9 @@
-![Test](https://github.com/masfranzhuo/flutter_token/workflows/Test/badge.svg)
-[![codecov](https://codecov.io/gh/masfranzhuo/flutter_token/branch/main/graph/badge.svg?token=1eLfDdUIDY)](https://codecov.io/gh/masfranzhuo/flutter_token)
+<!-- ![Test](https://github.com/masfranzhuo/flutter_nft_minting/workflows/Test/badge.svg)
+[![codecov](https://codecov.io/gh/masfranzhuo/flutter_nft_minting/branch/main/graph/badge.svg?token=1eLfDdUIDY)](https://codecov.io/gh/masfranzhuo/flutter_nft_minting) -->
 
-# Flutter Token
+# Flutter NFT Minting
 
-A sample Flutter project with smart contract.
+A sample Flutter project for minting NFT.
 
 ## Command Documentation
 
@@ -18,5 +18,4 @@ A sample Flutter project with smart contract.
 
 ### Resources
 
-- [Building a Decentralized Application with BEP-20 contract in Solidity](https://itnext.io/building-a-decentralized-application-with-bep-20-contract-in-solidity-d2c066447aa6)
-- [Creating a Inheritable Staking contract in Solidity](https://itnext.io/creating-a-inheritable-staking-contract-in-solidity-7804ae2d7a32)
+- [An NFT minting smart contract, explained. Line by line.](https://www.linkedin.com/pulse/nft-minting-smart-contract-explained-line-matthew-willox)

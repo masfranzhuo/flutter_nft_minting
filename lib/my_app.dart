@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_token/token/presentation/pages/home_page.dart';
+import 'package:flutter_nft_minting/nft/presentation/pages/home_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(title: 'Flutter Token'),
+      home: HomePage(title: 'Flutter NFT Minting'),
     );
   }
 }
