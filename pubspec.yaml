@@ -36,8 +36,7 @@ flutter:
   uses-material-design: true
   assets:
     - .env
-    # - assets/images
-    # - src/artifacts/Token.json
+    - assets/abi/nft.json
   # fonts:
   #   - family: Schyler
   #     fonts:

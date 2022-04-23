@@ -16,22 +16,18 @@ class SmartContractWeb3Client {
     Client? httpClient,
     Web3Client? web3client,
   })  : httpClient = Client(),
-        web3Client = Web3Client(
-          'https://rinkeby.infura.io/v3/' + dotenv.env['INFURA_API_KEY']!,
-          httpClient!,
-        );
+        web3Client = Web3Client(dotenv.env['ALCHEMY_KEY_TEST']!, httpClient!);
 
   Future<DeployedContract> getContract({
     required String contractName,
     required String contractFileLocation,
   }) async {
     String abiString = await rootBundle.loadString(contractFileLocation);
-    var jsonAbi = jsonDecode(abiString);
     EthereumAddress contractAddress = EthereumAddress.fromHex(
-      jsonAbi['networks']['4']['address'],
+      dotenv.env['CONTRACT_ADDRESS']!,
     );
     final contract = DeployedContract(
-      ContractAbi.fromJson(jsonEncode(jsonAbi['abi']), contractName),
+      ContractAbi.fromJson(abiString, contractName),
       contractAddress,
     );
 

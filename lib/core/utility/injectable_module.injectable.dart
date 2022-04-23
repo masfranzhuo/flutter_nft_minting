@@ -6,8 +6,6 @@ import 'package:web3dart/web3dart.dart';
 @module
 abstract class InjectableModule {
   Client get http => Client();
-  Web3Client get web3Client => Web3Client(
-        'https://rinkeby.infura.io/v3/' + dotenv.env['INFURA_API_KEY']!,
-        http,
-      );
+  Web3Client get web3Client =>
+      Web3Client(dotenv.env['ALCHEMY_KEY_TEST']!, http);
 }
