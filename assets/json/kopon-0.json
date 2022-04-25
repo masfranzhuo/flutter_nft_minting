@@ -1,0 +1,10 @@
+{   
+  "description": "Kopon Flutter NFT Minting",      
+  "image": "https://gateway.pinata.cloud/ipfs/QmSTdPxqcZXnptBejDMJY2qhh7TcAjNzywErbwuyG6XTwj/kopon-0.png",  
+  "name": "Kopon 0",   
+  "attributes": [
+      { "trait_type": "Color", "value": "Orange" },      
+      { "trait_type": "Hair", "value": "Normal" },      
+      { "trait_type": "Mouth","value": "Open" }
+  ]
+}

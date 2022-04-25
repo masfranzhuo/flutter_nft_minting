@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_nft_minting/core/error/failure.dart';
 import 'package:flutter_nft_minting/core/platform/smart_contract_web3_client.dart';
@@ -134,6 +135,91 @@ void main() {
 
       expect(
         () async => await dataSource.getTokenCounter(),
+        throwsA(isA<UnexpectedFailure>()),
+      );
+    });
+  });
+
+  group('mint', () {
+    test('should call mint NFT', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.sendTransaction(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
+      )).thenAnswer((_) async => unit);
+
+      await dataSource.mint(
+        tokenURI: 'https://images/test.png',
+        address: '0x0000000000000000000000000000000000000000',
+      );
+
+      verify(mockClient.sendTransaction(
+        contract: mockDeployedContract,
+        functionName: 'mint',
+        params: anyNamed('params'),
+      ));
+    });
+
+    test('should throw UnexpectedFailure()', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.sendTransaction(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
+      )).thenThrow(Exception());
+
+      expect(
+        () async => dataSource.mint(
+          tokenURI: 'https://images/test.png',
+          address: '0x0000000000000000000000000000000000000000',
+        ),
+        throwsA(isA<UnexpectedFailure>()),
+      );
+    });
+  });
+
+  group('getImageUrl', () {
+    test('should return image Url = "https://images/test.png"', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.callContract(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
+      )).thenAnswer((_) async => 'https://images/test.png');
+
+      final result = await dataSource.getImageUrl(tokenCounter: 0);
+
+      verify(mockClient.callContract(
+        contract: mockDeployedContract,
+        functionName: 'tokenURI',
+        params: anyNamed('params'),
+      ));
+      expect(result, 'https://images/test.png');
+    });
+
+    test('should throw UnexpectedFailure()', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenAnswer((_) async => mockDeployedContract);
+      when(mockClient.callContract(
+        contract: anyNamed('contract'),
+        functionName: anyNamed('functionName'),
+        params: anyNamed('params'),
+      )).thenThrow(Exception());
+
+      expect(
+        () async => await dataSource.getImageUrl(tokenCounter: 0),
         throwsA(isA<UnexpectedFailure>()),
       );
     });

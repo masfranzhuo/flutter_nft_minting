@@ -7,6 +7,8 @@ abstract class NFTDataSource {
   Future<String> getName();
   Future<String> getSymbol();
   Future<int> getTokenCounter();
+  Future<void> mint({required String tokenURI, required String address});
+  Future<String> getImageUrl({required int tokenCounter});
 }
 
 @LazySingleton(as: NFTDataSource)
@@ -70,6 +72,41 @@ class NFTDataSourceImpl extends NFTDataSource {
         EtherUnit.wei,
         BigInt.parse(result.toString()),
       ).getInEther.toInt();
+    } on Exception catch (e) {
+      throw UnexpectedFailure(message: e.toString());
+    }
+  }
+
+  @override
+  Future<void> mint({required String tokenURI, required String address}) async {
+    try {
+      final contract = await client.getContract(
+        contractName: contractName,
+        contractFileLocation: contractFileLocation,
+      );
+      await client.sendTransaction(
+        contract: contract,
+        functionName: 'mint',
+        params: [tokenURI, address],
+      );
+    } on Exception catch (e) {
+      throw UnexpectedFailure(message: e.toString());
+    }
+  }
+
+  @override
+  Future<String> getImageUrl({required int tokenCounter}) async {
+    try {
+      final contract = await client.getContract(
+        contractName: contractName,
+        contractFileLocation: contractFileLocation,
+      );
+      final result = await client.callContract(
+        contract: contract,
+        functionName: 'tokenURI',
+        params: [tokenCounter],
+      );
+      return result;
     } on Exception catch (e) {
       throw UnexpectedFailure(message: e.toString());
     }

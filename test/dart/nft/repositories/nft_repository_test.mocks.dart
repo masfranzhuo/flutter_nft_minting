@@ -38,4 +38,15 @@ class MockNFTDataSource extends _i1.Mock implements _i2.NFTDataSource {
   _i3.Future<int> getTokenCounter() =>
       (super.noSuchMethod(Invocation.method(#getTokenCounter, []),
           returnValue: Future<int>.value(0)) as _i3.Future<int>);
+  @override
+  _i3.Future<void> mint({String? tokenURI, String? address}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #mint, [], {#tokenURI: tokenURI, #address: address}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<String> getImageUrl({int? tokenCounter}) => (super.noSuchMethod(
+      Invocation.method(#getImageUrl, [], {#tokenCounter: tokenCounter}),
+      returnValue: Future<String>.value('')) as _i3.Future<String>);
 }

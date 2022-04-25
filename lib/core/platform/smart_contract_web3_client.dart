@@ -59,7 +59,8 @@ class SmartContractWeb3Client {
         function: contract.function(functionName),
         parameters: params,
       ),
-      chainId: 4,
+      fetchChainIdFromNetworkId: true,
+      chainId: null,
     );
   }
 }

@@ -35,6 +35,10 @@ class HomePage extends StatelessWidget {
                     Text('Name: ${state.name}'),
                     Text('Symbol: ${state.symbol}'),
                     Text('Number of NFT: ${state.tokenCounter}'),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Mint'),
+                    ),
                   ],
                 ),
         ),

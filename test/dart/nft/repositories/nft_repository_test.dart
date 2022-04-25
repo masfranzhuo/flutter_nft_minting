@@ -79,4 +79,50 @@ void main() {
       expect((result as Left).value, isA<UnexpectedFailure>());
     });
   });
+
+  group('mint', () {
+    test('should return image url = "https://images/test.png"', () async {
+      when(mockNFTDataSource.mint(
+        tokenURI: anyNamed('tokenURI'),
+        address: anyNamed('address'),
+      )).thenAnswer((_) async => unit);
+      when(mockNFTDataSource.getImageUrl(
+        tokenCounter: anyNamed('tokenCounter'),
+      )).thenAnswer((_) async => 'https://images/test.png');
+
+      final result = await repository.mint(
+        tokenURI: 'https://images/test.png',
+        address: '0x0000000000000000000000000000000000000000',
+        tokenCounter: 0,
+      );
+
+      verify(mockNFTDataSource.mint(
+        tokenURI: anyNamed('tokenURI'),
+        address: anyNamed('address'),
+      ));
+      verify(mockNFTDataSource.getImageUrl(
+        tokenCounter: anyNamed('tokenCounter'),
+      ));
+      expect((result as Right).value, 'https://images/test.png');
+    });
+
+    test('should return UnexpectedFailure()', () async {
+      when(mockNFTDataSource.mint(
+        tokenURI: anyNamed('tokenURI'),
+        address: anyNamed('address'),
+      )).thenThrow(Exception());
+
+      final result = await repository.mint(
+        tokenURI: 'https://images/test.png',
+        address: '0x0000000000000000000000000000000000000000',
+        tokenCounter: 0,
+      );
+
+      verify(mockNFTDataSource.mint(
+        tokenURI: anyNamed('tokenURI'),
+        address: anyNamed('address'),
+      ));
+      expect((result as Left).value, isA<UnexpectedFailure>());
+    });
+  });
 }
