@@ -10,14 +10,15 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:web3dart/web3dart.dart' as _i5;
 
 import 'core/platform/smart_contract_web3_client.dart' as _i4;
-import 'core/utility/injectable_module.injectable.dart' as _i12;
+import 'core/utility/injectable_module.injectable.dart' as _i13;
 import 'nft/data_sources/nft_data_source.dart' as _i6;
 import 'nft/repositories/nft_repository.dart' as _i7;
-import 'nft/state_managers/nft_cubit/nft_cubit.dart' as _i11;
+import 'nft/state_managers/nft_cubit/nft_cubit.dart' as _i12;
 import 'nft/use_cases/get_name.dart' as _i8;
 import 'nft/use_cases/get_symbol.dart' as _i9;
-import 'nft/use_cases/get_token_counter.dart'
-    as _i10; // ignore_for_file: unnecessary_lambdas
+import 'nft/use_cases/get_token_counter.dart' as _i10;
+import 'nft/use_cases/mint.dart'
+    as _i11; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -40,11 +41,14 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i9.GetSymbol(repository: get<_i7.NFTRepository>()));
   gh.lazySingleton<_i10.GetTokenCounter>(
       () => _i10.GetTokenCounter(repository: get<_i7.NFTRepository>()));
-  gh.singleton<_i11.NFTCubit>(_i11.NFTCubit(
+  gh.lazySingleton<_i11.Mint>(
+      () => _i11.Mint(repository: get<_i7.NFTRepository>()));
+  gh.singleton<_i12.NFTCubit>(_i12.NFTCubit(
       getName: get<_i8.GetName>(),
       getSymbol: get<_i9.GetSymbol>(),
-      getTokenCounter: get<_i10.GetTokenCounter>()));
+      getTokenCounter: get<_i10.GetTokenCounter>(),
+      mint: get<_i11.Mint>()));
   return get;
 }
 
-class _$InjectableModule extends _i12.InjectableModule {}
+class _$InjectableModule extends _i13.InjectableModule {}

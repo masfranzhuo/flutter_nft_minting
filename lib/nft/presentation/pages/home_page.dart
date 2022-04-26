@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_nft_minting/core/utility/get_image_from_json.dart';
 import 'package:flutter_nft_minting/nft/state_managers/nft_cubit/nft_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -36,9 +37,19 @@ class HomePage extends StatelessWidget {
                     Text('Symbol: ${state.symbol}'),
                     Text('Number of NFT: ${state.tokenCounter}'),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => _getIt<NFTCubit>().mint(
+                        tokenCounter: state.tokenCounter,
+                        address: '0x1cb728ab78fcf1d8688ddad7fc6aeb2cba96c15f',
+                      ),
                       child: const Text('Mint'),
                     ),
+                    state.imageUrl != null
+                        ? Image.network(
+                            getImageFromJson(state.imageUrl!),
+                            width: 256,
+                            height: 256,
+                          )
+                        : Container(),
                   ],
                 ),
         ),

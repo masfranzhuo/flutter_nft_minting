@@ -13,6 +13,7 @@ import 'package:flutter_nft_minting/nft/use_cases/get_name.dart' as _i4;
 import 'package:flutter_nft_minting/nft/use_cases/get_symbol.dart' as _i8;
 import 'package:flutter_nft_minting/nft/use_cases/get_token_counter.dart'
     as _i9;
+import 'package:flutter_nft_minting/nft/use_cases/mint.dart' as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -87,4 +88,24 @@ class MockGetTokenCounter extends _i1.Mock implements _i9.GetTokenCounter {
               returnValue: Future<_i3.Either<_i6.Failure, int>>.value(
                   _FakeEither_1<_i6.Failure, int>()))
           as _i5.Future<_i3.Either<_i6.Failure, int>>);
+}
+
+/// A class which mocks [Mint].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMint extends _i1.Mock implements _i10.Mint {
+  MockMint() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.NFTRepository get repository =>
+      (super.noSuchMethod(Invocation.getter(#repository),
+          returnValue: _FakeNFTRepository_0()) as _i2.NFTRepository);
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, String>> call(_i10.Params? params) =>
+      (super.noSuchMethod(Invocation.method(#call, [params]),
+              returnValue: Future<_i3.Either<_i6.Failure, String>>.value(
+                  _FakeEither_1<_i6.Failure, String>()))
+          as _i5.Future<_i3.Either<_i6.Failure, String>>);
 }

@@ -4,27 +4,31 @@ import 'package:flutter_nft_minting/nft/state_managers/nft_cubit/nft_cubit.dart'
 import 'package:flutter_nft_minting/nft/use_cases/get_name.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_symbol.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_token_counter.dart';
+import 'package:flutter_nft_minting/nft/use_cases/mint.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'nft_cubit_test.mocks.dart';
 
-@GenerateMocks([GetName, GetSymbol, GetTokenCounter])
+@GenerateMocks([GetName, GetSymbol, GetTokenCounter, Mint])
 void main() {
   late NFTCubit cubit;
   late MockGetName mockGetName;
   late MockGetSymbol mockGetSymbol;
   late MockGetTokenCounter mockGetTokenCounter;
+  late MockMint mockMint;
 
   setUp(() {
     mockGetName = MockGetName();
     mockGetSymbol = MockGetSymbol();
     mockGetTokenCounter = MockGetTokenCounter();
+    mockMint = MockMint();
     cubit = NFTCubit(
       getName: mockGetName,
       getSymbol: mockGetSymbol,
       getTokenCounter: mockGetTokenCounter,
+      mint: mockMint,
     );
   });
 
@@ -58,6 +62,33 @@ void main() {
         verify(mockGetName(any));
         verify(mockGetSymbol(any));
         verify(mockGetTokenCounter(any));
+      },
+    );
+  });
+
+  group('mint', () {
+    blocTest(
+      'should emit imageUrl = "https://images/test.png"',
+      build: () {
+        when(mockMint(any)).thenAnswer(
+          (_) async => const Right('https://images/test.png'),
+        );
+
+        return cubit;
+      },
+      act: (_) async => cubit.mint(
+        tokenCounter: 0,
+        address: '0x0000000000000000000000000000000000000000',
+      ),
+      expect: () => [
+        NFTState(isLoading: true),
+        NFTState(
+          isLoading: false,
+          imageUrl: 'https://images/test.png',
+        ),
+      ],
+      verify: (_) async {
+        verify(mockMint(any));
       },
     );
   });

@@ -87,7 +87,10 @@ class NFTDataSourceImpl extends NFTDataSource {
       await client.sendTransaction(
         contract: contract,
         functionName: 'mint',
-        params: [tokenURI, address],
+        params: [
+          tokenURI,
+          EthereumAddress.fromHex(address),
+        ],
       );
     } on Exception catch (e) {
       throw UnexpectedFailure(message: e.toString());
@@ -104,7 +107,7 @@ class NFTDataSourceImpl extends NFTDataSource {
       final result = await client.callContract(
         contract: contract,
         functionName: 'tokenURI',
-        params: [tokenCounter],
+        params: [BigInt.from(tokenCounter)],
       );
       return result;
     } on Exception catch (e) {

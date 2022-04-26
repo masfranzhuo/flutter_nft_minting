@@ -5,6 +5,7 @@ import 'package:flutter_nft_minting/core/use_case.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_name.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_symbol.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_token_counter.dart';
+import 'package:flutter_nft_minting/nft/use_cases/mint.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -15,14 +16,17 @@ class NFTCubit extends Cubit<NFTState> {
   final GetName _getName;
   final GetSymbol _getSymbol;
   final GetTokenCounter _getTokenCounter;
+  final Mint _mint;
 
   NFTCubit({
     required GetName getName,
     required GetSymbol getSymbol,
     required GetTokenCounter getTokenCounter,
+    required Mint mint,
   })  : _getName = getName,
         _getSymbol = getSymbol,
         _getTokenCounter = getTokenCounter,
+        _mint = mint,
         super(NFTState());
 
   void get() async {
@@ -39,6 +43,29 @@ class NFTCubit extends Cubit<NFTState> {
       tokenCounter: (tokenCounter as Right).value,
     ));
   }
+
+  void mint({
+    required int tokenCounter,
+    required String address,
+  }) async {
+    emit(state.copyWith(isLoading: true));
+
+    final result = await _mint(Params(
+      tokenCounter: tokenCounter,
+      address: address,
+    ));
+
+    result.fold(
+      (failure) => emit(state.copyWith(
+        failure: failure,
+        isLoading: false,
+      )),
+      (imageUrl) => emit(state.copyWith(
+        isLoading: false,
+        imageUrl: imageUrl,
+      )),
+    );
+  }
 }
 
 @freezed
@@ -50,5 +77,6 @@ class NFTState with _$NFTState {
     String? name,
     String? symbol,
     @Default(0) int tokenCounter,
+    String? imageUrl,
   }) = _NFTState;
 }
