@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter_nft_minting/core/error/failure.dart';
 import 'package:flutter_nft_minting/nft/state_managers/nft_cubit/nft_cubit.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_name.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_symbol.dart';
@@ -67,6 +68,30 @@ void main() {
   });
 
   group('mint', () {
+    blocTest(
+      'should emit failure',
+      build: () {
+        when(mockMint(any)).thenAnswer(
+          (_) async => const Left(UnexpectedFailure()),
+        );
+
+        return cubit;
+      },
+      act: (_) async => cubit.mint(
+        tokenCounter: 0,
+        address: '0x0000000000000000000000000000000000000000',
+      ),
+      expect: () => [
+        NFTState(isLoading: true),
+        NFTState(
+          isLoading: false,
+          failure: const UnexpectedFailure(),
+        ),
+      ],
+      verify: (_) async {
+        verify(mockMint(any));
+      },
+    );
     blocTest(
       'should emit imageUrl = "https://images/test.png"',
       build: () {
