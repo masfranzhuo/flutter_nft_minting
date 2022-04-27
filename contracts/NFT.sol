@@ -13,6 +13,7 @@ contract NFT is ERC721, Ownable {
     }
 
     function mint(string memory _tokenURI, address _account) public {
+        require(tokenCounter < 3, "All NFT are minted");
         _safeMint(_account, tokenCounter);
         _setTokenURI(tokenCounter, _tokenURI);
         tokenCounter++;
@@ -36,10 +37,7 @@ contract NFT is ERC721, Ownable {
         override
         returns (string memory)
     {
-        require(
-            _exists(_tokenId),
-            "ERC721Metadata: URI set of nonexistent token"
-        );
+        require(_exists(_tokenId), "ERC721Metadata: URI set of nonexistent token");
         return _tokenURIs[_tokenId];
     }
 

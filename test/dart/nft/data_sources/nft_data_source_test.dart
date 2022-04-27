@@ -49,7 +49,7 @@ void main() {
       expect(result, 'Token Name');
     });
 
-    test('should throw UnexpectedFailure()', () async {
+    test('should throw Exception()', () async {
       when(mockClient.getContract(
         contractName: anyNamed('contractName'),
         contractFileLocation: anyNamed('contractFileLocation'),
@@ -61,7 +61,7 @@ void main() {
 
       expect(
         () async => await dataSource.getName(),
-        throwsA(isA<UnexpectedFailure>()),
+        throwsA(isA<Exception>()),
       );
     });
   });
@@ -86,7 +86,7 @@ void main() {
       expect(result, 'FNM');
     });
 
-    test('should throw UnexpectedFailure()', () async {
+    test('should throw Exception()', () async {
       when(mockClient.getContract(
         contractName: anyNamed('contractName'),
         contractFileLocation: anyNamed('contractFileLocation'),
@@ -98,7 +98,7 @@ void main() {
 
       expect(
         () async => await dataSource.getSymbol(),
-        throwsA(isA<UnexpectedFailure>()),
+        throwsA(isA<Exception>()),
       );
     });
   });
@@ -123,7 +123,7 @@ void main() {
       expect(result, 0);
     });
 
-    test('should throw UnexpectedFailure()', () async {
+    test('should throw Exception()', () async {
       when(mockClient.getContract(
         contractName: anyNamed('contractName'),
         contractFileLocation: anyNamed('contractFileLocation'),
@@ -135,7 +135,7 @@ void main() {
 
       expect(
         () async => await dataSource.getTokenCounter(),
-        throwsA(isA<UnexpectedFailure>()),
+        throwsA(isA<Exception>()),
       );
     });
   });
@@ -164,7 +164,7 @@ void main() {
       ));
     });
 
-    test('should throw UnexpectedFailure()', () async {
+    test('should throw Exception()', () async {
       when(mockClient.getContract(
         contractName: anyNamed('contractName'),
         contractFileLocation: anyNamed('contractFileLocation'),
@@ -180,7 +180,7 @@ void main() {
           tokenURI: 'https://images/test.png',
           address: '0x0000000000000000000000000000000000000000',
         ),
-        throwsA(isA<UnexpectedFailure>()),
+        throwsA(isA<Exception>()),
       );
     });
   });
@@ -207,7 +207,7 @@ void main() {
       expect(result, 'https://images/test.png');
     });
 
-    test('should throw UnexpectedFailure()', () async {
+    test('should throw Exception()', () async {
       when(mockClient.getContract(
         contractName: anyNamed('contractName'),
         contractFileLocation: anyNamed('contractFileLocation'),
@@ -220,7 +220,7 @@ void main() {
 
       expect(
         () async => await dataSource.getImageUrl(tokenCounter: 0),
-        throwsA(isA<UnexpectedFailure>()),
+        throwsA(isA<Exception>()),
       );
     });
   });

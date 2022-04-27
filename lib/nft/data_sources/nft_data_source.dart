@@ -34,7 +34,7 @@ class NFTDataSourceImpl extends NFTDataSource {
 
       return result;
     } on Exception catch (e) {
-      throw UnexpectedFailure(message: e.toString());
+      throw Exception(e.toString());
     }
   }
 
@@ -52,7 +52,7 @@ class NFTDataSourceImpl extends NFTDataSource {
 
       return result;
     } on Exception catch (e) {
-      throw UnexpectedFailure(message: e.toString());
+      throw Exception(e.toString());
     }
   }
 
@@ -68,12 +68,9 @@ class NFTDataSourceImpl extends NFTDataSource {
         functionName: 'tokenCounter',
       );
 
-      return EtherAmount.fromUnitAndValue(
-        EtherUnit.wei,
-        BigInt.parse(result.toString()),
-      ).getInEther.toInt();
+      return int.parse(result.toString());
     } on Exception catch (e) {
-      throw UnexpectedFailure(message: e.toString());
+      throw Exception(e.toString());
     }
   }
 
@@ -93,7 +90,7 @@ class NFTDataSourceImpl extends NFTDataSource {
         ],
       );
     } on Exception catch (e) {
-      throw UnexpectedFailure(message: e.toString());
+      throw Exception(e.toString());
     }
   }
 
@@ -111,7 +108,7 @@ class NFTDataSourceImpl extends NFTDataSource {
       );
       return result;
     } on Exception catch (e) {
-      throw UnexpectedFailure(message: e.toString());
+      throw Exception(e.toString());
     }
   }
 }

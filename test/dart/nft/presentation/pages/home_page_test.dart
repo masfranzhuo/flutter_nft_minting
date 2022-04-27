@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_nft_minting/core/error/failure.dart';
 import 'package:flutter_nft_minting/my_app.dart';
 import 'package:flutter_nft_minting/nft/state_managers/nft_cubit/nft_cubit.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -73,6 +74,17 @@ void main() {
     await tester.pump();
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
+  });
+
+  testWidgets('should found text failure message', (WidgetTester tester) async {
+    when(() => mockNFTCubit.state).thenReturn(NFTState(
+      failure: const UnexpectedFailure(message: 'error message'),
+    ));
+
+    await tester.pumpWidget(const MyApp());
+    await tester.pump();
+
+    expect(find.text('error message'), findsOneWidget);
   });
 
   testWidgets('should load image widget when imageURL exist',

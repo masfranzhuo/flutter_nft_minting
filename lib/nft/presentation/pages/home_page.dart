@@ -43,6 +43,9 @@ class HomePage extends StatelessWidget {
                       ),
                       child: const Text('Mint'),
                     ),
+                    state.failure != null
+                        ? Text(state.failure!.message)
+                        : Container(),
                     state.imageUrl != null
                         ? Image.network(
                             getImageFromJson(state.imageUrl!),
