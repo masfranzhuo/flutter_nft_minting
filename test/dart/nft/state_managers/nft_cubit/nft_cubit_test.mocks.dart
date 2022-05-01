@@ -9,15 +9,16 @@ import 'package:flutter_nft_minting/core/error/failure.dart' as _i8;
 import 'package:flutter_nft_minting/core/use_case.dart' as _i9;
 import 'package:flutter_nft_minting/nft/repositories/nft_repository.dart'
     as _i2;
-import 'package:flutter_nft_minting/nft/use_cases/get_image_url.dart' as _i13;
+import 'package:flutter_nft_minting/nft/use_cases/get_contract.dart' as _i12;
+import 'package:flutter_nft_minting/nft/use_cases/get_image_url.dart' as _i14;
 import 'package:flutter_nft_minting/nft/use_cases/get_name.dart' as _i6;
 import 'package:flutter_nft_minting/nft/use_cases/get_symbol.dart' as _i10;
 import 'package:flutter_nft_minting/nft/use_cases/get_token_counter.dart'
     as _i11;
-import 'package:flutter_nft_minting/nft/use_cases/mint.dart' as _i12;
+import 'package:flutter_nft_minting/nft/use_cases/mint.dart' as _i13;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:web3dart/contracts.dart' as _i4;
-import 'package:web3dart/web3dart.dart' as _i5;
+import 'package:web3dart/src/credentials/address.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -102,10 +103,32 @@ class MockGetTokenCounter extends _i1.Mock implements _i11.GetTokenCounter {
           as _i7.Future<_i3.Either<_i8.Failure, int>>);
 }
 
+/// A class which mocks [GetContract].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetContract extends _i1.Mock implements _i12.GetContract {
+  MockGetContract() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.NFTRepository get repository =>
+      (super.noSuchMethod(Invocation.getter(#repository),
+          returnValue: _FakeNFTRepository_0()) as _i2.NFTRepository);
+  @override
+  _i7.Future<_i3.Either<_i8.Failure, _i4.DeployedContract>> call(
+          _i9.NoParams? params) =>
+      (super.noSuchMethod(Invocation.method(#call, [params]),
+              returnValue:
+                  Future<_i3.Either<_i8.Failure, _i4.DeployedContract>>.value(
+                      _FakeEither_1<_i8.Failure, _i4.DeployedContract>()))
+          as _i7.Future<_i3.Either<_i8.Failure, _i4.DeployedContract>>);
+}
+
 /// A class which mocks [Mint].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMint extends _i1.Mock implements _i12.Mint {
+class MockMint extends _i1.Mock implements _i13.Mint {
   MockMint() {
     _i1.throwOnMissingStub(this);
   }
@@ -115,7 +138,7 @@ class MockMint extends _i1.Mock implements _i12.Mint {
       (super.noSuchMethod(Invocation.getter(#repository),
           returnValue: _FakeNFTRepository_0()) as _i2.NFTRepository);
   @override
-  _i7.Future<_i3.Either<_i8.Failure, bool>> call(_i12.Params? params) =>
+  _i7.Future<_i3.Either<_i8.Failure, bool>> call(_i13.Params? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
               returnValue: Future<_i3.Either<_i8.Failure, bool>>.value(
                   _FakeEither_1<_i8.Failure, bool>()))
@@ -125,7 +148,7 @@ class MockMint extends _i1.Mock implements _i12.Mint {
 /// A class which mocks [GetImageURL].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetImageURL extends _i1.Mock implements _i13.GetImageURL {
+class MockGetImageURL extends _i1.Mock implements _i14.GetImageURL {
   MockGetImageURL() {
     _i1.throwOnMissingStub(this);
   }
@@ -135,7 +158,7 @@ class MockGetImageURL extends _i1.Mock implements _i13.GetImageURL {
       (super.noSuchMethod(Invocation.getter(#repository),
           returnValue: _FakeNFTRepository_0()) as _i2.NFTRepository);
   @override
-  _i7.Future<_i3.Either<_i8.Failure, String>> call(_i13.Params? params) =>
+  _i7.Future<_i3.Either<_i8.Failure, String>> call(_i14.Params? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
               returnValue: Future<_i3.Either<_i8.Failure, String>>.value(
                   _FakeEither_1<_i8.Failure, String>()))

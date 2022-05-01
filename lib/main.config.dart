@@ -54,6 +54,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       getName: get<_i10.GetName>(),
       getSymbol: get<_i11.GetSymbol>(),
       getTokenCounter: get<_i12.GetTokenCounter>(),
+      getContract: get<_i8.GetContract>(),
       mint: get<_i13.Mint>(),
       getImageURL: get<_i9.GetImageURL>()));
   gh.singleton<_i15.NftBloc>(_i15.NftBloc(

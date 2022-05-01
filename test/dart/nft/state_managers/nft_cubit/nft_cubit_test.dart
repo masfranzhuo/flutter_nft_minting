@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_nft_minting/core/error/failure.dart';
 import 'package:flutter_nft_minting/nft/state_managers/nft_cubit/nft_cubit.dart';
+import 'package:flutter_nft_minting/nft/use_cases/get_contract.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_image_url.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_name.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_symbol.dart';
@@ -14,13 +15,21 @@ import 'package:web3dart/contracts.dart';
 
 import 'nft_cubit_test.mocks.dart';
 
-@GenerateMocks(
-    [GetName, GetSymbol, GetTokenCounter, Mint, GetImageURL, DeployedContract])
+@GenerateMocks([
+  GetName,
+  GetSymbol,
+  GetTokenCounter,
+  GetContract,
+  Mint,
+  GetImageURL,
+  DeployedContract,
+])
 void main() {
   late NFTCubit cubit;
   late MockGetName mockGetName;
   late MockGetSymbol mockGetSymbol;
   late MockGetTokenCounter mockGetTokenCounter;
+  late MockGetContract mockGetContract;
   late MockMint mockMint;
   late MockGetImageURL mockGetImageURL;
   late MockDeployedContract mockDeployedContract;
@@ -32,10 +41,12 @@ void main() {
     mockMint = MockMint();
     mockGetImageURL = MockGetImageURL();
     mockDeployedContract = MockDeployedContract();
+    mockGetContract = MockGetContract();
     cubit = NFTCubit(
       getName: mockGetName,
       getSymbol: mockGetSymbol,
       getTokenCounter: mockGetTokenCounter,
+      getContract: mockGetContract,
       mint: mockMint,
       getImageURL: mockGetImageURL,
     );
@@ -71,6 +82,48 @@ void main() {
         verify(mockGetName(any));
         verify(mockGetSymbol(any));
         verify(mockGetTokenCounter(any));
+      },
+    );
+  });
+
+  group('getContract', () {
+    blocTest(
+      'should emit failure',
+      build: () {
+        when(mockGetContract(any)).thenAnswer(
+          (_) async => const Left(UnexpectedFailure()),
+        );
+
+        return cubit;
+      },
+      act: (_) async => cubit.getContract(),
+      expect: () => [
+        NFTState(isLoading: true),
+        NFTState(
+          isLoading: false,
+          failure: const UnexpectedFailure(),
+        ),
+      ],
+      verify: (_) async {
+        verify(mockGetContract(any));
+      },
+    );
+    blocTest(
+      'should emit contract',
+      build: () {
+        when(mockGetContract(any)).thenAnswer(
+          (_) async => Right(mockDeployedContract),
+        );
+
+        return cubit;
+      },
+      act: (_) async => cubit.getContract(),
+      expect: () => [
+        NFTState(isLoading: true),
+        NFTState(isLoading: false, contract: mockDeployedContract),
+      ],
+      verify: (_) async {
+        verify(mockGetContract(any));
       },
     );
   });
