@@ -2,13 +2,15 @@
 // in flutter_nft_minting/test/dart/nft/use_cases/get_image_url_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i4;
+import 'dart:async' as _i6;
 
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:flutter_nft_minting/core/error/failure.dart' as _i5;
+import 'package:flutter_nft_minting/core/error/failure.dart' as _i7;
 import 'package:flutter_nft_minting/nft/repositories/nft_repository.dart'
-    as _i3;
+    as _i5;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:web3dart/contracts.dart' as _i3;
+import 'package:web3dart/src/credentials/address.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -22,47 +24,111 @@ import 'package:mockito/mockito.dart' as _i1;
 
 class _FakeEither_0<L, R> extends _i1.Fake implements _i2.Either<L, R> {}
 
+class _FakeContractAbi_1 extends _i1.Fake implements _i3.ContractAbi {}
+
+class _FakeEthereumAddress_2 extends _i1.Fake implements _i4.EthereumAddress {}
+
+class _FakeContractFunction_3 extends _i1.Fake implements _i3.ContractFunction {
+}
+
+class _FakeContractEvent_4 extends _i1.Fake implements _i3.ContractEvent {}
+
 /// A class which mocks [NFTRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNFTRepository extends _i1.Mock implements _i3.NFTRepository {
+class MockNFTRepository extends _i1.Mock implements _i5.NFTRepository {
   MockNFTRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, String>> getName() =>
+  _i6.Future<_i2.Either<_i7.Failure, String>> getName() =>
       (super.noSuchMethod(Invocation.method(#getName, []),
-              returnValue: Future<_i2.Either<_i5.Failure, String>>.value(
-                  _FakeEither_0<_i5.Failure, String>()))
-          as _i4.Future<_i2.Either<_i5.Failure, String>>);
+              returnValue: Future<_i2.Either<_i7.Failure, String>>.value(
+                  _FakeEither_0<_i7.Failure, String>()))
+          as _i6.Future<_i2.Either<_i7.Failure, String>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, String>> getSymbol() =>
+  _i6.Future<_i2.Either<_i7.Failure, String>> getSymbol() =>
       (super.noSuchMethod(Invocation.method(#getSymbol, []),
-              returnValue: Future<_i2.Either<_i5.Failure, String>>.value(
-                  _FakeEither_0<_i5.Failure, String>()))
-          as _i4.Future<_i2.Either<_i5.Failure, String>>);
+              returnValue: Future<_i2.Either<_i7.Failure, String>>.value(
+                  _FakeEither_0<_i7.Failure, String>()))
+          as _i6.Future<_i2.Either<_i7.Failure, String>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, int>> getTokenCounter() =>
+  _i6.Future<_i2.Either<_i7.Failure, int>> getTokenCounter() =>
       (super.noSuchMethod(Invocation.method(#getTokenCounter, []),
-              returnValue: Future<_i2.Either<_i5.Failure, int>>.value(
-                  _FakeEither_0<_i5.Failure, int>()))
-          as _i4.Future<_i2.Either<_i5.Failure, int>>);
+              returnValue: Future<_i2.Either<_i7.Failure, int>>.value(
+                  _FakeEither_0<_i7.Failure, int>()))
+          as _i6.Future<_i2.Either<_i7.Failure, int>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, bool>> mint(
-          {String? tokenURI, String? address}) =>
-      (super.noSuchMethod(
-              Invocation.method(
-                  #mint, [], {#tokenURI: tokenURI, #address: address}),
-              returnValue: Future<_i2.Either<_i5.Failure, bool>>.value(
-                  _FakeEither_0<_i5.Failure, bool>()))
-          as _i4.Future<_i2.Either<_i5.Failure, bool>>);
+  _i6.Future<_i2.Either<_i7.Failure, _i3.DeployedContract>> getContract() =>
+      (super.noSuchMethod(Invocation.method(#getContract, []),
+              returnValue:
+                  Future<_i2.Either<_i7.Failure, _i3.DeployedContract>>.value(
+                      _FakeEither_0<_i7.Failure, _i3.DeployedContract>()))
+          as _i6.Future<_i2.Either<_i7.Failure, _i3.DeployedContract>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, String>> getImageURL(
-          {int? tokenCounter}) =>
+  _i6.Future<_i2.Either<_i7.Failure, bool>> mint(
+          {_i3.DeployedContract? contract,
+          String? tokenURI,
+          String? address}) =>
       (super.noSuchMethod(
-          Invocation.method(#getImageURL, [], {#tokenCounter: tokenCounter}),
-          returnValue: Future<_i2.Either<_i5.Failure, String>>.value(
-              _FakeEither_0<_i5.Failure, String>())) as _i4
-          .Future<_i2.Either<_i5.Failure, String>>);
+              Invocation.method(#mint, [], {
+                #contract: contract,
+                #tokenURI: tokenURI,
+                #address: address
+              }),
+              returnValue: Future<_i2.Either<_i7.Failure, bool>>.value(
+                  _FakeEither_0<_i7.Failure, bool>()))
+          as _i6.Future<_i2.Either<_i7.Failure, bool>>);
+  @override
+  _i6.Future<_i2.Either<_i7.Failure, String>> getImageURL(
+          {_i3.DeployedContract? contract, int? tokenCounter}) =>
+      (super.noSuchMethod(
+              Invocation.method(#getImageURL, [],
+                  {#contract: contract, #tokenCounter: tokenCounter}),
+              returnValue: Future<_i2.Either<_i7.Failure, String>>.value(
+                  _FakeEither_0<_i7.Failure, String>()))
+          as _i6.Future<_i2.Either<_i7.Failure, String>>);
+}
+
+/// A class which mocks [DeployedContract].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockDeployedContract extends _i1.Mock implements _i3.DeployedContract {
+  MockDeployedContract() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.ContractAbi get abi => (super.noSuchMethod(Invocation.getter(#abi),
+      returnValue: _FakeContractAbi_1()) as _i3.ContractAbi);
+  @override
+  _i4.EthereumAddress get address =>
+      (super.noSuchMethod(Invocation.getter(#address),
+          returnValue: _FakeEthereumAddress_2()) as _i4.EthereumAddress);
+  @override
+  List<_i3.ContractFunction> get functions =>
+      (super.noSuchMethod(Invocation.getter(#functions),
+          returnValue: <_i3.ContractFunction>[]) as List<_i3.ContractFunction>);
+  @override
+  List<_i3.ContractEvent> get events =>
+      (super.noSuchMethod(Invocation.getter(#events),
+          returnValue: <_i3.ContractEvent>[]) as List<_i3.ContractEvent>);
+  @override
+  Iterable<_i3.ContractFunction> get constructors => (super.noSuchMethod(
+      Invocation.getter(#constructors),
+      returnValue: <_i3.ContractFunction>[]) as Iterable<_i3.ContractFunction>);
+  @override
+  Iterable<_i3.ContractFunction> findFunctionsByName(String? name) =>
+      (super.noSuchMethod(Invocation.method(#findFunctionsByName, [name]),
+              returnValue: <_i3.ContractFunction>[])
+          as Iterable<_i3.ContractFunction>);
+  @override
+  _i3.ContractFunction function(String? name) =>
+      (super.noSuchMethod(Invocation.method(#function, [name]),
+          returnValue: _FakeContractFunction_3()) as _i3.ContractFunction);
+  @override
+  _i3.ContractEvent event(String? name) =>
+      (super.noSuchMethod(Invocation.method(#event, [name]),
+          returnValue: _FakeContractEvent_4()) as _i3.ContractEvent);
 }

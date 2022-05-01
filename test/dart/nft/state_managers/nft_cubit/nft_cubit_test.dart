@@ -10,10 +10,12 @@ import 'package:flutter_nft_minting/nft/use_cases/mint.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:web3dart/contracts.dart';
 
 import 'nft_cubit_test.mocks.dart';
 
-@GenerateMocks([GetName, GetSymbol, GetTokenCounter, Mint, GetImageURL])
+@GenerateMocks(
+    [GetName, GetSymbol, GetTokenCounter, Mint, GetImageURL, DeployedContract])
 void main() {
   late NFTCubit cubit;
   late MockGetName mockGetName;
@@ -21,6 +23,7 @@ void main() {
   late MockGetTokenCounter mockGetTokenCounter;
   late MockMint mockMint;
   late MockGetImageURL mockGetImageURL;
+  late MockDeployedContract mockDeployedContract;
 
   setUp(() {
     mockGetName = MockGetName();
@@ -28,6 +31,7 @@ void main() {
     mockGetTokenCounter = MockGetTokenCounter();
     mockMint = MockMint();
     mockGetImageURL = MockGetImageURL();
+    mockDeployedContract = MockDeployedContract();
     cubit = NFTCubit(
       getName: mockGetName,
       getSymbol: mockGetSymbol,
@@ -82,6 +86,7 @@ void main() {
         return cubit;
       },
       act: (_) async => cubit.mint(
+        contract: mockDeployedContract,
         tokenCounter: 0,
         address: '0x0000000000000000000000000000000000000000',
       ),
@@ -106,6 +111,7 @@ void main() {
         return cubit;
       },
       act: (_) async => cubit.mint(
+        contract: mockDeployedContract,
         tokenCounter: 0,
         address: '0x0000000000000000000000000000000000000000',
       ),
@@ -129,7 +135,10 @@ void main() {
 
         return cubit;
       },
-      act: (_) async => cubit.getImageURL(tokenCounter: 0),
+      act: (_) async => cubit.getImageURL(
+        contract: mockDeployedContract,
+        tokenCounter: 0,
+      ),
       expect: () => [
         NFTState(isLoading: true),
         NFTState(
@@ -150,7 +159,10 @@ void main() {
 
         return cubit;
       },
-      act: (_) async => cubit.getImageURL(tokenCounter: 0),
+      act: (_) async => cubit.getImageURL(
+        contract: mockDeployedContract,
+        tokenCounter: 0,
+      ),
       expect: () => [
         NFTState(isLoading: true),
         NFTState(isLoading: false, imageURL: 'https://images/test.png'),

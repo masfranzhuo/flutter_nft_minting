@@ -2,13 +2,14 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_nft_minting/core/error/failure.dart';
 import 'package:flutter_nft_minting/core/use_case.dart';
-import 'package:flutter_nft_minting/nft/use_cases/get_image_url.dart';
+import 'package:flutter_nft_minting/nft/use_cases/get_image_url.dart' as giu;
 import 'package:flutter_nft_minting/nft/use_cases/get_name.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_symbol.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_token_counter.dart';
-import 'package:flutter_nft_minting/nft/use_cases/mint.dart';
+import 'package:flutter_nft_minting/nft/use_cases/mint.dart' as mnt;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:web3dart/contracts.dart';
 
 part 'nft_cubit.freezed.dart';
 
@@ -17,15 +18,15 @@ class NFTCubit extends Cubit<NFTState> {
   final GetName _getName;
   final GetSymbol _getSymbol;
   final GetTokenCounter _getTokenCounter;
-  final Mint _mint;
-  final GetImageURL _getImageURL;
+  final mnt.Mint _mint;
+  final giu.GetImageURL _getImageURL;
 
   NFTCubit({
     required GetName getName,
     required GetSymbol getSymbol,
     required GetTokenCounter getTokenCounter,
-    required Mint mint,
-    required GetImageURL getImageURL,
+    required mnt.Mint mint,
+    required giu.GetImageURL getImageURL,
   })  : _getName = getName,
         _getSymbol = getSymbol,
         _getTokenCounter = getTokenCounter,
@@ -49,12 +50,14 @@ class NFTCubit extends Cubit<NFTState> {
   }
 
   void mint({
+    required DeployedContract contract,
     required int tokenCounter,
     required String address,
   }) async {
     emit(state.copyWith(isLoading: true));
 
-    final result = await _mint(Params(
+    final result = await _mint(mnt.Params(
+      contract: contract,
       tokenCounter: tokenCounter,
       address: address,
     ));
@@ -68,10 +71,16 @@ class NFTCubit extends Cubit<NFTState> {
     );
   }
 
-  void getImageURL({required int tokenCounter}) async {
+  void getImageURL({
+    required DeployedContract contract,
+    required int tokenCounter,
+  }) async {
     emit(state.copyWith(isLoading: true));
 
-    final result = await _getImageURL(tokenCounter);
+    final result = await _getImageURL(giu.Params(
+      contract: contract,
+      tokenCounter: tokenCounter,
+    ));
 
     result.fold(
       (failure) => emit(state.copyWith(

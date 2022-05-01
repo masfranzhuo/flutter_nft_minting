@@ -9,6 +9,7 @@ import 'package:flutter_nft_minting/nft/state_managers/nft_bloc/nft_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:web3dart/contracts.dart';
 
 class MockNftBloc extends MockBloc<NftEvent, NftState> implements NftBloc {}
 
@@ -16,8 +17,11 @@ class FakeNftState extends Fake implements NftState {}
 
 class FakeNftEvent extends Fake implements NftEvent {}
 
+class MockDeployedContract extends Mock implements DeployedContract {}
+
 void main() {
   late MockNftBloc mockNftBloc;
+  late MockDeployedContract mockDeployedContract;
 
   setUpAll(() {
     HttpOverrides.global = null;
@@ -34,6 +38,7 @@ void main() {
     ''');
 
     mockNftBloc = MockNftBloc();
+    mockDeployedContract = MockDeployedContract();
 
     GetIt.I.registerLazySingleton<NftBloc>(() => mockNftBloc);
   });
@@ -108,7 +113,9 @@ void main() {
 
   testWidgets('should tap mint button and call mint()',
       (WidgetTester tester) async {
-    when(() => mockNftBloc.state).thenReturn(NftState());
+    when(() => mockNftBloc.state).thenReturn(NftState(
+      contract: mockDeployedContract,
+    ));
     whenListen(
       mockNftBloc,
       Stream.fromIterable([
@@ -129,7 +136,8 @@ void main() {
     await tester.pump();
 
     verify(
-      () => mockNftBloc.add(const NftEvent.mint(
+      () => mockNftBloc.add(NftEvent.mint(
+        contract: mockDeployedContract,
         tokenCounter: 0,
         address: '0x1cb728ab78fcf1d8688ddad7fc6aeb2cba96c15f',
       )),

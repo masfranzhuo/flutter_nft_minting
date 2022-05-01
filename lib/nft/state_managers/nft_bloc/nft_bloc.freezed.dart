@@ -21,16 +21,18 @@ class _$NftEventTearOff {
     return const _Get();
   }
 
-  _Mint mint({required int tokenCounter, required String address}) {
-    return _Mint(
-      tokenCounter: tokenCounter,
-      address: address,
-    );
+  _GetContract getContract() {
+    return const _GetContract();
   }
 
-  _GetImageURL getImageUrl({required int tokenCounter}) {
-    return _GetImageURL(
+  _Mint mint(
+      {required DeployedContract contract,
+      required int tokenCounter,
+      required String address}) {
+    return _Mint(
+      contract: contract,
       tokenCounter: tokenCounter,
+      address: address,
     );
   }
 }
@@ -43,44 +45,50 @@ mixin _$NftEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() get,
-    required TResult Function(int tokenCounter, String address) mint,
-    required TResult Function(int tokenCounter) getImageUrl,
+    required TResult Function() getContract,
+    required TResult Function(
+            DeployedContract contract, int tokenCounter, String address)
+        mint,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? get,
-    TResult Function(int tokenCounter, String address)? mint,
-    TResult Function(int tokenCounter)? getImageUrl,
+    TResult Function()? getContract,
+    TResult Function(
+            DeployedContract contract, int tokenCounter, String address)?
+        mint,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? get,
-    TResult Function(int tokenCounter, String address)? mint,
-    TResult Function(int tokenCounter)? getImageUrl,
+    TResult Function()? getContract,
+    TResult Function(
+            DeployedContract contract, int tokenCounter, String address)?
+        mint,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Get value) get,
+    required TResult Function(_GetContract value) getContract,
     required TResult Function(_Mint value) mint,
-    required TResult Function(_GetImageURL value) getImageUrl,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Get value)? get,
+    TResult Function(_GetContract value)? getContract,
     TResult Function(_Mint value)? mint,
-    TResult Function(_GetImageURL value)? getImageUrl,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Get value)? get,
+    TResult Function(_GetContract value)? getContract,
     TResult Function(_Mint value)? mint,
-    TResult Function(_GetImageURL value)? getImageUrl,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -140,8 +148,10 @@ class _$_Get implements _Get {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() get,
-    required TResult Function(int tokenCounter, String address) mint,
-    required TResult Function(int tokenCounter) getImageUrl,
+    required TResult Function() getContract,
+    required TResult Function(
+            DeployedContract contract, int tokenCounter, String address)
+        mint,
   }) {
     return get();
   }
@@ -150,8 +160,10 @@ class _$_Get implements _Get {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? get,
-    TResult Function(int tokenCounter, String address)? mint,
-    TResult Function(int tokenCounter)? getImageUrl,
+    TResult Function()? getContract,
+    TResult Function(
+            DeployedContract contract, int tokenCounter, String address)?
+        mint,
   }) {
     return get?.call();
   }
@@ -160,8 +172,10 @@ class _$_Get implements _Get {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? get,
-    TResult Function(int tokenCounter, String address)? mint,
-    TResult Function(int tokenCounter)? getImageUrl,
+    TResult Function()? getContract,
+    TResult Function(
+            DeployedContract contract, int tokenCounter, String address)?
+        mint,
     required TResult orElse(),
   }) {
     if (get != null) {
@@ -174,8 +188,8 @@ class _$_Get implements _Get {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Get value) get,
+    required TResult Function(_GetContract value) getContract,
     required TResult Function(_Mint value) mint,
-    required TResult Function(_GetImageURL value) getImageUrl,
   }) {
     return get(this);
   }
@@ -184,8 +198,8 @@ class _$_Get implements _Get {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Get value)? get,
+    TResult Function(_GetContract value)? getContract,
     TResult Function(_Mint value)? mint,
-    TResult Function(_GetImageURL value)? getImageUrl,
   }) {
     return get?.call(this);
   }
@@ -194,8 +208,8 @@ class _$_Get implements _Get {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Get value)? get,
+    TResult Function(_GetContract value)? getContract,
     TResult Function(_Mint value)? mint,
-    TResult Function(_GetImageURL value)? getImageUrl,
     required TResult orElse(),
   }) {
     if (get != null) {
@@ -210,10 +224,126 @@ abstract class _Get implements NftEvent {
 }
 
 /// @nodoc
+abstract class _$GetContractCopyWith<$Res> {
+  factory _$GetContractCopyWith(
+          _GetContract value, $Res Function(_GetContract) then) =
+      __$GetContractCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$GetContractCopyWithImpl<$Res> extends _$NftEventCopyWithImpl<$Res>
+    implements _$GetContractCopyWith<$Res> {
+  __$GetContractCopyWithImpl(
+      _GetContract _value, $Res Function(_GetContract) _then)
+      : super(_value, (v) => _then(v as _GetContract));
+
+  @override
+  _GetContract get _value => super._value as _GetContract;
+}
+
+/// @nodoc
+
+class _$_GetContract implements _GetContract {
+  const _$_GetContract();
+
+  @override
+  String toString() {
+    return 'NftEvent.getContract()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _GetContract);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() get,
+    required TResult Function() getContract,
+    required TResult Function(
+            DeployedContract contract, int tokenCounter, String address)
+        mint,
+  }) {
+    return getContract();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? get,
+    TResult Function()? getContract,
+    TResult Function(
+            DeployedContract contract, int tokenCounter, String address)?
+        mint,
+  }) {
+    return getContract?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? get,
+    TResult Function()? getContract,
+    TResult Function(
+            DeployedContract contract, int tokenCounter, String address)?
+        mint,
+    required TResult orElse(),
+  }) {
+    if (getContract != null) {
+      return getContract();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Get value) get,
+    required TResult Function(_GetContract value) getContract,
+    required TResult Function(_Mint value) mint,
+  }) {
+    return getContract(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Get value)? get,
+    TResult Function(_GetContract value)? getContract,
+    TResult Function(_Mint value)? mint,
+  }) {
+    return getContract?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Get value)? get,
+    TResult Function(_GetContract value)? getContract,
+    TResult Function(_Mint value)? mint,
+    required TResult orElse(),
+  }) {
+    if (getContract != null) {
+      return getContract(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetContract implements NftEvent {
+  const factory _GetContract() = _$_GetContract;
+}
+
+/// @nodoc
 abstract class _$MintCopyWith<$Res> {
   factory _$MintCopyWith(_Mint value, $Res Function(_Mint) then) =
       __$MintCopyWithImpl<$Res>;
-  $Res call({int tokenCounter, String address});
+  $Res call({DeployedContract contract, int tokenCounter, String address});
 }
 
 /// @nodoc
@@ -227,10 +357,15 @@ class __$MintCopyWithImpl<$Res> extends _$NftEventCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? contract = freezed,
     Object? tokenCounter = freezed,
     Object? address = freezed,
   }) {
     return _then(_Mint(
+      contract: contract == freezed
+          ? _value.contract
+          : contract // ignore: cast_nullable_to_non_nullable
+              as DeployedContract,
       tokenCounter: tokenCounter == freezed
           ? _value.tokenCounter
           : tokenCounter // ignore: cast_nullable_to_non_nullable
@@ -246,8 +381,13 @@ class __$MintCopyWithImpl<$Res> extends _$NftEventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Mint implements _Mint {
-  const _$_Mint({required this.tokenCounter, required this.address});
+  const _$_Mint(
+      {required this.contract,
+      required this.tokenCounter,
+      required this.address});
 
+  @override
+  final DeployedContract contract;
   @override
   final int tokenCounter;
   @override
@@ -255,7 +395,7 @@ class _$_Mint implements _Mint {
 
   @override
   String toString() {
-    return 'NftEvent.mint(tokenCounter: $tokenCounter, address: $address)';
+    return 'NftEvent.mint(contract: $contract, tokenCounter: $tokenCounter, address: $address)';
   }
 
   @override
@@ -263,6 +403,7 @@ class _$_Mint implements _Mint {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Mint &&
+            const DeepCollectionEquality().equals(other.contract, contract) &&
             const DeepCollectionEquality()
                 .equals(other.tokenCounter, tokenCounter) &&
             const DeepCollectionEquality().equals(other.address, address));
@@ -271,6 +412,7 @@ class _$_Mint implements _Mint {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(contract),
       const DeepCollectionEquality().hash(tokenCounter),
       const DeepCollectionEquality().hash(address));
 
@@ -283,32 +425,38 @@ class _$_Mint implements _Mint {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() get,
-    required TResult Function(int tokenCounter, String address) mint,
-    required TResult Function(int tokenCounter) getImageUrl,
+    required TResult Function() getContract,
+    required TResult Function(
+            DeployedContract contract, int tokenCounter, String address)
+        mint,
   }) {
-    return mint(tokenCounter, address);
+    return mint(contract, tokenCounter, address);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? get,
-    TResult Function(int tokenCounter, String address)? mint,
-    TResult Function(int tokenCounter)? getImageUrl,
+    TResult Function()? getContract,
+    TResult Function(
+            DeployedContract contract, int tokenCounter, String address)?
+        mint,
   }) {
-    return mint?.call(tokenCounter, address);
+    return mint?.call(contract, tokenCounter, address);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? get,
-    TResult Function(int tokenCounter, String address)? mint,
-    TResult Function(int tokenCounter)? getImageUrl,
+    TResult Function()? getContract,
+    TResult Function(
+            DeployedContract contract, int tokenCounter, String address)?
+        mint,
     required TResult orElse(),
   }) {
     if (mint != null) {
-      return mint(tokenCounter, address);
+      return mint(contract, tokenCounter, address);
     }
     return orElse();
   }
@@ -317,8 +465,8 @@ class _$_Mint implements _Mint {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Get value) get,
+    required TResult Function(_GetContract value) getContract,
     required TResult Function(_Mint value) mint,
-    required TResult Function(_GetImageURL value) getImageUrl,
   }) {
     return mint(this);
   }
@@ -327,8 +475,8 @@ class _$_Mint implements _Mint {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Get value)? get,
+    TResult Function(_GetContract value)? getContract,
     TResult Function(_Mint value)? mint,
-    TResult Function(_GetImageURL value)? getImageUrl,
   }) {
     return mint?.call(this);
   }
@@ -337,8 +485,8 @@ class _$_Mint implements _Mint {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Get value)? get,
+    TResult Function(_GetContract value)? getContract,
     TResult Function(_Mint value)? mint,
-    TResult Function(_GetImageURL value)? getImageUrl,
     required TResult orElse(),
   }) {
     if (mint != null) {
@@ -349,153 +497,16 @@ class _$_Mint implements _Mint {
 }
 
 abstract class _Mint implements NftEvent {
-  const factory _Mint({required int tokenCounter, required String address}) =
-      _$_Mint;
+  const factory _Mint(
+      {required DeployedContract contract,
+      required int tokenCounter,
+      required String address}) = _$_Mint;
 
+  DeployedContract get contract;
   int get tokenCounter;
   String get address;
   @JsonKey(ignore: true)
   _$MintCopyWith<_Mint> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$GetImageURLCopyWith<$Res> {
-  factory _$GetImageURLCopyWith(
-          _GetImageURL value, $Res Function(_GetImageURL) then) =
-      __$GetImageURLCopyWithImpl<$Res>;
-  $Res call({int tokenCounter});
-}
-
-/// @nodoc
-class __$GetImageURLCopyWithImpl<$Res> extends _$NftEventCopyWithImpl<$Res>
-    implements _$GetImageURLCopyWith<$Res> {
-  __$GetImageURLCopyWithImpl(
-      _GetImageURL _value, $Res Function(_GetImageURL) _then)
-      : super(_value, (v) => _then(v as _GetImageURL));
-
-  @override
-  _GetImageURL get _value => super._value as _GetImageURL;
-
-  @override
-  $Res call({
-    Object? tokenCounter = freezed,
-  }) {
-    return _then(_GetImageURL(
-      tokenCounter: tokenCounter == freezed
-          ? _value.tokenCounter
-          : tokenCounter // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_GetImageURL implements _GetImageURL {
-  const _$_GetImageURL({required this.tokenCounter});
-
-  @override
-  final int tokenCounter;
-
-  @override
-  String toString() {
-    return 'NftEvent.getImageUrl(tokenCounter: $tokenCounter)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _GetImageURL &&
-            const DeepCollectionEquality()
-                .equals(other.tokenCounter, tokenCounter));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(tokenCounter));
-
-  @JsonKey(ignore: true)
-  @override
-  _$GetImageURLCopyWith<_GetImageURL> get copyWith =>
-      __$GetImageURLCopyWithImpl<_GetImageURL>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() get,
-    required TResult Function(int tokenCounter, String address) mint,
-    required TResult Function(int tokenCounter) getImageUrl,
-  }) {
-    return getImageUrl(tokenCounter);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? get,
-    TResult Function(int tokenCounter, String address)? mint,
-    TResult Function(int tokenCounter)? getImageUrl,
-  }) {
-    return getImageUrl?.call(tokenCounter);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? get,
-    TResult Function(int tokenCounter, String address)? mint,
-    TResult Function(int tokenCounter)? getImageUrl,
-    required TResult orElse(),
-  }) {
-    if (getImageUrl != null) {
-      return getImageUrl(tokenCounter);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Get value) get,
-    required TResult Function(_Mint value) mint,
-    required TResult Function(_GetImageURL value) getImageUrl,
-  }) {
-    return getImageUrl(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Get value)? get,
-    TResult Function(_Mint value)? mint,
-    TResult Function(_GetImageURL value)? getImageUrl,
-  }) {
-    return getImageUrl?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Get value)? get,
-    TResult Function(_Mint value)? mint,
-    TResult Function(_GetImageURL value)? getImageUrl,
-    required TResult orElse(),
-  }) {
-    if (getImageUrl != null) {
-      return getImageUrl(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _GetImageURL implements NftEvent {
-  const factory _GetImageURL({required int tokenCounter}) = _$_GetImageURL;
-
-  int get tokenCounter;
-  @JsonKey(ignore: true)
-  _$GetImageURLCopyWith<_GetImageURL> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -508,7 +519,8 @@ class _$NftStateTearOff {
       String? name,
       String? symbol,
       int tokenCounter = 0,
-      String? imageURL}) {
+      String? imageURL,
+      DeployedContract? contract}) {
     return _NftState(
       failure: failure,
       isLoading: isLoading,
@@ -516,6 +528,7 @@ class _$NftStateTearOff {
       symbol: symbol,
       tokenCounter: tokenCounter,
       imageURL: imageURL,
+      contract: contract,
     );
   }
 }
@@ -531,6 +544,7 @@ mixin _$NftState {
   String? get symbol => throw _privateConstructorUsedError;
   int get tokenCounter => throw _privateConstructorUsedError;
   String? get imageURL => throw _privateConstructorUsedError;
+  DeployedContract? get contract => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NftStateCopyWith<NftState> get copyWith =>
@@ -547,7 +561,8 @@ abstract class $NftStateCopyWith<$Res> {
       String? name,
       String? symbol,
       int tokenCounter,
-      String? imageURL});
+      String? imageURL,
+      DeployedContract? contract});
 }
 
 /// @nodoc
@@ -566,6 +581,7 @@ class _$NftStateCopyWithImpl<$Res> implements $NftStateCopyWith<$Res> {
     Object? symbol = freezed,
     Object? tokenCounter = freezed,
     Object? imageURL = freezed,
+    Object? contract = freezed,
   }) {
     return _then(_value.copyWith(
       failure: failure == freezed
@@ -592,6 +608,10 @@ class _$NftStateCopyWithImpl<$Res> implements $NftStateCopyWith<$Res> {
           ? _value.imageURL
           : imageURL // ignore: cast_nullable_to_non_nullable
               as String?,
+      contract: contract == freezed
+          ? _value.contract
+          : contract // ignore: cast_nullable_to_non_nullable
+              as DeployedContract?,
     ));
   }
 }
@@ -607,7 +627,8 @@ abstract class _$NftStateCopyWith<$Res> implements $NftStateCopyWith<$Res> {
       String? name,
       String? symbol,
       int tokenCounter,
-      String? imageURL});
+      String? imageURL,
+      DeployedContract? contract});
 }
 
 /// @nodoc
@@ -627,6 +648,7 @@ class __$NftStateCopyWithImpl<$Res> extends _$NftStateCopyWithImpl<$Res>
     Object? symbol = freezed,
     Object? tokenCounter = freezed,
     Object? imageURL = freezed,
+    Object? contract = freezed,
   }) {
     return _then(_NftState(
       failure: failure == freezed
@@ -653,6 +675,10 @@ class __$NftStateCopyWithImpl<$Res> extends _$NftStateCopyWithImpl<$Res>
           ? _value.imageURL
           : imageURL // ignore: cast_nullable_to_non_nullable
               as String?,
+      contract: contract == freezed
+          ? _value.contract
+          : contract // ignore: cast_nullable_to_non_nullable
+              as DeployedContract?,
     ));
   }
 }
@@ -666,7 +692,8 @@ class _$_NftState extends _NftState {
       this.name,
       this.symbol,
       this.tokenCounter = 0,
-      this.imageURL})
+      this.imageURL,
+      this.contract})
       : super._();
 
   @override
@@ -683,10 +710,12 @@ class _$_NftState extends _NftState {
   final int tokenCounter;
   @override
   final String? imageURL;
+  @override
+  final DeployedContract? contract;
 
   @override
   String toString() {
-    return 'NftState(failure: $failure, isLoading: $isLoading, name: $name, symbol: $symbol, tokenCounter: $tokenCounter, imageURL: $imageURL)';
+    return 'NftState(failure: $failure, isLoading: $isLoading, name: $name, symbol: $symbol, tokenCounter: $tokenCounter, imageURL: $imageURL, contract: $contract)';
   }
 
   @override
@@ -700,7 +729,8 @@ class _$_NftState extends _NftState {
             const DeepCollectionEquality().equals(other.symbol, symbol) &&
             const DeepCollectionEquality()
                 .equals(other.tokenCounter, tokenCounter) &&
-            const DeepCollectionEquality().equals(other.imageURL, imageURL));
+            const DeepCollectionEquality().equals(other.imageURL, imageURL) &&
+            const DeepCollectionEquality().equals(other.contract, contract));
   }
 
   @override
@@ -711,7 +741,8 @@ class _$_NftState extends _NftState {
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(symbol),
       const DeepCollectionEquality().hash(tokenCounter),
-      const DeepCollectionEquality().hash(imageURL));
+      const DeepCollectionEquality().hash(imageURL),
+      const DeepCollectionEquality().hash(contract));
 
   @JsonKey(ignore: true)
   @override
@@ -726,7 +757,8 @@ abstract class _NftState extends NftState {
       String? name,
       String? symbol,
       int tokenCounter,
-      String? imageURL}) = _$_NftState;
+      String? imageURL,
+      DeployedContract? contract}) = _$_NftState;
   _NftState._() : super._();
 
   @override
@@ -741,6 +773,8 @@ abstract class _NftState extends NftState {
   int get tokenCounter;
   @override
   String? get imageURL;
+  @override
+  DeployedContract? get contract;
   @override
   @JsonKey(ignore: true)
   _$NftStateCopyWith<_NftState> get copyWith =>

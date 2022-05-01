@@ -5,16 +5,19 @@ import 'package:flutter_nft_minting/nft/repositories/nft_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:web3dart/contracts.dart';
 
 import 'nft_repository_test.mocks.dart';
 
-@GenerateMocks([NFTDataSource])
+@GenerateMocks([NFTDataSource, DeployedContract])
 void main() {
   late NFTRepositoryImpl repository;
   late MockNFTDataSource mockNFTDataSource;
+  late MockDeployedContract mockDeployedContract;
 
   setUp(() {
     mockNFTDataSource = MockNFTDataSource();
+    mockDeployedContract = MockDeployedContract();
     repository = NFTRepositoryImpl(
       dataSource: mockNFTDataSource,
     );
@@ -80,19 +83,44 @@ void main() {
     });
   });
 
+  group('getContract', () {
+    test('should return contract', () async {
+      when(mockNFTDataSource.getContract()).thenAnswer(
+        (_) async => mockDeployedContract,
+      );
+
+      final result = await repository.getContract();
+
+      verify(mockNFTDataSource.getContract());
+      expect((result as Right).value, mockDeployedContract);
+    });
+
+    test('should return UnexpectedFailure()', () async {
+      when(mockNFTDataSource.getContract()).thenThrow(Exception());
+
+      final result = await repository.getContract();
+
+      verify(mockNFTDataSource.getContract());
+      expect((result as Left).value, isA<UnexpectedFailure>());
+    });
+  });
+
   group('mint', () {
     test('should return true', () async {
       when(mockNFTDataSource.mint(
+        contract: anyNamed('contract'),
         tokenURI: anyNamed('tokenURI'),
         address: anyNamed('address'),
       )).thenAnswer((_) async => unit);
 
       final result = await repository.mint(
+        contract: mockDeployedContract,
         tokenURI: 'https://images/test.png',
         address: '0x0000000000000000000000000000000000000000',
       );
 
       verify(mockNFTDataSource.mint(
+        contract: anyNamed('contract'),
         tokenURI: anyNamed('tokenURI'),
         address: anyNamed('address'),
       ));
@@ -101,16 +129,19 @@ void main() {
 
     test('should return UnexpectedFailure()', () async {
       when(mockNFTDataSource.mint(
+        contract: anyNamed('contract'),
         tokenURI: anyNamed('tokenURI'),
         address: anyNamed('address'),
       )).thenThrow(Exception());
 
       final result = await repository.mint(
+        contract: mockDeployedContract,
         tokenURI: 'https://images/test.png',
         address: '0x0000000000000000000000000000000000000000',
       );
 
       verify(mockNFTDataSource.mint(
+        contract: anyNamed('contract'),
         tokenURI: anyNamed('tokenURI'),
         address: anyNamed('address'),
       ));
@@ -121,12 +152,17 @@ void main() {
   group('getImageURL', () {
     test('should return image URL = "https://images/test.png"', () async {
       when(mockNFTDataSource.getImageUrl(
+        contract: anyNamed('contract'),
         tokenCounter: anyNamed('tokenCounter'),
       )).thenAnswer((_) async => 'https://images/test.png');
 
-      final result = await repository.getImageURL(tokenCounter: 0);
+      final result = await repository.getImageURL(
+        contract: mockDeployedContract,
+        tokenCounter: 0,
+      );
 
       verify(mockNFTDataSource.getImageUrl(
+        contract: anyNamed('contract'),
         tokenCounter: anyNamed('tokenCounter'),
       ));
       expect((result as Right).value, 'https://images/test.png');
@@ -134,12 +170,17 @@ void main() {
 
     test('should return UnexpectedFailure()', () async {
       when(mockNFTDataSource.getImageUrl(
+        contract: anyNamed('contract'),
         tokenCounter: anyNamed('tokenCounter'),
       )).thenThrow(Exception());
 
-      final result = await repository.getImageURL(tokenCounter: 0);
+      final result = await repository.getImageURL(
+        contract: mockDeployedContract,
+        tokenCounter: 0,
+      );
 
       verify(mockNFTDataSource.getImageUrl(
+        contract: anyNamed('contract'),
         tokenCounter: anyNamed('tokenCounter'),
       ));
       expect((result as Left).value, isA<UnexpectedFailure>());

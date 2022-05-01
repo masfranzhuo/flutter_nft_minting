@@ -139,12 +139,37 @@ void main() {
     });
   });
 
-  group('mint', () {
-    test('should call mint NFT', () async {
+  group('getContract', () {
+    test('should return contract', () async {
       when(mockClient.getContract(
         contractName: anyNamed('contractName'),
         contractFileLocation: anyNamed('contractFileLocation'),
       )).thenAnswer((_) async => mockDeployedContract);
+
+      final result = await dataSource.getContract();
+
+      verify(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      ));
+      expect(result, mockDeployedContract);
+    });
+
+    test('should throw Exception()', () async {
+      when(mockClient.getContract(
+        contractName: anyNamed('contractName'),
+        contractFileLocation: anyNamed('contractFileLocation'),
+      )).thenThrow(Exception());
+
+      expect(
+        () async => await dataSource.getContract(),
+        throwsA(isA<Exception>()),
+      );
+    });
+  });
+
+  group('mint', () {
+    test('should call mint NFT', () async {
       when(mockClient.sendTransaction(
         contract: anyNamed('contract'),
         functionName: anyNamed('functionName'),
@@ -152,6 +177,7 @@ void main() {
       )).thenAnswer((_) async => unit);
 
       await dataSource.mint(
+        contract: mockDeployedContract,
         tokenURI: 'https://images/test.png',
         address: '0x0000000000000000000000000000000000000000',
       );
@@ -164,10 +190,6 @@ void main() {
     });
 
     test('should throw Exception()', () async {
-      when(mockClient.getContract(
-        contractName: anyNamed('contractName'),
-        contractFileLocation: anyNamed('contractFileLocation'),
-      )).thenAnswer((_) async => mockDeployedContract);
       when(mockClient.sendTransaction(
         contract: anyNamed('contract'),
         functionName: anyNamed('functionName'),
@@ -176,6 +198,7 @@ void main() {
 
       expect(
         () async => dataSource.mint(
+          contract: mockDeployedContract,
           tokenURI: 'https://images/test.png',
           address: '0x0000000000000000000000000000000000000000',
         ),
@@ -186,17 +209,16 @@ void main() {
 
   group('getImageUrl', () {
     test('should return image Url = "https://images/test.png"', () async {
-      when(mockClient.getContract(
-        contractName: anyNamed('contractName'),
-        contractFileLocation: anyNamed('contractFileLocation'),
-      )).thenAnswer((_) async => mockDeployedContract);
       when(mockClient.callContract(
         contract: anyNamed('contract'),
         functionName: anyNamed('functionName'),
         params: anyNamed('params'),
       )).thenAnswer((_) async => 'https://images/test.png');
 
-      final result = await dataSource.getImageUrl(tokenCounter: 0);
+      final result = await dataSource.getImageUrl(
+        contract: mockDeployedContract,
+        tokenCounter: 0,
+      );
 
       verify(mockClient.callContract(
         contract: mockDeployedContract,
@@ -207,10 +229,6 @@ void main() {
     });
 
     test('should throw Exception()', () async {
-      when(mockClient.getContract(
-        contractName: anyNamed('contractName'),
-        contractFileLocation: anyNamed('contractFileLocation'),
-      )).thenAnswer((_) async => mockDeployedContract);
       when(mockClient.callContract(
         contract: anyNamed('contract'),
         functionName: anyNamed('functionName'),
@@ -218,7 +236,8 @@ void main() {
       )).thenThrow(Exception());
 
       expect(
-        () async => await dataSource.getImageUrl(tokenCounter: 0),
+        () async => await dataSource.getImageUrl(
+            contract: mockDeployedContract, tokenCounter: 0),
         throwsA(isA<Exception>()),
       );
     });

@@ -16,7 +16,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => _getIt<NftBloc>()..add(const NftEvent.get()),
+      create: (_) => _getIt<NftBloc>()
+        ..add(const NftEvent.get())
+        ..add(const NftEvent.getContract()),
       child: _builder(context),
     );
   }
@@ -38,6 +40,7 @@ class HomePage extends StatelessWidget {
                     Text('Number of NFT: ${state.tokenCounter}'),
                     ElevatedButton(
                       onPressed: () => _getIt<NftBloc>().add(NftEvent.mint(
+                        contract: state.contract!,
                         tokenCounter: state.tokenCounter,
                         address: '0x1cb728ab78fcf1d8688ddad7fc6aeb2cba96c15f',
                       )),

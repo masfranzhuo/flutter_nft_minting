@@ -6,9 +6,17 @@ abstract class NFTDataSource {
   Future<String> getName();
   Future<String> getSymbol();
   Future<int> getTokenCounter();
-  Future<void> mint({required String tokenURI, required String address});
-  Future<String> getImageUrl({required int tokenCounter});
-  Future<EventParams> mintEvent();
+  Future<DeployedContract> getContract();
+  Future<void> mint({
+    required DeployedContract contract,
+    required String tokenURI,
+    required String address,
+  });
+  Future<String> getImageUrl({
+    required DeployedContract contract,
+    required int tokenCounter,
+  });
+  Future<EventParams> mintEvent({required DeployedContract contract});
 }
 
 @LazySingleton(as: NFTDataSource)
@@ -76,13 +84,24 @@ class NFTDataSourceImpl extends NFTDataSource {
   }
 
   @override
-  Future<void> mint({required String tokenURI, required String address}) async {
+  Future<DeployedContract> getContract() async {
     try {
-      final contract = await client.getContract(
+      return await client.getContract(
         contractName: contractName,
         contractFileLocation: contractFileLocation,
       );
+    } on Exception catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 
+  @override
+  Future<void> mint({
+    required DeployedContract contract,
+    required String tokenURI,
+    required String address,
+  }) async {
+    try {
       await client.sendTransaction(
         contract: contract,
         functionName: 'mint',
@@ -97,13 +116,11 @@ class NFTDataSourceImpl extends NFTDataSource {
   }
 
   @override
-  Future<String> getImageUrl({required int tokenCounter}) async {
+  Future<String> getImageUrl({
+    required DeployedContract contract,
+    required int tokenCounter,
+  }) async {
     try {
-      final contract = await client.getContract(
-        contractName: contractName,
-        contractFileLocation: contractFileLocation,
-      );
-
       final result = await client.callContract(
         contract: contract,
         functionName: 'tokenURI',
@@ -116,13 +133,8 @@ class NFTDataSourceImpl extends NFTDataSource {
   }
 
   @override
-  Future<EventParams> mintEvent() async {
+  Future<EventParams> mintEvent({required DeployedContract contract}) async {
     try {
-      final contract = await client.getContract(
-        contractName: contractName,
-        contractFileLocation: contractFileLocation,
-      );
-
       final result = await client.getEvent(
         contract: contract,
         eventName: eventMint,

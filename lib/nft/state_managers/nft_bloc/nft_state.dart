@@ -10,5 +10,6 @@ class NftState with _$NftState {
     String? symbol,
     @Default(0) int tokenCounter,
     String? imageURL,
+    DeployedContract? contract,
   }) = _NftState;
 }
