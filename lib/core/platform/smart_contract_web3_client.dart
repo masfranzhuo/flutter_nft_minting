@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 import 'package:web3dart/web3dart.dart';
+import 'package:web_socket_channel/io.dart';
 
 /// Rinkeby network use chainId:4
 @lazySingleton
@@ -14,7 +15,15 @@ class SmartContractWeb3Client {
     Client? httpClient,
     Web3Client? web3client,
   })  : httpClient = Client(),
-        web3Client = Web3Client(dotenv.env['ALCHEMY_KEY_TEST']!, httpClient!);
+        web3Client = Web3Client(
+          dotenv.env['ALCHEMY_KEY_TEST']!,
+          httpClient!,
+          socketConnector: () {
+            return IOWebSocketChannel.connect(
+                    dotenv.env['ALCHEMY_WS_KEY_TEST']!)
+                .cast<String>();
+          },
+        );
 
   Future<DeployedContract> getContract({
     required String contractName,
@@ -63,4 +72,27 @@ class SmartContractWeb3Client {
       chainId: null,
     );
   }
+
+  Future<EventParams> getEvent({
+    required DeployedContract contract,
+    required String eventName,
+  }) async {
+    final contractEvent = contract.event(eventName);
+    final stream = web3Client.events(FilterOptions.events(
+      contract: contract,
+      event: contractEvent,
+    ));
+
+    return EventParams(stream: stream, contractEvent: contractEvent);
+  }
+}
+
+class EventParams {
+  final Stream<FilterEvent> stream;
+  final ContractEvent contractEvent;
+
+  EventParams({
+    required this.stream,
+    required this.contractEvent,
+  });
 }

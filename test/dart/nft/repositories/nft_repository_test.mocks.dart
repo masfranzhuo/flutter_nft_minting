@@ -2,10 +2,12 @@
 // in flutter_nft_minting/test/dart/nft/repositories/nft_repository_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
-import 'package:flutter_nft_minting/nft/data_sources/nft_data_source.dart'
+import 'package:flutter_nft_minting/core/platform/smart_contract_web3_client.dart'
     as _i2;
+import 'package:flutter_nft_minting/nft/data_sources/nft_data_source.dart'
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -18,35 +20,42 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
+class _FakeEventParams_0 extends _i1.Fake implements _i2.EventParams {}
+
 /// A class which mocks [NFTDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNFTDataSource extends _i1.Mock implements _i2.NFTDataSource {
+class MockNFTDataSource extends _i1.Mock implements _i3.NFTDataSource {
   MockNFTDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<String> getName() =>
+  _i4.Future<String> getName() =>
       (super.noSuchMethod(Invocation.method(#getName, []),
-          returnValue: Future<String>.value('')) as _i3.Future<String>);
+          returnValue: Future<String>.value('')) as _i4.Future<String>);
   @override
-  _i3.Future<String> getSymbol() =>
+  _i4.Future<String> getSymbol() =>
       (super.noSuchMethod(Invocation.method(#getSymbol, []),
-          returnValue: Future<String>.value('')) as _i3.Future<String>);
+          returnValue: Future<String>.value('')) as _i4.Future<String>);
   @override
-  _i3.Future<int> getTokenCounter() =>
+  _i4.Future<int> getTokenCounter() =>
       (super.noSuchMethod(Invocation.method(#getTokenCounter, []),
-          returnValue: Future<int>.value(0)) as _i3.Future<int>);
+          returnValue: Future<int>.value(0)) as _i4.Future<int>);
   @override
-  _i3.Future<void> mint({String? tokenURI, String? address}) =>
+  _i4.Future<void> mint({String? tokenURI, String? address}) =>
       (super.noSuchMethod(
           Invocation.method(
               #mint, [], {#tokenURI: tokenURI, #address: address}),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
-  _i3.Future<String> getImageUrl({int? tokenCounter}) => (super.noSuchMethod(
+  _i4.Future<String> getImageUrl({int? tokenCounter}) => (super.noSuchMethod(
       Invocation.method(#getImageUrl, [], {#tokenCounter: tokenCounter}),
-      returnValue: Future<String>.value('')) as _i3.Future<String>);
+      returnValue: Future<String>.value('')) as _i4.Future<String>);
+  @override
+  _i4.Future<_i2.EventParams> mintEvent() =>
+      (super.noSuchMethod(Invocation.method(#mintEvent, []),
+              returnValue: Future<_i2.EventParams>.value(_FakeEventParams_0()))
+          as _i4.Future<_i2.EventParams>);
 }

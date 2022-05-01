@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_nft_minting/core/utility/get_image_from_json.dart';
-import 'package:flutter_nft_minting/nft/state_managers/nft_cubit/nft_cubit.dart';
+import 'package:flutter_nft_minting/nft/state_managers/nft_bloc/nft_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -16,13 +16,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => _getIt<NFTCubit>()..get(),
+      create: (_) => _getIt<NftBloc>()..add(const NftEvent.get()),
       child: _builder(context),
     );
   }
 
   Widget _builder(BuildContext context) {
-    return BlocBuilder<NFTCubit, NFTState>(builder: (context, state) {
+    return BlocBuilder<NftBloc, NftState>(builder: (context, state) {
       return Scaffold(
         appBar: AppBar(
           title: Text(title),
@@ -37,18 +37,18 @@ class HomePage extends StatelessWidget {
                     Text('Symbol: ${state.symbol}'),
                     Text('Number of NFT: ${state.tokenCounter}'),
                     ElevatedButton(
-                      onPressed: () => _getIt<NFTCubit>().mint(
+                      onPressed: () => _getIt<NftBloc>().add(NftEvent.mint(
                         tokenCounter: state.tokenCounter,
                         address: '0x1cb728ab78fcf1d8688ddad7fc6aeb2cba96c15f',
-                      ),
+                      )),
                       child: const Text('Mint'),
                     ),
                     state.failure != null
                         ? Text(state.failure!.message)
                         : Container(),
-                    state.imageUrl != null
+                    state.imageURL != null
                         ? Image.network(
-                            getImageFromJson(state.imageUrl!),
+                            getImageFromJson(state.imageURL!),
                             width: 256,
                             height: 256,
                           )

@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_nft_minting/core/error/failure.dart';
 import 'package:flutter_nft_minting/core/platform/smart_contract_web3_client.dart';
 import 'package:flutter_nft_minting/nft/data_sources/nft_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';

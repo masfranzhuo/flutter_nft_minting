@@ -7,11 +7,11 @@ abstract class NFTRepository {
   Future<Either<Failure, String>> getName();
   Future<Either<Failure, String>> getSymbol();
   Future<Either<Failure, int>> getTokenCounter();
-  Future<Either<Failure, String>> mint({
+  Future<Either<Failure, bool>> mint({
     required String tokenURI,
     required String address,
-    required int tokenCounter,
   });
+  Future<Either<Failure, String>> getImageURL({required int tokenCounter});
 }
 
 @LazySingleton(as: NFTRepository)
@@ -54,14 +54,23 @@ class NFTRepositoryImpl extends NFTRepository {
   }
 
   @override
-  Future<Either<Failure, String>> mint({
+  Future<Either<Failure, bool>> mint({
     required String tokenURI,
     required String address,
-    required int tokenCounter,
   }) async {
     try {
       await dataSource.mint(tokenURI: tokenURI, address: address);
 
+      return const Right(true);
+    } on Exception catch (e) {
+      return Left(UnexpectedFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> getImageURL(
+      {required int tokenCounter}) async {
+    try {
       final result = await dataSource.getImageUrl(tokenCounter: tokenCounter);
 
       return Right(result);

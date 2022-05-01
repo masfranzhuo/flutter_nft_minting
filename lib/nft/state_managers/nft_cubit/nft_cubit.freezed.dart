@@ -23,14 +23,14 @@ class _$NFTStateTearOff {
       String? name,
       String? symbol,
       int tokenCounter = 0,
-      String? imageUrl}) {
+      String? imageURL}) {
     return _NFTState(
       failure: failure,
       isLoading: isLoading,
       name: name,
       symbol: symbol,
       tokenCounter: tokenCounter,
-      imageUrl: imageUrl,
+      imageURL: imageURL,
     );
   }
 }
@@ -45,7 +45,7 @@ mixin _$NFTState {
   String? get name => throw _privateConstructorUsedError;
   String? get symbol => throw _privateConstructorUsedError;
   int get tokenCounter => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
+  String? get imageURL => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NFTStateCopyWith<NFTState> get copyWith =>
@@ -62,7 +62,7 @@ abstract class $NFTStateCopyWith<$Res> {
       String? name,
       String? symbol,
       int tokenCounter,
-      String? imageUrl});
+      String? imageURL});
 }
 
 /// @nodoc
@@ -80,7 +80,7 @@ class _$NFTStateCopyWithImpl<$Res> implements $NFTStateCopyWith<$Res> {
     Object? name = freezed,
     Object? symbol = freezed,
     Object? tokenCounter = freezed,
-    Object? imageUrl = freezed,
+    Object? imageURL = freezed,
   }) {
     return _then(_value.copyWith(
       failure: failure == freezed
@@ -103,9 +103,9 @@ class _$NFTStateCopyWithImpl<$Res> implements $NFTStateCopyWith<$Res> {
           ? _value.tokenCounter
           : tokenCounter // ignore: cast_nullable_to_non_nullable
               as int,
-      imageUrl: imageUrl == freezed
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      imageURL: imageURL == freezed
+          ? _value.imageURL
+          : imageURL // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -122,7 +122,7 @@ abstract class _$NFTStateCopyWith<$Res> implements $NFTStateCopyWith<$Res> {
       String? name,
       String? symbol,
       int tokenCounter,
-      String? imageUrl});
+      String? imageURL});
 }
 
 /// @nodoc
@@ -141,7 +141,7 @@ class __$NFTStateCopyWithImpl<$Res> extends _$NFTStateCopyWithImpl<$Res>
     Object? name = freezed,
     Object? symbol = freezed,
     Object? tokenCounter = freezed,
-    Object? imageUrl = freezed,
+    Object? imageURL = freezed,
   }) {
     return _then(_NFTState(
       failure: failure == freezed
@@ -164,9 +164,9 @@ class __$NFTStateCopyWithImpl<$Res> extends _$NFTStateCopyWithImpl<$Res>
           ? _value.tokenCounter
           : tokenCounter // ignore: cast_nullable_to_non_nullable
               as int,
-      imageUrl: imageUrl == freezed
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      imageURL: imageURL == freezed
+          ? _value.imageURL
+          : imageURL // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -181,7 +181,7 @@ class _$_NFTState extends _NFTState {
       this.name,
       this.symbol,
       this.tokenCounter = 0,
-      this.imageUrl})
+      this.imageURL})
       : super._();
 
   @override
@@ -197,11 +197,11 @@ class _$_NFTState extends _NFTState {
   @override
   final int tokenCounter;
   @override
-  final String? imageUrl;
+  final String? imageURL;
 
   @override
   String toString() {
-    return 'NFTState(failure: $failure, isLoading: $isLoading, name: $name, symbol: $symbol, tokenCounter: $tokenCounter, imageUrl: $imageUrl)';
+    return 'NFTState(failure: $failure, isLoading: $isLoading, name: $name, symbol: $symbol, tokenCounter: $tokenCounter, imageURL: $imageURL)';
   }
 
   @override
@@ -215,7 +215,7 @@ class _$_NFTState extends _NFTState {
             const DeepCollectionEquality().equals(other.symbol, symbol) &&
             const DeepCollectionEquality()
                 .equals(other.tokenCounter, tokenCounter) &&
-            const DeepCollectionEquality().equals(other.imageUrl, imageUrl));
+            const DeepCollectionEquality().equals(other.imageURL, imageURL));
   }
 
   @override
@@ -226,7 +226,7 @@ class _$_NFTState extends _NFTState {
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(symbol),
       const DeepCollectionEquality().hash(tokenCounter),
-      const DeepCollectionEquality().hash(imageUrl));
+      const DeepCollectionEquality().hash(imageURL));
 
   @JsonKey(ignore: true)
   @override
@@ -241,7 +241,7 @@ abstract class _NFTState extends NFTState {
       String? name,
       String? symbol,
       int tokenCounter,
-      String? imageUrl}) = _$_NFTState;
+      String? imageURL}) = _$_NFTState;
   _NFTState._() : super._();
 
   @override
@@ -255,7 +255,7 @@ abstract class _NFTState extends NFTState {
   @override
   int get tokenCounter;
   @override
-  String? get imageUrl;
+  String? get imageURL;
   @override
   @JsonKey(ignore: true)
   _$NFTStateCopyWith<_NFTState> get copyWith =>

@@ -23,13 +23,12 @@ void main() {
     mint = Mint(repository: mockNFTRepository);
   });
 
-  test('should return image url = "https://images/test.png"', () async {
+  test('should return true', () async {
     when(mockNFTRepository.mint(
       tokenURI: anyNamed('tokenURI'),
       address: anyNamed('address'),
-      tokenCounter: anyNamed('tokenCounter'),
     )).thenAnswer(
-      (_) async => const Right('https://images/test.png'),
+      (_) async => const Right(true),
     );
 
     final result = await mint(const Params(
@@ -40,8 +39,7 @@ void main() {
     verify(mockNFTRepository.mint(
       tokenURI: anyNamed('tokenURI'),
       address: anyNamed('address'),
-      tokenCounter: anyNamed('tokenCounter'),
     ));
-    expect((result as Right).value, 'https://images/test.png');
+    expect((result as Right).value, true);
   });
 }

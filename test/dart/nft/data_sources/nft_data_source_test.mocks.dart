@@ -27,14 +27,16 @@ class _FakeWeb3Client_1 extends _i1.Fake implements _i3.Web3Client {}
 class _FakeDeployedContract_2 extends _i1.Fake implements _i3.DeployedContract {
 }
 
-class _FakeContractAbi_3 extends _i1.Fake implements _i3.ContractAbi {}
+class _FakeEventParams_3 extends _i1.Fake implements _i4.EventParams {}
 
-class _FakeEthereumAddress_4 extends _i1.Fake implements _i3.EthereumAddress {}
+class _FakeContractAbi_4 extends _i1.Fake implements _i3.ContractAbi {}
 
-class _FakeContractFunction_5 extends _i1.Fake implements _i3.ContractFunction {
+class _FakeEthereumAddress_5 extends _i1.Fake implements _i3.EthereumAddress {}
+
+class _FakeContractFunction_6 extends _i1.Fake implements _i3.ContractFunction {
 }
 
-class _FakeContractEvent_6 extends _i1.Fake implements _i3.ContractEvent {}
+class _FakeContractEvent_7 extends _i1.Fake implements _i3.ContractEvent {}
 
 /// A class which mocks [SmartContractWeb3Client].
 ///
@@ -96,6 +98,14 @@ class MockSmartContractWeb3Client extends _i1.Mock
             #params: params
           }),
           returnValue: Future<dynamic>.value()) as _i5.Future<dynamic>);
+  @override
+  _i5.Future<_i4.EventParams> getEvent(
+          {_i3.DeployedContract? contract, String? eventName}) =>
+      (super.noSuchMethod(
+              Invocation.method(
+                  #getEvent, [], {#contract: contract, #eventName: eventName}),
+              returnValue: Future<_i4.EventParams>.value(_FakeEventParams_3()))
+          as _i5.Future<_i4.EventParams>);
 }
 
 /// A class which mocks [DeployedContract].
@@ -108,11 +118,11 @@ class MockDeployedContract extends _i1.Mock implements _i3.DeployedContract {
 
   @override
   _i3.ContractAbi get abi => (super.noSuchMethod(Invocation.getter(#abi),
-      returnValue: _FakeContractAbi_3()) as _i3.ContractAbi);
+      returnValue: _FakeContractAbi_4()) as _i3.ContractAbi);
   @override
   _i3.EthereumAddress get address =>
       (super.noSuchMethod(Invocation.getter(#address),
-          returnValue: _FakeEthereumAddress_4()) as _i3.EthereumAddress);
+          returnValue: _FakeEthereumAddress_5()) as _i3.EthereumAddress);
   @override
   List<_i3.ContractFunction> get functions =>
       (super.noSuchMethod(Invocation.getter(#functions),
@@ -133,9 +143,9 @@ class MockDeployedContract extends _i1.Mock implements _i3.DeployedContract {
   @override
   _i3.ContractFunction function(String? name) =>
       (super.noSuchMethod(Invocation.method(#function, [name]),
-          returnValue: _FakeContractFunction_5()) as _i3.ContractFunction);
+          returnValue: _FakeContractFunction_6()) as _i3.ContractFunction);
   @override
   _i3.ContractEvent event(String? name) =>
       (super.noSuchMethod(Invocation.method(#event, [name]),
-          returnValue: _FakeContractEvent_6()) as _i3.ContractEvent);
+          returnValue: _FakeContractEvent_7()) as _i3.ContractEvent);
 }

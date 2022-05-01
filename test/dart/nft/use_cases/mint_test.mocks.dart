@@ -49,15 +49,20 @@ class MockNFTRepository extends _i1.Mock implements _i3.NFTRepository {
                   _FakeEither_0<_i5.Failure, int>()))
           as _i4.Future<_i2.Either<_i5.Failure, int>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, String>> mint(
-          {String? tokenURI, String? address, int? tokenCounter}) =>
+  _i4.Future<_i2.Either<_i5.Failure, bool>> mint(
+          {String? tokenURI, String? address}) =>
       (super.noSuchMethod(
-              Invocation.method(#mint, [], {
-                #tokenURI: tokenURI,
-                #address: address,
-                #tokenCounter: tokenCounter
-              }),
-              returnValue: Future<_i2.Either<_i5.Failure, String>>.value(
-                  _FakeEither_0<_i5.Failure, String>()))
-          as _i4.Future<_i2.Either<_i5.Failure, String>>);
+              Invocation.method(
+                  #mint, [], {#tokenURI: tokenURI, #address: address}),
+              returnValue: Future<_i2.Either<_i5.Failure, bool>>.value(
+                  _FakeEither_0<_i5.Failure, bool>()))
+          as _i4.Future<_i2.Either<_i5.Failure, bool>>);
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, String>> getImageURL(
+          {int? tokenCounter}) =>
+      (super.noSuchMethod(
+          Invocation.method(#getImageURL, [], {#tokenCounter: tokenCounter}),
+          returnValue: Future<_i2.Either<_i5.Failure, String>>.value(
+              _FakeEither_0<_i5.Failure, String>())) as _i4
+          .Future<_i2.Either<_i5.Failure, String>>);
 }

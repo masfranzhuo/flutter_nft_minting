@@ -1,4 +1,3 @@
-import 'package:flutter_nft_minting/core/error/failure.dart';
 import 'package:flutter_nft_minting/core/platform/smart_contract_web3_client.dart';
 import 'package:injectable/injectable.dart';
 import 'package:web3dart/web3dart.dart';
@@ -9,12 +8,14 @@ abstract class NFTDataSource {
   Future<int> getTokenCounter();
   Future<void> mint({required String tokenURI, required String address});
   Future<String> getImageUrl({required int tokenCounter});
+  Future<EventParams> mintEvent();
 }
 
 @LazySingleton(as: NFTDataSource)
 class NFTDataSourceImpl extends NFTDataSource {
   final String contractName = 'NFT';
   final String contractFileLocation = 'assets/abi/nft.json';
+  final String eventMint = 'Mint';
 
   final SmartContractWeb3Client client;
 
@@ -81,6 +82,7 @@ class NFTDataSourceImpl extends NFTDataSource {
         contractName: contractName,
         contractFileLocation: contractFileLocation,
       );
+
       await client.sendTransaction(
         contract: contract,
         functionName: 'mint',
@@ -101,10 +103,29 @@ class NFTDataSourceImpl extends NFTDataSource {
         contractName: contractName,
         contractFileLocation: contractFileLocation,
       );
+
       final result = await client.callContract(
         contract: contract,
         functionName: 'tokenURI',
         params: [BigInt.from(tokenCounter)],
+      );
+      return result;
+    } on Exception catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  @override
+  Future<EventParams> mintEvent() async {
+    try {
+      final contract = await client.getContract(
+        contractName: contractName,
+        contractFileLocation: contractFileLocation,
+      );
+
+      final result = await client.getEvent(
+        contract: contract,
+        eventName: eventMint,
       );
       return result;
     } on Exception catch (e) {

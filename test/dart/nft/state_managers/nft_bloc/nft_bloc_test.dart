@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_nft_minting/core/error/failure.dart';
-import 'package:flutter_nft_minting/nft/state_managers/nft_cubit/nft_cubit.dart';
+import 'package:flutter_nft_minting/nft/state_managers/nft_bloc/nft_bloc.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_image_url.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_name.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_symbol.dart';
@@ -11,11 +11,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'nft_cubit_test.mocks.dart';
+import 'nft_bloc_test.mocks.dart';
 
 @GenerateMocks([GetName, GetSymbol, GetTokenCounter, Mint, GetImageURL])
 void main() {
-  late NFTCubit cubit;
+  late NftBloc bloc;
   late MockGetName mockGetName;
   late MockGetSymbol mockGetSymbol;
   late MockGetTokenCounter mockGetTokenCounter;
@@ -28,7 +28,7 @@ void main() {
     mockGetTokenCounter = MockGetTokenCounter();
     mockMint = MockMint();
     mockGetImageURL = MockGetImageURL();
-    cubit = NFTCubit(
+    bloc = NftBloc(
       getName: mockGetName,
       getSymbol: mockGetSymbol,
       getTokenCounter: mockGetTokenCounter,
@@ -51,12 +51,12 @@ void main() {
           (_) async => const Right(1000),
         );
 
-        return cubit;
+        return bloc;
       },
-      act: (_) async => cubit.get(),
+      act: (_) async => bloc.add(const NftEvent.get()),
       expect: () => [
-        NFTState(isLoading: true),
-        NFTState(
+        NftState(isLoading: true),
+        NftState(
           isLoading: false,
           name: 'Token Name',
           symbol: 'FNM',
@@ -79,15 +79,15 @@ void main() {
           (_) async => const Left(UnexpectedFailure()),
         );
 
-        return cubit;
+        return bloc;
       },
-      act: (_) async => cubit.mint(
+      act: (_) async => bloc.add(const NftEvent.mint(
         tokenCounter: 0,
         address: '0x0000000000000000000000000000000000000000',
-      ),
+      )),
       expect: () => [
-        NFTState(isLoading: true),
-        NFTState(
+        NftState(isLoading: true),
+        NftState(
           isLoading: false,
           failure: const UnexpectedFailure(),
         ),
@@ -103,15 +103,15 @@ void main() {
           (_) async => const Right(true),
         );
 
-        return cubit;
+        return bloc;
       },
-      act: (_) async => cubit.mint(
+      act: (_) async => bloc.add(const NftEvent.mint(
         tokenCounter: 0,
         address: '0x0000000000000000000000000000000000000000',
-      ),
+      )),
       expect: () => [
-        NFTState(isLoading: true),
-        NFTState(isLoading: false),
+        NftState(isLoading: true),
+        NftState(isLoading: false),
       ],
       verify: (_) async {
         verify(mockMint(any));
@@ -127,12 +127,14 @@ void main() {
           (_) async => const Left(UnexpectedFailure()),
         );
 
-        return cubit;
+        return bloc;
       },
-      act: (_) async => cubit.getImageURL(tokenCounter: 0),
+      act: (_) async => bloc.add(const NftEvent.getImageUrl(
+        tokenCounter: 0,
+      )),
       expect: () => [
-        NFTState(isLoading: true),
-        NFTState(
+        NftState(isLoading: true),
+        NftState(
           isLoading: false,
           failure: const UnexpectedFailure(),
         ),
@@ -148,12 +150,14 @@ void main() {
           (_) async => const Right('https://images/test.png'),
         );
 
-        return cubit;
+        return bloc;
       },
-      act: (_) async => cubit.getImageURL(tokenCounter: 0),
+      act: (_) async => bloc.add(const NftEvent.getImageUrl(
+        tokenCounter: 0,
+      )),
       expect: () => [
-        NFTState(isLoading: true),
-        NFTState(isLoading: false, imageURL: 'https://images/test.png'),
+        NftState(isLoading: true),
+        NftState(isLoading: false, imageURL: 'https://images/test.png'),
       ],
       verify: (_) async {
         verify(mockGetImageURL(any));

@@ -81,29 +81,22 @@ void main() {
   });
 
   group('mint', () {
-    test('should return image url = "https://images/test.png"', () async {
+    test('should return true', () async {
       when(mockNFTDataSource.mint(
         tokenURI: anyNamed('tokenURI'),
         address: anyNamed('address'),
       )).thenAnswer((_) async => unit);
-      when(mockNFTDataSource.getImageUrl(
-        tokenCounter: anyNamed('tokenCounter'),
-      )).thenAnswer((_) async => 'https://images/test.png');
 
       final result = await repository.mint(
         tokenURI: 'https://images/test.png',
         address: '0x0000000000000000000000000000000000000000',
-        tokenCounter: 0,
       );
 
       verify(mockNFTDataSource.mint(
         tokenURI: anyNamed('tokenURI'),
         address: anyNamed('address'),
       ));
-      verify(mockNFTDataSource.getImageUrl(
-        tokenCounter: anyNamed('tokenCounter'),
-      ));
-      expect((result as Right).value, 'https://images/test.png');
+      expect((result as Right).value, true);
     });
 
     test('should return UnexpectedFailure()', () async {
@@ -115,12 +108,39 @@ void main() {
       final result = await repository.mint(
         tokenURI: 'https://images/test.png',
         address: '0x0000000000000000000000000000000000000000',
-        tokenCounter: 0,
       );
 
       verify(mockNFTDataSource.mint(
         tokenURI: anyNamed('tokenURI'),
         address: anyNamed('address'),
+      ));
+      expect((result as Left).value, isA<UnexpectedFailure>());
+    });
+  });
+
+  group('getImageURL', () {
+    test('should return image URL = "https://images/test.png"', () async {
+      when(mockNFTDataSource.getImageUrl(
+        tokenCounter: anyNamed('tokenCounter'),
+      )).thenAnswer((_) async => 'https://images/test.png');
+
+      final result = await repository.getImageURL(tokenCounter: 0);
+
+      verify(mockNFTDataSource.getImageUrl(
+        tokenCounter: anyNamed('tokenCounter'),
+      ));
+      expect((result as Right).value, 'https://images/test.png');
+    });
+
+    test('should return UnexpectedFailure()', () async {
+      when(mockNFTDataSource.getImageUrl(
+        tokenCounter: anyNamed('tokenCounter'),
+      )).thenThrow(Exception());
+
+      final result = await repository.getImageURL(tokenCounter: 0);
+
+      verify(mockNFTDataSource.getImageUrl(
+        tokenCounter: anyNamed('tokenCounter'),
       ));
       expect((result as Left).value, isA<UnexpectedFailure>());
     });

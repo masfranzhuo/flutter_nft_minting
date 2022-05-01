@@ -5,21 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_nft_minting/core/error/failure.dart';
 import 'package:flutter_nft_minting/my_app.dart';
-import 'package:flutter_nft_minting/nft/state_managers/nft_cubit/nft_cubit.dart';
+import 'package:flutter_nft_minting/nft/state_managers/nft_bloc/nft_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockNFTCubit extends MockCubit<NFTState> implements NFTCubit {}
+class MockNftBloc extends MockBloc<NftEvent, NftState> implements NftBloc {}
 
-class FakeNFTState extends Fake implements NFTState {}
+class FakeNftState extends Fake implements NftState {}
+
+class FakeNftEvent extends Fake implements NftEvent {}
 
 void main() {
-  late MockNFTCubit mockNFTCubit;
+  late MockNftBloc mockNftBloc;
 
   setUpAll(() {
     HttpOverrides.global = null;
-    registerFallbackValue(FakeNFTState());
+    registerFallbackValue(FakeNftState());
+    registerFallbackValue(FakeNftEvent());
   });
 
   setUp(() {
@@ -30,20 +33,20 @@ void main() {
       IMAGES_CID = IMAGES_CID
     ''');
 
-    mockNFTCubit = MockNFTCubit();
+    mockNftBloc = MockNftBloc();
 
-    GetIt.I.registerLazySingleton<NFTCubit>(() => mockNFTCubit);
+    GetIt.I.registerLazySingleton<NftBloc>(() => mockNftBloc);
   });
 
   tearDown(() async {
-    mockNFTCubit.close();
+    mockNftBloc.close();
     await GetIt.I.reset();
   });
 
   testWidgets(
       'should find text Contract Address, Name, Symbol, Number of NFT and 1 Elevated Button',
       (WidgetTester tester) async {
-    when(() => mockNFTCubit.state).thenReturn(NFTState(
+    when(() => mockNftBloc.state).thenReturn(NftState(
       isLoading: false,
       name: 'NFT Name',
       symbol: 'FNM',
@@ -68,7 +71,7 @@ void main() {
   testWidgets(
       'should find CircularProgressIndicator() widget when isLoading is true',
       (WidgetTester tester) async {
-    when(() => mockNFTCubit.state).thenReturn(NFTState(isLoading: true));
+    when(() => mockNftBloc.state).thenReturn(NftState(isLoading: true));
 
     await tester.pumpWidget(const MyApp());
     await tester.pump();
@@ -77,7 +80,7 @@ void main() {
   });
 
   testWidgets('should found text failure message', (WidgetTester tester) async {
-    when(() => mockNFTCubit.state).thenReturn(NFTState(
+    when(() => mockNftBloc.state).thenReturn(NftState(
       failure: const UnexpectedFailure(message: 'error message'),
     ));
 
@@ -91,8 +94,8 @@ void main() {
       (WidgetTester tester) async {
     HttpOverrides.runZoned(
       () async {
-        when(() => mockNFTCubit.state).thenReturn(NFTState(
-          imageUrl: 'https://images/test.png',
+        when(() => mockNftBloc.state).thenReturn(NftState(
+          imageURL: 'https://images/test.png',
         ));
 
         await tester.pumpWidget(const MyApp());
@@ -105,12 +108,12 @@ void main() {
 
   testWidgets('should tap mint button and call mint()',
       (WidgetTester tester) async {
-    when(() => mockNFTCubit.state).thenReturn(NFTState());
+    when(() => mockNftBloc.state).thenReturn(NftState());
     whenListen(
-      mockNFTCubit,
+      mockNftBloc,
       Stream.fromIterable([
-        NFTState(),
-        NFTState(name: 'NFT Name', symbol: 'FNM', tokenCounter: 0),
+        NftState(),
+        NftState(name: 'NFT Name', symbol: 'FNM', tokenCounter: 0),
       ]),
     );
 
@@ -126,10 +129,10 @@ void main() {
     await tester.pump();
 
     verify(
-      () => mockNFTCubit.mint(
-        tokenCounter: any(named: 'tokenCounter'),
-        address: any(named: 'address'),
-      ),
+      () => mockNftBloc.add(const NftEvent.mint(
+        tokenCounter: 0,
+        address: '0x1cb728ab78fcf1d8688ddad7fc6aeb2cba96c15f',
+      )),
     );
   });
 }
