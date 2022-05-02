@@ -127,3 +127,22 @@ class MockDeployedContract extends _i1.Mock implements _i2.DeployedContract {
       (super.noSuchMethod(Invocation.method(#event, [name]),
           returnValue: _FakeContractEvent_5()) as _i2.ContractEvent);
 }
+
+/// A class which mocks [EventParams].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockEventParams extends _i1.Mock implements _i3.EventParams {
+  MockEventParams() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Stream<_i2.FilterEvent> get stream =>
+      (super.noSuchMethod(Invocation.getter(#stream),
+              returnValue: Stream<_i2.FilterEvent>.empty())
+          as _i5.Stream<_i2.FilterEvent>);
+  @override
+  _i2.ContractEvent get contractEvent =>
+      (super.noSuchMethod(Invocation.getter(#contractEvent),
+          returnValue: _FakeContractEvent_5()) as _i2.ContractEvent);
+}

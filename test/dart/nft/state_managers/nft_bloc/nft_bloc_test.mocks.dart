@@ -6,6 +6,8 @@ import 'dart:async' as _i7;
 
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:flutter_nft_minting/core/error/failure.dart' as _i8;
+import 'package:flutter_nft_minting/core/platform/smart_contract_web3_client.dart'
+    as _i15;
 import 'package:flutter_nft_minting/core/use_case.dart' as _i9;
 import 'package:flutter_nft_minting/nft/repositories/nft_repository.dart'
     as _i2;
@@ -15,9 +17,11 @@ import 'package:flutter_nft_minting/nft/use_cases/get_symbol.dart' as _i10;
 import 'package:flutter_nft_minting/nft/use_cases/get_token_counter.dart'
     as _i11;
 import 'package:flutter_nft_minting/nft/use_cases/mint.dart' as _i13;
+import 'package:flutter_nft_minting/nft/use_cases/mint_event.dart' as _i14;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:web3dart/contracts.dart' as _i4;
 import 'package:web3dart/src/credentials/address.dart' as _i5;
+import 'package:web3dart/web3dart.dart' as _i16;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -144,6 +148,27 @@ class MockMint extends _i1.Mock implements _i13.Mint {
           as _i7.Future<_i3.Either<_i8.Failure, bool>>);
 }
 
+/// A class which mocks [MintEvent].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMintEvent extends _i1.Mock implements _i14.MintEvent {
+  MockMintEvent() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.NFTRepository get repository =>
+      (super.noSuchMethod(Invocation.getter(#repository),
+          returnValue: _FakeNFTRepository_0()) as _i2.NFTRepository);
+  @override
+  _i7.Future<_i3.Either<_i8.Failure, _i15.EventParams>> call(
+          _i4.DeployedContract? params) =>
+      (super.noSuchMethod(Invocation.method(#call, [params]),
+          returnValue: Future<_i3.Either<_i8.Failure, _i15.EventParams>>.value(
+              _FakeEither_1<_i8.Failure, _i15.EventParams>())) as _i7
+          .Future<_i3.Either<_i8.Failure, _i15.EventParams>>);
+}
+
 /// A class which mocks [DeployedContract].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -183,5 +208,24 @@ class MockDeployedContract extends _i1.Mock implements _i4.DeployedContract {
   @override
   _i4.ContractEvent event(String? name) =>
       (super.noSuchMethod(Invocation.method(#event, [name]),
+          returnValue: _FakeContractEvent_5()) as _i4.ContractEvent);
+}
+
+/// A class which mocks [EventParams].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockEventParams extends _i1.Mock implements _i15.EventParams {
+  MockEventParams() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.Stream<_i16.FilterEvent> get stream =>
+      (super.noSuchMethod(Invocation.getter(#stream),
+              returnValue: Stream<_i16.FilterEvent>.empty())
+          as _i7.Stream<_i16.FilterEvent>);
+  @override
+  _i4.ContractEvent get contractEvent =>
+      (super.noSuchMethod(Invocation.getter(#contractEvent),
           returnValue: _FakeContractEvent_5()) as _i4.ContractEvent);
 }

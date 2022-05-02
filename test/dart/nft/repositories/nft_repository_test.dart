@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_nft_minting/core/error/failure.dart';
+import 'package:flutter_nft_minting/core/platform/smart_contract_web3_client.dart';
 import 'package:flutter_nft_minting/nft/data_sources/nft_data_source.dart';
 import 'package:flutter_nft_minting/nft/repositories/nft_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,15 +10,17 @@ import 'package:web3dart/contracts.dart';
 
 import 'nft_repository_test.mocks.dart';
 
-@GenerateMocks([NFTDataSource, DeployedContract])
+@GenerateMocks([NFTDataSource, DeployedContract, EventParams])
 void main() {
   late NFTRepositoryImpl repository;
   late MockNFTDataSource mockNFTDataSource;
   late MockDeployedContract mockDeployedContract;
+  late MockEventParams mockEventParams;
 
   setUp(() {
     mockNFTDataSource = MockNFTDataSource();
     mockDeployedContract = MockDeployedContract();
+    mockEventParams = MockEventParams();
     repository = NFTRepositoryImpl(
       dataSource: mockNFTDataSource,
     );
@@ -183,6 +186,30 @@ void main() {
         contract: anyNamed('contract'),
         tokenCounter: anyNamed('tokenCounter'),
       ));
+      expect((result as Left).value, isA<UnexpectedFailure>());
+    });
+  });
+
+  group('mintEvent', () {
+    test('should return eventParams', () async {
+      when(mockNFTDataSource.mintEvent(
+        contract: anyNamed('contract'),
+      )).thenAnswer((_) async => mockEventParams);
+
+      final result = await repository.mintEvent(contract: mockDeployedContract);
+
+      verify(mockNFTDataSource.mintEvent(contract: anyNamed('contract')));
+      expect((result as Right).value, mockEventParams);
+    });
+
+    test('should return UnexpectedFailure()', () async {
+      when(mockNFTDataSource.mintEvent(
+        contract: anyNamed('contract'),
+      )).thenThrow(Exception());
+
+      final result = await repository.mintEvent(contract: mockDeployedContract);
+
+      verify(mockNFTDataSource.mintEvent(contract: anyNamed('contract')));
       expect((result as Left).value, isA<UnexpectedFailure>());
     });
   });

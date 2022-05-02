@@ -9,4 +9,7 @@ class NftEvent with _$NftEvent {
     required int tokenCounter,
     required String address,
   }) = _Mint;
+  const factory NftEvent.getImageURL({
+    required String imageJson,
+  }) = _GetImageURL;
 }

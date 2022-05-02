@@ -56,6 +56,9 @@ class HomePage extends StatelessWidget {
                             height: 256,
                           )
                         : Container(),
+                    state.isGettingImage
+                        ? const Text('Getting image...')
+                        : Container(),
                   ],
                 ),
         ),

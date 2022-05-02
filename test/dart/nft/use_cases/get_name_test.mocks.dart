@@ -6,6 +6,8 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:flutter_nft_minting/core/error/failure.dart' as _i5;
+import 'package:flutter_nft_minting/core/platform/smart_contract_web3_client.dart'
+    as _i7;
 import 'package:flutter_nft_minting/nft/repositories/nft_repository.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -79,4 +81,12 @@ class MockNFTRepository extends _i1.Mock implements _i3.NFTRepository {
               returnValue: Future<_i2.Either<_i5.Failure, String>>.value(
                   _FakeEither_0<_i5.Failure, String>()))
           as _i4.Future<_i2.Either<_i5.Failure, String>>);
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, _i7.EventParams>> mintEvent(
+          {_i6.DeployedContract? contract}) =>
+      (super.noSuchMethod(
+          Invocation.method(#mintEvent, [], {#contract: contract}),
+          returnValue: Future<_i2.Either<_i5.Failure, _i7.EventParams>>.value(
+              _FakeEither_0<_i5.Failure, _i7.EventParams>())) as _i4
+          .Future<_i2.Either<_i5.Failure, _i7.EventParams>>);
 }

@@ -6,6 +6,7 @@ class NftState with _$NftState {
   factory NftState({
     Failure? failure,
     @Default(false) bool isLoading,
+    @Default(false) bool isGettingImage,
     String? name,
     String? symbol,
     @Default(0) int tokenCounter,

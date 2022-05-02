@@ -3,14 +3,13 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_nft_minting/core/error/failure.dart';
 import 'package:flutter_nft_minting/core/use_case.dart';
 import 'package:flutter_nft_minting/core/utility/get_image_from_json.dart';
-import 'package:flutter_nft_minting/nft/data_sources/nft_data_source.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_contract.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_name.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_symbol.dart';
 import 'package:flutter_nft_minting/nft/use_cases/get_token_counter.dart';
 import 'package:flutter_nft_minting/nft/use_cases/mint.dart';
+import 'package:flutter_nft_minting/nft/use_cases/mint_event.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:web3dart/contracts.dart';
 
@@ -25,7 +24,7 @@ class NftBloc extends Bloc<NftEvent, NftState> {
   final GetTokenCounter _getTokenCounter;
   final GetContract _getContract;
   final Mint _mint;
-  final GetIt _getIt;
+  final MintEvent _mintEvent;
 
   NftBloc({
     required GetName getName,
@@ -33,19 +32,21 @@ class NftBloc extends Bloc<NftEvent, NftState> {
     required GetTokenCounter getTokenCounter,
     required GetContract getContract,
     required Mint mint,
+    required MintEvent mintEvent,
   })  : _getName = getName,
         _getSymbol = getSymbol,
         _getTokenCounter = getTokenCounter,
         _getContract = getContract,
         _mint = mint,
-        _getIt = GetIt.instance,
+        _mintEvent = mintEvent,
         super(_NftState()) {
-    on<_Get>(getEvent);
-    on<_GetContract>(getContractEvent);
-    on<_Mint>(mintEvent);
+    on<_Get>(getNftEvent);
+    on<_GetContract>(getContractNftEvent);
+    on<_Mint>(mintNftEvent);
+    on<_GetImageURL>(getImageURLNftEvent);
   }
 
-  Future<void> getEvent(
+  Future<void> getNftEvent(
     _Get event,
     Emitter<NftState> emit,
   ) async {
@@ -63,7 +64,7 @@ class NftBloc extends Bloc<NftEvent, NftState> {
     ));
   }
 
-  Future<void> getContractEvent(
+  Future<void> getContractNftEvent(
     _GetContract event,
     Emitter<NftState> emit,
   ) async {
@@ -80,7 +81,7 @@ class NftBloc extends Bloc<NftEvent, NftState> {
     );
   }
 
-  Future<void> mintEvent(
+  Future<void> mintNftEvent(
     _Mint event,
     Emitter<NftState> emit,
   ) async {
@@ -97,37 +98,33 @@ class NftBloc extends Bloc<NftEvent, NftState> {
         failure: failure,
         isLoading: false,
       )),
-      (success) => emit(state.copyWith(isLoading: false)),
+      (success) async {
+        emit(state.copyWith(
+          isLoading: false,
+          isGettingImage: true,
+        ));
+
+        final eventParams = await _mintEvent(event.contract);
+        (eventParams as Right).value.stream.take(1).listen((data) {
+          final decoded =
+              (eventParams as Right).value.contractEvent.decodeResults(
+                    data.topics!,
+                    data.data!,
+                  );
+          add(NftEvent.getImageURL(imageJson: decoded[3]));
+        });
+      },
     );
+  }
 
-    // final eventParams = await _getIt<NFTDataSource>().mintEvent(
-    //   contract: event.contract,
-    // );
-    // await emit.forEach(
-    //   eventParams.stream,
-    //   onData: (dynamic data) => state.copyWith(
-    //     isLoading: false,
-    //     imageURL: getImageFromJson(data[3] as String),
-    //   ),
-    // );
-    // eventParams.stream.take(1).listen((event) {
-    //   final decoded = eventParams.contractEvent.decodeResults(
-    //     event.topics!,
-    //     event.data!,
-    //   );
-
-    //   for (var element in decoded) {
-    //     print(element);
-    //   }
-    //   if ((decoded[3] as String).contains('.json')) {
-    //     print(decoded[3]);
-    //     print(getImageFromJson(decoded[3]));
-    //     emit(state.copyWith(
-    //       isLoading: false,
-    //       imageURL: getImageFromJson(decoded[3]),
-    //     ));
-    //     print(getImageFromJson(decoded[3]));
-    //   }
-    // });
+  Future<void> getImageURLNftEvent(
+    _GetImageURL event,
+    Emitter<NftState> emit,
+  ) async {
+    emit(state.copyWith(
+      isLoading: false,
+      isGettingImage: false,
+      imageURL: getImageFromJson(event.imageJson),
+    ));
   }
 }

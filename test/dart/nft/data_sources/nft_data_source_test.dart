@@ -9,11 +9,12 @@ import 'package:mockito/annotations.dart';
 
 import 'nft_data_source_test.mocks.dart';
 
-@GenerateMocks([SmartContractWeb3Client, DeployedContract])
+@GenerateMocks([SmartContractWeb3Client, DeployedContract, EventParams])
 void main() {
   late NFTDataSourceImpl dataSource;
   late MockSmartContractWeb3Client mockClient;
   late MockDeployedContract mockDeployedContract;
+  late MockEventParams mockEventParams;
 
   setUp(() {
     TestWidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,7 @@ void main() {
 
     mockClient = MockSmartContractWeb3Client();
     mockDeployedContract = MockDeployedContract();
+    mockEventParams = MockEventParams();
     dataSource = NFTDataSourceImpl(client: mockClient);
   });
 
@@ -238,6 +240,37 @@ void main() {
       expect(
         () async => await dataSource.getImageUrl(
             contract: mockDeployedContract, tokenCounter: 0),
+        throwsA(isA<Exception>()),
+      );
+    });
+  });
+
+  group('mintEvent', () {
+    test('should return eventParams', () async {
+      when(mockClient.getEvent(
+        contract: anyNamed('contract'),
+        eventName: anyNamed('eventName'),
+      )).thenAnswer((_) async => mockEventParams);
+
+      final result = await dataSource.mintEvent(contract: mockDeployedContract);
+
+      verify(mockClient.getEvent(
+        contract: anyNamed('contract'),
+        eventName: anyNamed('eventName'),
+      ));
+      expect(result, mockEventParams);
+    });
+
+    test('should throw Exception()', () async {
+      when(mockClient.getEvent(
+        contract: anyNamed('contract'),
+        eventName: anyNamed('eventName'),
+      )).thenThrow(Exception());
+
+      expect(
+        () async => await dataSource.mintEvent(
+          contract: mockDeployedContract,
+        ),
         throwsA(isA<Exception>()),
       );
     });

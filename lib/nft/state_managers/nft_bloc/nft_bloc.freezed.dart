@@ -35,6 +35,12 @@ class _$NftEventTearOff {
       address: address,
     );
   }
+
+  _GetImageURL getImageURL({required String imageJson}) {
+    return _GetImageURL(
+      imageJson: imageJson,
+    );
+  }
 }
 
 /// @nodoc
@@ -49,6 +55,7 @@ mixin _$NftEvent {
     required TResult Function(
             DeployedContract contract, int tokenCounter, String address)
         mint,
+    required TResult Function(String imageJson) getImageURL,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,6 +65,7 @@ mixin _$NftEvent {
     TResult Function(
             DeployedContract contract, int tokenCounter, String address)?
         mint,
+    TResult Function(String imageJson)? getImageURL,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -67,6 +75,7 @@ mixin _$NftEvent {
     TResult Function(
             DeployedContract contract, int tokenCounter, String address)?
         mint,
+    TResult Function(String imageJson)? getImageURL,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -75,6 +84,7 @@ mixin _$NftEvent {
     required TResult Function(_Get value) get,
     required TResult Function(_GetContract value) getContract,
     required TResult Function(_Mint value) mint,
+    required TResult Function(_GetImageURL value) getImageURL,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -82,6 +92,7 @@ mixin _$NftEvent {
     TResult Function(_Get value)? get,
     TResult Function(_GetContract value)? getContract,
     TResult Function(_Mint value)? mint,
+    TResult Function(_GetImageURL value)? getImageURL,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -89,6 +100,7 @@ mixin _$NftEvent {
     TResult Function(_Get value)? get,
     TResult Function(_GetContract value)? getContract,
     TResult Function(_Mint value)? mint,
+    TResult Function(_GetImageURL value)? getImageURL,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -152,6 +164,7 @@ class _$_Get implements _Get {
     required TResult Function(
             DeployedContract contract, int tokenCounter, String address)
         mint,
+    required TResult Function(String imageJson) getImageURL,
   }) {
     return get();
   }
@@ -164,6 +177,7 @@ class _$_Get implements _Get {
     TResult Function(
             DeployedContract contract, int tokenCounter, String address)?
         mint,
+    TResult Function(String imageJson)? getImageURL,
   }) {
     return get?.call();
   }
@@ -176,6 +190,7 @@ class _$_Get implements _Get {
     TResult Function(
             DeployedContract contract, int tokenCounter, String address)?
         mint,
+    TResult Function(String imageJson)? getImageURL,
     required TResult orElse(),
   }) {
     if (get != null) {
@@ -190,6 +205,7 @@ class _$_Get implements _Get {
     required TResult Function(_Get value) get,
     required TResult Function(_GetContract value) getContract,
     required TResult Function(_Mint value) mint,
+    required TResult Function(_GetImageURL value) getImageURL,
   }) {
     return get(this);
   }
@@ -200,6 +216,7 @@ class _$_Get implements _Get {
     TResult Function(_Get value)? get,
     TResult Function(_GetContract value)? getContract,
     TResult Function(_Mint value)? mint,
+    TResult Function(_GetImageURL value)? getImageURL,
   }) {
     return get?.call(this);
   }
@@ -210,6 +227,7 @@ class _$_Get implements _Get {
     TResult Function(_Get value)? get,
     TResult Function(_GetContract value)? getContract,
     TResult Function(_Mint value)? mint,
+    TResult Function(_GetImageURL value)? getImageURL,
     required TResult orElse(),
   }) {
     if (get != null) {
@@ -268,6 +286,7 @@ class _$_GetContract implements _GetContract {
     required TResult Function(
             DeployedContract contract, int tokenCounter, String address)
         mint,
+    required TResult Function(String imageJson) getImageURL,
   }) {
     return getContract();
   }
@@ -280,6 +299,7 @@ class _$_GetContract implements _GetContract {
     TResult Function(
             DeployedContract contract, int tokenCounter, String address)?
         mint,
+    TResult Function(String imageJson)? getImageURL,
   }) {
     return getContract?.call();
   }
@@ -292,6 +312,7 @@ class _$_GetContract implements _GetContract {
     TResult Function(
             DeployedContract contract, int tokenCounter, String address)?
         mint,
+    TResult Function(String imageJson)? getImageURL,
     required TResult orElse(),
   }) {
     if (getContract != null) {
@@ -306,6 +327,7 @@ class _$_GetContract implements _GetContract {
     required TResult Function(_Get value) get,
     required TResult Function(_GetContract value) getContract,
     required TResult Function(_Mint value) mint,
+    required TResult Function(_GetImageURL value) getImageURL,
   }) {
     return getContract(this);
   }
@@ -316,6 +338,7 @@ class _$_GetContract implements _GetContract {
     TResult Function(_Get value)? get,
     TResult Function(_GetContract value)? getContract,
     TResult Function(_Mint value)? mint,
+    TResult Function(_GetImageURL value)? getImageURL,
   }) {
     return getContract?.call(this);
   }
@@ -326,6 +349,7 @@ class _$_GetContract implements _GetContract {
     TResult Function(_Get value)? get,
     TResult Function(_GetContract value)? getContract,
     TResult Function(_Mint value)? mint,
+    TResult Function(_GetImageURL value)? getImageURL,
     required TResult orElse(),
   }) {
     if (getContract != null) {
@@ -429,6 +453,7 @@ class _$_Mint implements _Mint {
     required TResult Function(
             DeployedContract contract, int tokenCounter, String address)
         mint,
+    required TResult Function(String imageJson) getImageURL,
   }) {
     return mint(contract, tokenCounter, address);
   }
@@ -441,6 +466,7 @@ class _$_Mint implements _Mint {
     TResult Function(
             DeployedContract contract, int tokenCounter, String address)?
         mint,
+    TResult Function(String imageJson)? getImageURL,
   }) {
     return mint?.call(contract, tokenCounter, address);
   }
@@ -453,6 +479,7 @@ class _$_Mint implements _Mint {
     TResult Function(
             DeployedContract contract, int tokenCounter, String address)?
         mint,
+    TResult Function(String imageJson)? getImageURL,
     required TResult orElse(),
   }) {
     if (mint != null) {
@@ -467,6 +494,7 @@ class _$_Mint implements _Mint {
     required TResult Function(_Get value) get,
     required TResult Function(_GetContract value) getContract,
     required TResult Function(_Mint value) mint,
+    required TResult Function(_GetImageURL value) getImageURL,
   }) {
     return mint(this);
   }
@@ -477,6 +505,7 @@ class _$_Mint implements _Mint {
     TResult Function(_Get value)? get,
     TResult Function(_GetContract value)? getContract,
     TResult Function(_Mint value)? mint,
+    TResult Function(_GetImageURL value)? getImageURL,
   }) {
     return mint?.call(this);
   }
@@ -487,6 +516,7 @@ class _$_Mint implements _Mint {
     TResult Function(_Get value)? get,
     TResult Function(_GetContract value)? getContract,
     TResult Function(_Mint value)? mint,
+    TResult Function(_GetImageURL value)? getImageURL,
     required TResult orElse(),
   }) {
     if (mint != null) {
@@ -510,12 +540,164 @@ abstract class _Mint implements NftEvent {
 }
 
 /// @nodoc
+abstract class _$GetImageURLCopyWith<$Res> {
+  factory _$GetImageURLCopyWith(
+          _GetImageURL value, $Res Function(_GetImageURL) then) =
+      __$GetImageURLCopyWithImpl<$Res>;
+  $Res call({String imageJson});
+}
+
+/// @nodoc
+class __$GetImageURLCopyWithImpl<$Res> extends _$NftEventCopyWithImpl<$Res>
+    implements _$GetImageURLCopyWith<$Res> {
+  __$GetImageURLCopyWithImpl(
+      _GetImageURL _value, $Res Function(_GetImageURL) _then)
+      : super(_value, (v) => _then(v as _GetImageURL));
+
+  @override
+  _GetImageURL get _value => super._value as _GetImageURL;
+
+  @override
+  $Res call({
+    Object? imageJson = freezed,
+  }) {
+    return _then(_GetImageURL(
+      imageJson: imageJson == freezed
+          ? _value.imageJson
+          : imageJson // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetImageURL implements _GetImageURL {
+  const _$_GetImageURL({required this.imageJson});
+
+  @override
+  final String imageJson;
+
+  @override
+  String toString() {
+    return 'NftEvent.getImageURL(imageJson: $imageJson)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _GetImageURL &&
+            const DeepCollectionEquality().equals(other.imageJson, imageJson));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(imageJson));
+
+  @JsonKey(ignore: true)
+  @override
+  _$GetImageURLCopyWith<_GetImageURL> get copyWith =>
+      __$GetImageURLCopyWithImpl<_GetImageURL>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() get,
+    required TResult Function() getContract,
+    required TResult Function(
+            DeployedContract contract, int tokenCounter, String address)
+        mint,
+    required TResult Function(String imageJson) getImageURL,
+  }) {
+    return getImageURL(imageJson);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? get,
+    TResult Function()? getContract,
+    TResult Function(
+            DeployedContract contract, int tokenCounter, String address)?
+        mint,
+    TResult Function(String imageJson)? getImageURL,
+  }) {
+    return getImageURL?.call(imageJson);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? get,
+    TResult Function()? getContract,
+    TResult Function(
+            DeployedContract contract, int tokenCounter, String address)?
+        mint,
+    TResult Function(String imageJson)? getImageURL,
+    required TResult orElse(),
+  }) {
+    if (getImageURL != null) {
+      return getImageURL(imageJson);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Get value) get,
+    required TResult Function(_GetContract value) getContract,
+    required TResult Function(_Mint value) mint,
+    required TResult Function(_GetImageURL value) getImageURL,
+  }) {
+    return getImageURL(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Get value)? get,
+    TResult Function(_GetContract value)? getContract,
+    TResult Function(_Mint value)? mint,
+    TResult Function(_GetImageURL value)? getImageURL,
+  }) {
+    return getImageURL?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Get value)? get,
+    TResult Function(_GetContract value)? getContract,
+    TResult Function(_Mint value)? mint,
+    TResult Function(_GetImageURL value)? getImageURL,
+    required TResult orElse(),
+  }) {
+    if (getImageURL != null) {
+      return getImageURL(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetImageURL implements NftEvent {
+  const factory _GetImageURL({required String imageJson}) = _$_GetImageURL;
+
+  String get imageJson;
+  @JsonKey(ignore: true)
+  _$GetImageURLCopyWith<_GetImageURL> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 class _$NftStateTearOff {
   const _$NftStateTearOff();
 
   _NftState call(
       {Failure? failure,
       bool isLoading = false,
+      bool isGettingImage = false,
       String? name,
       String? symbol,
       int tokenCounter = 0,
@@ -524,6 +706,7 @@ class _$NftStateTearOff {
     return _NftState(
       failure: failure,
       isLoading: isLoading,
+      isGettingImage: isGettingImage,
       name: name,
       symbol: symbol,
       tokenCounter: tokenCounter,
@@ -540,6 +723,7 @@ const $NftState = _$NftStateTearOff();
 mixin _$NftState {
   Failure? get failure => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get isGettingImage => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get symbol => throw _privateConstructorUsedError;
   int get tokenCounter => throw _privateConstructorUsedError;
@@ -558,6 +742,7 @@ abstract class $NftStateCopyWith<$Res> {
   $Res call(
       {Failure? failure,
       bool isLoading,
+      bool isGettingImage,
       String? name,
       String? symbol,
       int tokenCounter,
@@ -577,6 +762,7 @@ class _$NftStateCopyWithImpl<$Res> implements $NftStateCopyWith<$Res> {
   $Res call({
     Object? failure = freezed,
     Object? isLoading = freezed,
+    Object? isGettingImage = freezed,
     Object? name = freezed,
     Object? symbol = freezed,
     Object? tokenCounter = freezed,
@@ -591,6 +777,10 @@ class _$NftStateCopyWithImpl<$Res> implements $NftStateCopyWith<$Res> {
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isGettingImage: isGettingImage == freezed
+          ? _value.isGettingImage
+          : isGettingImage // ignore: cast_nullable_to_non_nullable
               as bool,
       name: name == freezed
           ? _value.name
@@ -624,6 +814,7 @@ abstract class _$NftStateCopyWith<$Res> implements $NftStateCopyWith<$Res> {
   $Res call(
       {Failure? failure,
       bool isLoading,
+      bool isGettingImage,
       String? name,
       String? symbol,
       int tokenCounter,
@@ -644,6 +835,7 @@ class __$NftStateCopyWithImpl<$Res> extends _$NftStateCopyWithImpl<$Res>
   $Res call({
     Object? failure = freezed,
     Object? isLoading = freezed,
+    Object? isGettingImage = freezed,
     Object? name = freezed,
     Object? symbol = freezed,
     Object? tokenCounter = freezed,
@@ -658,6 +850,10 @@ class __$NftStateCopyWithImpl<$Res> extends _$NftStateCopyWithImpl<$Res>
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isGettingImage: isGettingImage == freezed
+          ? _value.isGettingImage
+          : isGettingImage // ignore: cast_nullable_to_non_nullable
               as bool,
       name: name == freezed
           ? _value.name
@@ -689,6 +885,7 @@ class _$_NftState extends _NftState {
   _$_NftState(
       {this.failure,
       this.isLoading = false,
+      this.isGettingImage = false,
       this.name,
       this.symbol,
       this.tokenCounter = 0,
@@ -701,6 +898,9 @@ class _$_NftState extends _NftState {
   @JsonKey()
   @override
   final bool isLoading;
+  @JsonKey()
+  @override
+  final bool isGettingImage;
   @override
   final String? name;
   @override
@@ -715,7 +915,7 @@ class _$_NftState extends _NftState {
 
   @override
   String toString() {
-    return 'NftState(failure: $failure, isLoading: $isLoading, name: $name, symbol: $symbol, tokenCounter: $tokenCounter, imageURL: $imageURL, contract: $contract)';
+    return 'NftState(failure: $failure, isLoading: $isLoading, isGettingImage: $isGettingImage, name: $name, symbol: $symbol, tokenCounter: $tokenCounter, imageURL: $imageURL, contract: $contract)';
   }
 
   @override
@@ -725,6 +925,8 @@ class _$_NftState extends _NftState {
             other is _NftState &&
             const DeepCollectionEquality().equals(other.failure, failure) &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
+            const DeepCollectionEquality()
+                .equals(other.isGettingImage, isGettingImage) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.symbol, symbol) &&
             const DeepCollectionEquality()
@@ -738,6 +940,7 @@ class _$_NftState extends _NftState {
       runtimeType,
       const DeepCollectionEquality().hash(failure),
       const DeepCollectionEquality().hash(isLoading),
+      const DeepCollectionEquality().hash(isGettingImage),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(symbol),
       const DeepCollectionEquality().hash(tokenCounter),
@@ -754,6 +957,7 @@ abstract class _NftState extends NftState {
   factory _NftState(
       {Failure? failure,
       bool isLoading,
+      bool isGettingImage,
       String? name,
       String? symbol,
       int tokenCounter,
@@ -765,6 +969,8 @@ abstract class _NftState extends NftState {
   Failure? get failure;
   @override
   bool get isLoading;
+  @override
+  bool get isGettingImage;
   @override
   String? get name;
   @override

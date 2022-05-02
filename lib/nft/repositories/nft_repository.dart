@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_nft_minting/core/error/failure.dart';
+import 'package:flutter_nft_minting/core/platform/smart_contract_web3_client.dart';
 import 'package:flutter_nft_minting/nft/data_sources/nft_data_source.dart';
 import 'package:injectable/injectable.dart';
 import 'package:web3dart/contracts.dart';
@@ -17,6 +18,9 @@ abstract class NFTRepository {
   Future<Either<Failure, String>> getImageURL({
     required DeployedContract contract,
     required int tokenCounter,
+  });
+  Future<Either<Failure, EventParams>> mintEvent({
+    required DeployedContract contract,
   });
 }
 
@@ -99,6 +103,19 @@ class NFTRepositoryImpl extends NFTRepository {
         contract: contract,
         tokenCounter: tokenCounter,
       );
+
+      return Right(result);
+    } on Exception catch (e) {
+      return Left(UnexpectedFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, EventParams>> mintEvent({
+    required DeployedContract contract,
+  }) async {
+    try {
+      final result = await dataSource.mintEvent(contract: contract);
 
       return Right(result);
     } on Exception catch (e) {
